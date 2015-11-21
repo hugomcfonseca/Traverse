@@ -1,34 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:paddingStart="25dp"
-    android:paddingEnd="25dp">
+    android:paddingStart="0dp"
+    android:paddingEnd="0dp">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="333dp"
-        android:layout_height="wrap_content"
-        style="@android:style/ButtonBar"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_margin="20dp">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="578dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_signin"
-            android:id="@+id/btn_signin"
-            android:textStyle="bold" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/tool_bar"
+            />
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_width="match_parent"
+            android:layout_height="516dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_signon"
-            android:id="@+id/btn_signon"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="211dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Welcome To Resilience! "
+                    android:id="@+id/textView"
+                    android:textSize="36sp"
+                    android:layout_weight="0.10" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Are you prepare to save the world?"
+                    android:id="@+id/textView2"
+                    android:layout_weight="0.15"
+                    android:textSize="45sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="271dp"
+                android:layout_gravity="center_horizontal|bottom">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign In"
+                    android:id="@+id/btn_signIn"
+                    android:layout_gravity="center_horizontal" />
+            </LinearLayout>
+        </FrameLayout>
+
     </LinearLayout>
-</FrameLayout>
+
+</LinearLayout>

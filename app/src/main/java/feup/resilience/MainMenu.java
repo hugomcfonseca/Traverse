@@ -1,15 +1,15 @@
 package feup.resilience;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class MainMenu extends Activity {
+public class MainMenu extends AppCompatActivity {
 
     private Button btn_SignIn, btn_SignOn;
 
@@ -18,11 +18,11 @@ public class MainMenu extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainmenu);
 
-        getActionBar().setDisplayShowTitleEnabled(false);
-        getActionBar().show();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        btn_SignIn = (Button) findViewById(R.id.btn_signin);
-        btn_SignOn = (Button) findViewById(R.id.btn_signon);
+        btn_SignIn = (Button) findViewById(R.id.btn_signIn);
+        //btn_SignOn = (Button) findViewById(R.id.btn_signon);
 
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,7 +38,7 @@ public class MainMenu extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main_menu, menu);
+        getMenuInflater().inflate(R.menu.toolbar, menu);
         return true;
     }
 
@@ -47,12 +47,16 @@ public class MainMenu extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        /*if (id == R.id.action_settings) {
+            Intent i = new Intent("pt.fraunhofer.SetSettings");
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            closeThisActivity();
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
