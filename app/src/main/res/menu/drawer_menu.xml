@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="General">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_home"
+                    android:title="@string/drawer_home" />
+                <item android:id="@+id/nav_signon"
+                    android:title="@string/drawer_signon" />
+                <item android:id="@+id/nav_retrievecredentials"
+                    android:title="@string/drawer_retrievecredentials" />
+            </group>
+        </menu>
+    </item>
+
+
+
+    <item android:title="User Progress">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_start_newphase"
+                    android:title="@string/drawer_newphase" />
+                <item android:id="@+id/nav_simple_progress_view"
+                    android:title="@string/drawer_simple_progress_view" />
+                <item android:id="@+id/nav_detailed_progress_view"
+                    android:title="@string/drawer_detailed_progress_view" />
+            </group>
+        </menu>
+    </item>
+
+</menu>

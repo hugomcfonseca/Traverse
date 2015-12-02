@@ -1,8 +1,21 @@
 <resources>
     <string name="app_name">Resilience</string>
-    <string name="action_settings">Settings</string>
+
     <string name="mainmenu_login">Login</string>
     <string name="btn_signin">Sign In</string>
     <string name="title_activity_maps">Map</string>
     <string name="btn_signon">Sign On</string>
+    <string name="team_project">US Rangers</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="drawer_home">Home</string>
+    <string name="drawer_signon">Sign On</string>
+    <string name="drawer_retrievecredentials">Retrieve Credentials</string>
+    <string name="drawer_newphase">Start New Phase</string>
+    <string name="drawer_simple_progress_view">Simple Progress View</string>
+    <string name="drawer_detailed_progress_view">Detailed Progress View</string>
+    <string name="btn_signIn">Login</string>
+
+
 </resources>

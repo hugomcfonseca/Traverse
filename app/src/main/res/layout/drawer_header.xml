@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:background="@drawable/separator"
+    android:paddingTop="16dp"
+    android:paddingLeft="16dp"
+    android:paddingBottom="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark" android:orientation="horizontal"
+    android:gravity="bottom">
+
+    <ImageView android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/logo_test"
+        android:scaleType="centerInside"
+        android:id="@+id/imageView" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:gravity="bottom">
+
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/team_project"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:paddingLeft="2dp" />
+    </LinearLayout>
+
+
+</LinearLayout>
