@@ -16,6 +16,7 @@
     <string name="drawer_simple_progress_view">Simple Progress View</string>
     <string name="drawer_detailed_progress_view">Detailed Progress View</string>
     <string name="btn_signIn">Login</string>
+    <string name="tv_forgotCred"><u>Forgot your credentials?</u></string>
 
 
 </resources>

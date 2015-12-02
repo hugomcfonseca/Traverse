@@ -1,5 +1,8 @@
 package feup.resilience;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -11,14 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 public class MainMenu extends AppCompatActivity {
 
-    private Button btn_SignIn, btn_SignOn;
     private CustomDrawer drawer;
-    private EditText et_Username, et_Password;
-    LoginDataBaseAdapter loginDataBaseAdapter;
+
+    private Button btn_SignIn, btn_SignOn;
+    private EditText et_Username, et_Password, et_Email;
+    private TextView tv_recoverCredentials;
+
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
+
+    DataBaseAdapter dataBaseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,36 +38,102 @@ public class MainMenu extends AppCompatActivity {
         setSupportActionBar(toolbar);
         drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout), (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
 
+        btn_SignIn = (Button) findViewById(R.id.btn_login);
+        btn_SignOn = (Button) findViewById(R.id.btn_signon);
 
-        btn_SignIn = (Button) findViewById(R.id.btn_signin);
-        //btn_SignOn = (Button) findViewById(R.id.btn_signon);
-        et_Username = (EditText)findViewById(R.id.et_username);
-        et_Password = (EditText)findViewById(R.id.et_password);
+        tv_recoverCredentials = (TextView)findViewById(R.id.tv_lostpassword);
 
-        // Set On ClickListener
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
-                // get The User name and Password
-                String userName=et_Username.getText().toString();
-                String password=et_Password.getText().toString();
+                userLogin();
+            }
+        });
 
-                loginDataBaseAdapter.updateEntry("hugo","1234");
+        tv_recoverCredentials.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                recoverCredentials();
+            }
+        });
 
-                // fetch the Password form database for respective user name
-                String storedPassword=loginDataBaseAdapter.getSingleEntry(userName);
 
-                // check if the Stored password matches with  Password entered by user
-                if(password.equals(storedPassword)) {
-                    Toast.makeText(MainMenu.this, "Congrats: Login Successfull", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(MainMenu.this, "User Name or Password does not match", Toast.LENGTH_LONG).show();
-                }
+    }
+
+    private void userLogin(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                View view = getLayoutInflater().inflate(R.layout.login_form, null);
+                et_Username = (EditText) view.findViewById(R.id.et_username);
+                et_Password = (EditText) view.findViewById(R.id.et_password);
+
+                alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
+                alertDialogBuilder.setTitle("Login");
+                alertDialogBuilder.setView(view);
+                alertDialogBuilder.setPositiveButton("Done!",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //dataBaseAdapter.
+
+                                // if login credentials exist and are correct, go to next
+                                if (true){
+                                    Intent nextStep = new Intent("feup.resilience.MapsActivity");
+                                    nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(nextStep);
+                                    closeThisActivity();
+                                }
+
+                            }
+                        });
+
+                alertDialogBuilder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
     }
 
+    private void recoverCredentials(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
 
+                View view = getLayoutInflater().inflate(R.layout.recover_form, null);
+                et_Email = (EditText)view.findViewById(R.id.et_email);
+
+                alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
+                alertDialogBuilder.setTitle("Recover Credentials");
+                alertDialogBuilder.setView(view);
+                alertDialogBuilder.setPositiveButton("Send Email!",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                alertDialogBuilder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+    }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -107,6 +182,6 @@ public class MainMenu extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         // Close The Database
-        loginDataBaseAdapter.close();
+        dataBaseAdapter.close();
     }
 }

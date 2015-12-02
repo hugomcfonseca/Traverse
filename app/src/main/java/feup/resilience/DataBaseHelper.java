@@ -13,25 +13,36 @@ import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    public DataBaseHelper(Context context, String name,CursorFactory factory, int version) {
+    private static final String DATABASE_NAME = "resilience.db";
+    public static final String TABLE_NAME = "userdata";
+    private static final int DATABASE_VERSION = 1;
+    public static final String USERNAME = "username";
+    public static final String EMAIL = "email";
+    public static final String PASSWORD = "password";
+    private static final String DATABASE_CREATE = "create table "
+            + TABLE_NAME + "( " + USERNAME
+            + " text primary key autoincrement, " + EMAIL + " text not null, "
+            + PASSWORD + " text not null);";
+
+    public DataBaseHelper(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
-    // Called when no database exists in disk and the helper class needs
-    // to create a new one.
-    @Override
-    public void onCreate(SQLiteDatabase _db) {
-        _db.execSQL(LoginDataBaseAdapter.DATABASE_CREATE);
-
+    public DataBaseHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Called when there is a database version mismatch meaning that the version
-    // of the database on disk needs to be upgraded to the current version.
     @Override
-    public void onUpgrade(SQLiteDatabase _db, int _oldVersion, int _newVersion) {
-        Log.w("TaskDBAdapter", "Upgrading from version " +_oldVersion + " to " +_newVersion + ", which will destroy all old data");
-        _db.execSQL("DROP TABLE IF EXISTS " + "TEMPLATE");
-        onCreate(_db);
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(DATABASE_CREATE);
     }
 
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        Log.w(DataBaseHelper.class.getName(),
+                "Upgrading database from version " + oldVersion + " to "
+                        + newVersion + ", which will destroy all old data");
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
+    }
 }
