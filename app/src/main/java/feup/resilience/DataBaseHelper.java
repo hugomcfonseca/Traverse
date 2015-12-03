@@ -16,15 +16,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "resilience.db";
     public static final String TABLE_NAME = "userdata";
     private static final int DATABASE_VERSION = 1;
+    public static final String ID = "_id";
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     private static final String DATABASE_CREATE = "create table "
-            + TABLE_NAME + "( " + USERNAME
-            + " text primary key autoincrement, " + EMAIL + " text not null, "
+            + TABLE_NAME + "( " + ID + " integer primary key autoincrement, "
+            + USERNAME + " text not null, "
+            + EMAIL + " text not null, "
             + PASSWORD + " text not null);";
 
-    public DataBaseHelper(Context context, String name, CursorFactory factory, int version) {
+    public DataBaseHelper (Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 

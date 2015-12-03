@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -36,7 +37,16 @@ public class MainMenu extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout), (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
+
+        // create a instance of SQLite Database
+        dataBaseAdapter = new DataBaseAdapter(this);
+        dataBaseAdapter.open();
+
+        //teste
+        dataBaseAdapter.createUser("hugo","ee11178@fe.up.pt","1234");
+
+        drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout),
+                (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
 
         btn_SignIn = (Button) findViewById(R.id.btn_login);
         btn_SignOn = (Button) findViewById(R.id.btn_signon);
@@ -75,16 +85,26 @@ public class MainMenu extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                //dataBaseAdapter.
+                                // get The User name and Password
+                                String username = et_Username.getText().toString();
+                                String password = et_Password.getText().toString();
 
-                                // if login credentials exist and are correct, go to next
-                                if (true){
+                                // fetch the Password form database for respective user name
+                                String storedPassword = dataBaseAdapter.getSingleEntry(username);
+
+                                // check if the Stored password matches with  Password entered by user
+                                if(password.equals(storedPassword)){
+                                    Toast.makeText(MainMenu.this, "Login Successfull!",
+                                            Toast.LENGTH_LONG).show();
                                     Intent nextStep = new Intent("feup.resilience.MapsActivity");
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();
                                 }
-
+                                else {
+                                    Toast.makeText(MainMenu.this, "Wrong or inexistent credentials.",
+                                            Toast.LENGTH_LONG).show();
+                                }
                             }
                         });
 
@@ -164,7 +184,7 @@ public class MainMenu extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_settings) {
-            Intent i = new Intent("pt.fraunhofer.SetSettings");
+            Intent i = new Intent("feup.resilience.SetSettings");
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             closeThisActivity();

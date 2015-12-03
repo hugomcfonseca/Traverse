@@ -2,6 +2,7 @@ package feup.resilience;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -13,16 +14,15 @@ import android.database.sqlite.SQLiteDatabase;
 public class DataBaseAdapter {
     private SQLiteDatabase database;
     private DataBaseHelper dbHelper;
-    private String[] allColumns = { DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
+    private String[] allColumns = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
             DataBaseHelper.PASSWORD};
 
     public DataBaseAdapter(Context context) {
         dbHelper = new DataBaseHelper(context);
     }
 
-    public DataBaseAdapter open() throws SQLException {
+    public void open() throws SQLException {
         database = dbHelper.getWritableDatabase();
-        return this;
     }
 
     public void close() {
@@ -46,6 +46,23 @@ public class DataBaseAdapter {
     public void deleteEntry(String username) {
         database.delete(DataBaseHelper.TABLE_NAME, DataBaseHelper.USERNAME + " = " + username,
                 null);
+    }
+
+    public String getSingleEntry(String username) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+                        DataBaseHelper.USERNAME + " = ?", new String[]{username});
+
+
+        if(cursor.getCount() < 1) { // UserName Not Exist
+            cursor.close();
+            return "NOT EXIST";
+        }
+
+        cursor.moveToFirst();
+        String password = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PASSWORD));
+        cursor.close();
+
+        return password;
     }
 
     public void  updateEntry(String username, String email, String password)
