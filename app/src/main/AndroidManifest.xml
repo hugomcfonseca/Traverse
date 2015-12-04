@@ -29,6 +29,15 @@
         </activity>
 
         <activity
+            android:name=".SignOnActivity"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.resilience.SignOnActivity" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme" >

@@ -1,52 +1,95 @@
 package feup.resilience;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.EditText;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class SIgnOnActivity extends AppCompatActivity {
+public class SignOnActivity extends AppCompatActivity {
 
-    private ImageButton porto, psg, real, chelsea;
+    private Button btn_nextRegister;
+    private EditText et_Username, et_Password, et_Password2, et_dateOfBirth, et_Email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_on);
 
-        porto = (ImageButton) findViewById(R.id.porto);
-        real = (ImageButton) findViewById(R.id.real);
-        psg = (ImageButton) findViewById(R.id.psg);
-        chelsea = (ImageButton) findViewById(R.id.chelsea);
-        //ao carregar chamar a função
-        porto.setOnClickListener(myhandler);
-        real.setOnClickListener(myhandler);
-        psg.setOnClickListener(myhandler);
-        chelsea.setOnClickListener(myhandler);
+        et_Username = (EditText)findViewById(R.id.et_username);
+        et_Password = (EditText)findViewById(R.id.et_password);
+        et_Password2 = (EditText)findViewById(R.id.et_conf_pass);
+        et_Email = (EditText)findViewById(R.id.et_email);
+        //et_dateOfBirth = (EditText)findViewById(R.id.et);
+        btn_nextRegister = (Button)findViewById(R.id.btn_register);
 
-    }
-    //função de click em imagem
-    View.OnClickListener myhandler = new View.OnClickListener() {
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.porto:
-                     Toast.makeText(SIgnOnActivity.this, "Porto", 1000).show();
-                    break;
-                case R.id.real:
-                    Toast.makeText(SIgnOnActivity.this, "Real Madrid", 1000).show();
-                    break;
-                case R.id.psg:
-                    Toast.makeText(SIgnOnActivity.this, "Paris Saint Germain", 1000).show();
-                    break;
-                case R.id.chelsea:
-                    Toast.makeText(SIgnOnActivity.this, "Chelsea", 1000).show();
-                    break;
-                default:
-                    throw new RuntimeException("Unknow button ID");
+        et_Email.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+
+                String email = et_Email.getText().toString();
+
+                if (!isEmailValid(email))
+                       et_Email.setError("Invalid email address.");
+
             }
-        }
-    };
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            public boolean isEmailValid(String email) {
+                boolean isValid = false;
+
+                String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+                CharSequence inputStr = email;
+
+                Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(inputStr);
+                if (matcher.matches()) {
+                    isValid = true;
+                }
+                return isValid;
+            }
+
+        });
+
+        btn_nextRegister.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //Data();//Função para mostrar o calendário
+    }
+
+    /*public  void Data (){
+        EditText txtDate = (EditText)findViewById(R.id.et_birth);
+        txtDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DateDialog dialog=new DateDialog(view);
+                FragmentTransaction ft =getFragmentManager().beginTransaction();
+                dialog.show(ft, "DatePicker");
+            }
+        });
+    }*/
 
 }

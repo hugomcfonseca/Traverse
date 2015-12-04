@@ -59,6 +59,17 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+        btn_SignOn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent nextStep = new Intent("feup.resilience.SignOnActivity");
+                nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(nextStep);
+                closeThisActivity();
+            }
+        });
+
         tv_recoverCredentials.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 recoverCredentials();
