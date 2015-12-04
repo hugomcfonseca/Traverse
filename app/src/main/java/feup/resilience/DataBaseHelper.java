@@ -19,11 +19,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String ID = "_id";
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
+    public static final String DATE = "date";
     public static final String PASSWORD = "password";
     private static final String DATABASE_CREATE = "create table "
             + TABLE_NAME + "( " + ID + " integer primary key autoincrement, "
-            + USERNAME + " text not null, "
-            + EMAIL + " text not null, "
+            + USERNAME + " text not null unique, "
+            + EMAIL + " text not null unique, "
+            + DATE + " text not null, "
             + PASSWORD + " text not null);";
 
     public DataBaseHelper (Context context, String name, CursorFactory factory, int version) {

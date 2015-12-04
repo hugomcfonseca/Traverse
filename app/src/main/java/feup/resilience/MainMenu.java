@@ -43,7 +43,7 @@ public class MainMenu extends AppCompatActivity {
         dataBaseAdapter.open();
 
         //teste
-        dataBaseAdapter.createUser("hugo","ee11178@fe.up.pt","1234");
+        dataBaseAdapter.createUser("hugo","ee11178@fe.up.pt","11/4/1993","1234");
 
         drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout),
                 (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
@@ -63,7 +63,7 @@ public class MainMenu extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent nextStep = new Intent("feup.resilience.SignOnActivity");
+                Intent nextStep = new Intent("feup.resilience.SignOn");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
                 closeThisActivity();

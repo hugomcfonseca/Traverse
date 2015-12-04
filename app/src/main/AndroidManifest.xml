@@ -29,10 +29,10 @@
         </activity>
 
         <activity
-            android:name=".SignOnActivity"
+            android:name=".SignOn"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="feup.resilience.SignOnActivity" />
+                <action android:name="feup.resilience.SignOn" />
                 <category android:name="android.intent.category.DEFAULT"  />
             </intent-filter>
         </activity>

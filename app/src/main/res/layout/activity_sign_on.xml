@@ -17,7 +17,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="2dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -30,77 +31,131 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal|top">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Quiz"
-                    android:id="@+id/textView2"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true"
-                    android:textSize="30sp"
-                    android:gravity="center_horizontal" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Next"
-                    android:id="@+id/btn_register"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentEnd="true" />
-
                 <LinearLayout
                     android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_round_corner_notselected"
+                    android:padding="5dp"
+                    android:id="@+id/linearLayout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Create Account"
+                        android:id="@+id/textView2"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:textSize="30sp"
+                        android:gravity="center_horizontal"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Here you can sign up to login on the app and the website."
+                        android:id="@+id/textView" />
+                </LinearLayout>
+
+                <ScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/rect_round_corner_notselected">
+                    android:id="@+id/scrollView"
+                    android:layout_below="@+id/linearLayout"
+                    android:fillViewport="true"
+                    android:padding="5dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true">
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName"
-                        android:hint="Username"
-                        android:ems="10"
-                        android:id="@+id/et_username"
-                        android:layout_above="@+id/et_email"
-                        android:layout_alignStart="@+id/et_email" />
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
-                        android:hint="E-mail"
-                        android:ems="10"
-                        android:id="@+id/et_email"
-                        android:layout_above="@+id/et_password"
-                        android:layout_alignStart="@+id/et_password" />
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rect_round_corner_notselected"
+                            android:padding="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:layout_gravity="center">
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:hint="Password"
-                        android:ems="10"
-                        android:id="@+id/et_password"
-                        android:layout_above="@+id/et_conf_pass"
-                        android:layout_centerHorizontal="true" />
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:hint="Username"
+                                android:ems="10"
+                                android:id="@+id/et_username"
+                                android:layout_above="@+id/et_email"
+                                android:layout_alignStart="@+id/et_email" />
 
-                    <EditText
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword"
-                        android:hint="Confirm Password"
-                        android:ems="10"
-                        android:id="@+id/et_conf_pass"
-                        android:layout_above="@+id/btn_register"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="60dp" />
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:inputType="textEmailAddress"
+                                android:hint="E-mail"
+                                android:ems="10"
+                                android:id="@+id/et_email"
+                                android:layout_above="@+id/et_password"
+                                android:layout_alignStart="@+id/et_password" />
 
-                </LinearLayout>
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:inputType="date"
+                                android:hint="Date of Birth"
+                                android:ems="10"
+                                android:id="@+id/et_dateofbirth"
+                                android:layout_above="@+id/et_password"
+                                android:layout_alignStart="@+id/et_password" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:hint="Password"
+                                android:ems="10"
+                                android:id="@+id/et_password"
+                                android:layout_above="@+id/et_conf_pass"
+                                android:layout_centerHorizontal="true" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPassword"
+                                android:hint="Confirm Password"
+                                android:ems="10"
+                                android:id="@+id/et_conf_pass"
+                                android:layout_above="@+id/btn_register"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginBottom="60dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom">
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Next"
+                                android:id="@+id/btn_register"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentEnd="true" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
 
             </RelativeLayout>
 
@@ -108,7 +163,7 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.NavigationView android:id="@+id/mainmenu_nav_view"
+    <android.support.design.widget.NavigationView android:id="@+id/signon_nav_view"
         android:layout_width="wrap_content" android:layout_height="match_parent"
         android:layout_gravity="start" android:fitsSystemWindows="true"
         app:headerLayout="@layout/drawer_header" app:menu="@menu/drawer_menu" />

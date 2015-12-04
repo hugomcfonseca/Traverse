@@ -15,7 +15,7 @@ public class DataBaseAdapter {
     private SQLiteDatabase database;
     private DataBaseHelper dbHelper;
     private String[] allColumns = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
-            DataBaseHelper.PASSWORD};
+            DataBaseHelper.DATE, DataBaseHelper.PASSWORD};
 
     public DataBaseAdapter(Context context) {
         dbHelper = new DataBaseHelper(context);
@@ -34,11 +34,12 @@ public class DataBaseAdapter {
         return database;
     }
 
-    public void createUser (String username, String email, String password) {
+    public void createUser (String username, String email, String date, String password) {
         ContentValues values = new ContentValues();
         values.put(DataBaseHelper.USERNAME, username);
         values.put(DataBaseHelper.EMAIL, email);
-        values.put(DataBaseHelper.PASSWORD,password);
+        values.put(DataBaseHelper.DATE, date);
+        values.put(DataBaseHelper.PASSWORD, password);
 
         database.insert(DataBaseHelper.TABLE_NAME, null, values);
     }
@@ -52,7 +53,6 @@ public class DataBaseAdapter {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
                         DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
-
         if(cursor.getCount() < 1) { // UserName Not Exist
             cursor.close();
             return "NOT EXIST";
@@ -65,13 +65,26 @@ public class DataBaseAdapter {
         return password;
     }
 
-    public void  updateEntry(String username, String email, String password)
+    public boolean verifyUsername(String username) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+                DataBaseHelper.USERNAME + " = ?", new String[]{username});
+
+        if(cursor.getCount() < 1) { // UserName Not Exist
+            cursor.close();
+            return false;
+        }
+
+        return true;
+    }
+
+    public void  updateEntry(String username, String email, String date, String password)
     {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
         updatedValues.put(DataBaseHelper.USERNAME, username);
         updatedValues.put(DataBaseHelper.EMAIL, email);
+        updatedValues.put(DataBaseHelper.DATE, date);
         updatedValues.put(DataBaseHelper.PASSWORD, password);
 
         String where="USERNAME = ?";
