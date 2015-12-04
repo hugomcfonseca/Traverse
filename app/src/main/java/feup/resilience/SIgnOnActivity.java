@@ -39,7 +39,6 @@ public class SignOnActivity extends AppCompatActivity {
 
                 if (!isEmailValid(email))
                        et_Email.setError("Invalid email address.");
-
             }
 
             @Override
@@ -69,6 +68,28 @@ public class SignOnActivity extends AppCompatActivity {
 
         });
 
+
+        et_Password2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String strPass1 = et_Password.getText().toString();
+                String strPass2 = et_Password2.getText().toString();
+                if (strPass1.equals(strPass2));
+                else {
+                    et_Password2.setError("Differents Passwords.");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         btn_nextRegister.setOnClickListener(new View.OnClickListener(){
 
             @Override
