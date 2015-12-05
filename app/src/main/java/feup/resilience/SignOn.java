@@ -1,8 +1,13 @@
 package feup.resilience;
 
+import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -16,8 +21,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,6 +114,11 @@ public class SignOn extends AppCompatActivity {
                     connector.createUser(username,email,date,password);
                 else if (!connector.verifyUsername(username))
                     et_Username.setError("Username already in use, insert another please.");
+
+               // Log.w("myApp", et_dateOfBirth.getText().toString());
+                /*if (date>="12/12/2008"))
+                    et_dateOfBirth.setError("fudeu");
+                else*/
             }
         });
 
@@ -184,6 +197,34 @@ public class SignOn extends AppCompatActivity {
         super.onDestroy();
         // Close The Database
         connector.close();
+    }
+
+
+
+    //Date Fragment
+    @SuppressLint("ValidFragment")
+    public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+        EditText et_dateOfBirth ;
+        public DateDialog(View view){
+            et_dateOfBirth =(EditText)view;
+        }
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+
+// Use the current date as the default date in the dialog
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            //show to the selected date in the text box
+            String date=day+"-"+(month+1)+"-"+year;
+            et_dateOfBirth .setText(date);
+        }
     }
 
 }
