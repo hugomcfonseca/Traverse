@@ -65,11 +65,14 @@ public class DataBaseAdapter {
         return password;
     }
 
-    public boolean verifyUsername(String username) {
+    public boolean verifyUsernameAndEmail(String username, String email) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
-        if(cursor.getCount() < 1) { // UserName Not Exist
+        Cursor cursor2 = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+                DataBaseHelper.EMAIL + " = ?", new String[]{email});
+
+        if(cursor.getCount() < 1 && cursor2.getCount() < 1) { // UserName Not Exist
             cursor.close();
             return false;
         }

@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,11 +19,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
 public class MainMenu extends AppCompatActivity {
 
     private CustomDrawer drawer;
 
     private Button btn_SignIn, btn_SignOn;
+    private LoginButton loginButton;
     private EditText et_Username, et_Password, et_Email;
     private TextView tv_recoverCredentials;
 
@@ -29,27 +39,28 @@ public class MainMenu extends AppCompatActivity {
     private AlertDialog alertDialog;
 
     DataBaseAdapter dataBaseAdapter;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_mainmenu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        callbackManager = CallbackManager.Factory.create();
 
         // create a instance of SQLite Database
         dataBaseAdapter = new DataBaseAdapter(this);
         dataBaseAdapter.open();
-
-        //teste
-        dataBaseAdapter.createUser("hugo","ee11178@fe.up.pt","11/4/1993","1234");
 
         drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout),
                 (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
 
         btn_SignIn = (Button) findViewById(R.id.btn_login);
         btn_SignOn = (Button) findViewById(R.id.btn_signon);
+        loginButton = (LoginButton)findViewById(R.id.login_button);
 
         tv_recoverCredentials = (TextView)findViewById(R.id.tv_lostpassword);
 
@@ -70,12 +81,37 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+        // TODO: 06/12/2015
+        // Test it with Facebook app and verify which message log is generated
+        // Substitute it with a transparent login on Facebook?
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(MainMenu.this, "User ID: " + loginResult.getAccessToken().getUserId(),
+                        Toast.LENGTH_SHORT).show();
+                Log.d("Facebook", "Entrei");
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(MainMenu.this, "Login attempt canceled!", Toast.LENGTH_SHORT).show();
+                Log.d("Facebook", "Cancelei");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                Toast.makeText(MainMenu.this, "Login attempt failed!", Toast.LENGTH_SHORT).show();
+                Log.d("Facebook", "Errei");
+            }
+        });
+
+        // TODO: 06/12/2015
+        // Implement way to send email with password and username
         tv_recoverCredentials.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 recoverCredentials();
             }
         });
-
 
     }
 
@@ -214,5 +250,16 @@ public class MainMenu extends AppCompatActivity {
         super.onDestroy();
         // Close The Database
         dataBaseAdapter.close();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
+            drawer.layout.closeDrawer(GravityCompat.START);
+            return;
+        }
+
+        super.onBackPressed();
     }
 }

@@ -1,7 +1,12 @@
 package feup.resilience;
 
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private CustomDrawer drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.signon_drawerlayout),
+                (NavigationView)findViewById(R.id.signon_nav_view), toolbar );*/
+
     }
 
 
@@ -42,5 +55,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        /*if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
+            drawer.layout.closeDrawer(GravityCompat.START);
+            return;
+        }*/
+
+        if(true) {
+            Intent i = new Intent(this, MainMenu.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            closeThisActivity();
+        }
+
+        super.onBackPressed();
+    }
+
+    public void closeThisActivity(){
+        finish();
+        System.exit(0);
     }
 }

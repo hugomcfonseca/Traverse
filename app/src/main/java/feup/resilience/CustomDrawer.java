@@ -23,7 +23,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
     private final int POSITION_HOME = 00;
     private final int POSITION_SIGNON = 01;
-    private final int POSITION_RETRIEVECREDENTIALS = 02;
     private final int POSITION_STARTNEWPHASE = 10;
     private final int POSITION_SIMPLEVIEW = 11;
     private final int POSITION_DETAILEDVIEW = 12;
@@ -53,6 +52,9 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         if (parent instanceof MainMenu )
                 pos = POSITION_HOME;
         else
+        if (parent instanceof SignOn )
+            pos = POSITION_SIGNON;
+        else
 
         checked_pos = pos;
         navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem( pos%10 ).setChecked(true);
@@ -79,13 +81,9 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
                 break;
 
             case R.id.nav_signon:
+                if( !(parent instanceof SignOn) )
+                    i = new Intent(parent, SignOn.class);
                 pos = POSITION_SIGNON;
-                break;
-
-            case R.id.nav_retrievecredentials:
-                //if( !(parent instanceof ViewData) )
-                //    i = new Intent(parent, ViewData.class);
-                pos = POSITION_RETRIEVECREDENTIALS;
                 break;
 
             case R.id.nav_start_newphase:

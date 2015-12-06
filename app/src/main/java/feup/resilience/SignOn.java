@@ -6,10 +6,12 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -109,16 +111,21 @@ public class SignOn extends AppCompatActivity {
                 String password2 = et_Password2.getText().toString();
                 String date = et_dateOfBirth.getText().toString();
 
-                if (verifyEqualsPasswords(password,password2) &&
-                        connector.verifyUsername(username))
-                    connector.createUser(username,email,date,password);
-                else if (!connector.verifyUsername(username))
-                    et_Username.setError("Username already in use, insert another please.");
+                if (username.matches("") || password.matches("") || password2.matches("") ||
+                        date.matches("") || email.matches("")) {
+                    Toast.makeText(SignOn.this, "Please, fill all fields.", Toast.LENGTH_SHORT).show();
+                }
 
-               // Log.w("myApp", et_dateOfBirth.getText().toString());
-                /*if (date>="12/12/2008"))
-                    et_dateOfBirth.setError("fudeu");
-                else*/
+                if (connector.verifyUsernameAndEmail(username, email))
+                    et_Username.setError("Username or email already in use, insert another please.");
+
+                // TODO: insert condition to validate date
+                if (verifyEqualsPasswords(password,password2) &&
+                        !connector.verifyUsernameAndEmail(username, email)) {
+                    connector.createUser(username,email,date,password);
+                    Toast.makeText(SignOn.this,"Account created successfully!",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -193,25 +200,41 @@ public class SignOn extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+
+        if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
+            drawer.layout.closeDrawer(GravityCompat.START);
+            return;
+        }
+
+        else {
+            Intent i = new Intent(this, MainMenu.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            closeThisActivity();
+        }
+
+        super.onBackPressed();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // Close The Database
         connector.close();
     }
 
-
-
     //Date Fragment
     @SuppressLint("ValidFragment")
     public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-        EditText et_dateOfBirth ;
+
         public DateDialog(View view){
             et_dateOfBirth =(EditText)view;
         }
+
         public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-
-// Use the current date as the default date in the dialog
+            // Use the current date as the default date in the dialog
             final Calendar c = Calendar.getInstance();
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
@@ -224,6 +247,10 @@ public class SignOn extends AppCompatActivity {
             //show to the selected date in the text box
             String date=day+"-"+(month+1)+"-"+year;
             et_dateOfBirth .setText(date);
+        }
+
+        public void onDateChange(){
+
         }
     }
 

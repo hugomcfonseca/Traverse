@@ -8,8 +8,6 @@
                     android:title="@string/drawer_home" />
                 <item android:id="@+id/nav_signon"
                     android:title="@string/drawer_signon" />
-                <item android:id="@+id/nav_retrievecredentials"
-                    android:title="@string/drawer_retrievecredentials" />
             </group>
         </menu>
     </item>
