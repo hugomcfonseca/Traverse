@@ -27,7 +27,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -100,7 +102,25 @@ public class SignOn extends AppCompatActivity {
             }
 
         });
+        et_dateOfBirth.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!DateValidate(et_dateOfBirth.getText().toString()))
+                   et_dateOfBirth.setError("You haven't the minimun age to access to this app.");
+                else
+                    et_dateOfBirth.setError(null);
+            }
+        });
         btn_nextRegister.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -120,7 +140,12 @@ public class SignOn extends AppCompatActivity {
                     et_Username.setError("Username or email already in use, insert another please.");
 
                 // TODO: insert condition to validate date
+                if (!DateValidate(date))
+                    Toast.makeText(SignOn.this, "You haven't the minimun age to access to this app.", Toast.LENGTH_SHORT).show();
+                    //et_dateOfBirth.setError("You haven't the minimun age to access to this app.");
+
                 if (verifyEqualsPasswords(password,password2) &&
+                        DateValidate(date) &&
                         !connector.verifyUsernameAndEmail(username, email)) {
                     connector.createUser(username,email,date,password);
                     Toast.makeText(SignOn.this,"Account created successfully!",Toast.LENGTH_SHORT).show();
@@ -147,6 +172,26 @@ public class SignOn extends AppCompatActivity {
             }
         });
     }
+
+    private boolean DateValidate(String date) {
+        String toParse = "01-01-2003";
+        String format = "dd-MM-yyy";
+        SimpleDateFormat formater = new SimpleDateFormat(format);
+        try{
+            Date dateref = formater.parse(toParse);
+            Date datesend = formater.parse(date);
+            if (datesend.compareTo(dateref)>0){
+                return false;
+            }
+            else
+                return true;
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return true;
+
+    }
+
 
     private boolean verifyEqualsPasswords(String password, String password2){
         if (!password.matches(password2)){
