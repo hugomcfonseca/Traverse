@@ -196,7 +196,6 @@ public class SignOn extends AppCompatActivity {
 
     public void closeThisActivity(){
         finish();
-        System.exit(0);
     }
 
     @Override
@@ -249,9 +248,6 @@ public class SignOn extends AppCompatActivity {
             et_dateOfBirth .setText(date);
         }
 
-        public void onDateChange(){
-
-        }
     }
 
 }
