@@ -78,6 +78,7 @@ public class MainMenu extends AppCompatActivity {
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
                 closeThisActivity();
+
             }
         });
 
@@ -242,7 +243,6 @@ public class MainMenu extends AppCompatActivity {
 
     public void closeThisActivity(){
         finish();
-        System.exit(0);
     }
 
     @Override
