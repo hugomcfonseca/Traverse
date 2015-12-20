@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -36,176 +37,64 @@ import java.util.regex.Pattern;
 
 public class SignOn extends AppCompatActivity {
 
-    private Button btn_nextRegister;
-    private EditText et_Username, et_Password, et_Password2, et_dateOfBirth, et_Email;
+    FragmentManager manager;
     private CustomDrawer drawer;
 
-    DataBaseAdapter connector;
-
-
-    //Add a Questionary fragmet
-    QuestionFragment frag = new QuestionFragment();
-    FragmentManager manager=getFragmentManager();
-    FragmentTransaction transaction= manager.beginTransaction();
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_on);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.signon_drawerlayout),
-                (NavigationView)findViewById(R.id.signon_nav_view), toolbar );
-
-        // create a instance of SQLite Database
-        connector = new DataBaseAdapter(this);
-        connector.open();
-
-        et_Username = (EditText)findViewById(R.id.et_username);
-        et_Password = (EditText)findViewById(R.id.et_password);
-        et_Password2 = (EditText)findViewById(R.id.et_conf_pass);
-        et_Email = (EditText)findViewById(R.id.et_email);
-        et_dateOfBirth = (EditText)findViewById(R.id.et_dateofbirth);
-        btn_nextRegister = (Button)findViewById(R.id.btn_register);
-
-        et_Email.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
-                String email = et_Email.getText().toString();
-
-                if (!isEmailValid(email))
-                    et_Email.setError("Invalid email address.");
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-            public boolean isEmailValid(String email) {
-                boolean isValid = false;
-
-                String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-                CharSequence inputStr = email;
-
-                Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-                Matcher matcher = pattern.matcher(inputStr);
-                if (matcher.matches()) {
-                    isValid = true;
-                }
-                return isValid;
-            }
-
-        });
-        et_dateOfBirth.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!DateValidate(et_dateOfBirth.getText().toString()))
-                    et_dateOfBirth.setError("You haven't the minimun age to access to this app.");
-                else
-                    et_dateOfBirth.setError(null);
-            }
-        });
+        drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.signon_drawerlayout),
+                (NavigationView) findViewById(R.id.signon_nav_view), toolbar);
 
 
-        btn_nextRegister.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
-                String username = et_Username.getText().toString();
-                String email = et_Email.getText().toString();
-                String password = et_Password.getText().toString();
-                String password2 = et_Password2.getText().toString();
-                String date = et_dateOfBirth.getText().toString();
+        manager = getFragmentManager();
 
-                if (username.matches("") || password.matches("") || password2.matches("") ||
-                        date.matches("") || email.matches("")) {
-                    Toast.makeText(SignOn.this, "Please, fill all fields.", Toast.LENGTH_SHORT).show();
-                }
 
-                if (connector.verifyUsernameAndEmail(username, email))
-                    et_Username.setError("Username or email already in use, insert another please.");
-
-                // TODO: insert condition to validate date
-                if (!DateValidate(date))
-                    Toast.makeText(SignOn.this, "You haven't the minimun age to access to this app.", Toast.LENGTH_SHORT).show();
-                //et_dateOfBirth.setError("You haven't the minimun age to access to this app.");
-
-                if (verifyEqualsPasswords(password,password2) &&
-                        DateValidate(date) &&
-                        !connector.verifyUsernameAndEmail(username, email)) {
-                    connector.createUser(username,email,date,password);
-                    Toast.makeText(SignOn.this,"Account created successfully!",Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-        /*  TODO:
-            implement this method exclusively in this class and verify date
-            (it must be less than actual date)
-        */
-        et_dateOfBirth.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
-                    return true;
-                }
-
-                return false;
-            }
-        });
-    }
-    private boolean DateValidate(String date) {
-        String toParse = "01-01-2003";
-        String format = "dd-MM-yyy";
-        SimpleDateFormat formater = new SimpleDateFormat(format);
-        try{
-            Date dateref = formater.parse(toParse);
-            Date datesend = formater.parse(date);
-            if (datesend.compareTo(dateref)>0){
-                return false;
-            }
-            else
-                return true;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return true;
+        SignOnFragment f1 = new SignOnFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.sign, f1, "SignOn");
+        transaction.commit();
 
     }
-    private boolean verifyEqualsPasswords(String password, String password2){
-        if (!password.matches(password2)){
-            et_Password2.setError("Passwords doesn't match.");
-            return false;
-        } else
-            return true;
+    // private CustomDrawer drawer;
+
+    public void addFragSingON(View v) {
+        SignOnFragment f1 = new SignOnFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.sign, f1, "SignOn");
+        transaction.commit();
+
     }
+
+    public void addFragQuestion(View v) {
+        SignOnFragment f2 = new SignOnFragment();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.sign, f2, "Questionary");
+        transaction.commit();
+    }
+
+    public void addFragQuestionBut(View v) {
+
+    }
+
+    public void removeFragSingON(View v) {
+
+    }
+
+    public void removeFragQuestion(View v) {
+
+    }
+
+    public void removeFragQuestionBut(View v) {
+
+    }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -267,38 +156,5 @@ public class SignOn extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Close The Database
-        connector.close();
-    }
-
-    //Date Fragment
-    @SuppressLint("ValidFragment")
-    public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-
-        public DateDialog(View view){
-            et_dateOfBirth =(EditText)view;
-        }
-
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            // Use the current date as the default date in the dialog
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            //show to the selected date in the text box
-            String date=day+"-"+(month+1)+"-"+year;
-            et_dateOfBirth .setText(date);
-        }
-
-    }
-
 }
+

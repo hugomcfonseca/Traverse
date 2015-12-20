@@ -8,13 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by Filipe on 11/12/2015.
+ * Created by Filipe on 16/12/2015.
  */
-public class QuestionFragment extends Fragment {
+public class QuestionaryFragment extends Fragment {
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.layout_fragment,container,false);
+        View view= inflater.inflate(R.layout.fragmentquestionary,container,false);
+        return view;
     }
 }

@@ -51,7 +51,7 @@ public class DataBaseAdapter {
 
     public String getSingleEntry(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
-                        DataBaseHelper.USERNAME + " = ?", new String[]{username});
+                DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
         if(cursor.getCount() < 1) { // UserName Not Exist
             cursor.close();
