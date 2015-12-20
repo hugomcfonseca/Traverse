@@ -32,6 +32,7 @@ import java.util.regex.Pattern;
 public class SignOnFragment  extends Fragment {
 
     DataBaseAdapter connector;
+    Communicator comm;
     private Button btn_nextRegister;
     private EditText et_Username, et_Password, et_Password2, et_dateOfBirth, et_Email;
 
@@ -64,6 +65,8 @@ public class SignOnFragment  extends Fragment {
         // create a instance of SQLite Database
         connector = new DataBaseAdapter(getActivity());
         connector.open();
+
+        comm = (Communicator) getActivity();
 
 
         et_Email.addTextChangedListener(new TextWatcher() {
@@ -164,6 +167,8 @@ public class SignOnFragment  extends Fragment {
                         !connector.verifyUsernameAndEmail(username, email)) {
                     connector.createUser(username, email, date, password);
                     Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+                    comm.respond(1);//1 quer dizer que foi positivo
+
                 }
 
             }

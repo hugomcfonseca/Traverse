@@ -35,7 +35,7 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SignOn extends AppCompatActivity {
+public class SignOn extends AppCompatActivity implements Communicator {
 
     FragmentManager manager;
     private CustomDrawer drawer;
@@ -73,18 +73,21 @@ public class SignOn extends AppCompatActivity {
     }
 
     public void addFragQuestion(View v) {
-        SignOnFragment f2 = new SignOnFragment();
+        QuestionaryFragment f2 = new QuestionaryFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.sign, f2, "Questionary");
         transaction.commit();
     }
 
-    public void addFragQuestionBut(View v) {
+    public void addFragQuestionBtn(View v) {
 
     }
 
-    public void removeFragSingON(View v) {
-
+    public void replaceFragSingON_FragQuestion(View v) {
+        QuestionaryFragment f2 = new QuestionaryFragment();
+        FragmentTransaction transaction=manager.beginTransaction();
+        transaction.replace(R.id.sign,f2,"ReplpaceQuestion");
+        transaction.commit();
     }
 
     public void removeFragQuestion(View v) {
@@ -156,5 +159,15 @@ public class SignOn extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public void respond(int i) {
+        if(i==1){
+            QuestionaryFragment f2 = new QuestionaryFragment();
+            FragmentTransaction transaction=manager.beginTransaction();
+            transaction.replace(R.id.sign,f2,"ReplpaceQuestion");
+            transaction.commit();
+        }
+
+    }
 }
 
