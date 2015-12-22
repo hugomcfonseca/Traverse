@@ -16,14 +16,19 @@
             />
 
 
-
-
         <LinearLayout
-            android:id="@+id/sign"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"></LinearLayout>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/sign"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"></LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>

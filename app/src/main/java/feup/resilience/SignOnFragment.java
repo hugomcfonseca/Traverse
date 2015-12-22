@@ -143,6 +143,7 @@ public class SignOnFragment  extends Fragment {
 
             @Override
             public void onClick(View v) {
+
                 String username = et_Username.getText().toString();
                 String email = et_Email.getText().toString();
                 String password = et_Password.getText().toString();
@@ -170,7 +171,7 @@ public class SignOnFragment  extends Fragment {
                     comm.respond(1);//1 quer dizer que foi positivo
 
                 }
-
+                //comm.respond(1);//1
             }
         });
     }
