@@ -168,10 +168,10 @@ public class SignOnFragment  extends Fragment {
                         !connector.verifyUsernameAndEmail(username, email)) {
                     connector.createUser(username, email, date, password);
                     Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
-                    comm.respond(1);//1 quer dizer que foi positivo
+                    comm.respond(0,0);//1 quer dizer que foi positivo
 
                 }
-                //comm.respond(1);//1
+                //comm.respond(0 , 0);//1
             }
         });
     }

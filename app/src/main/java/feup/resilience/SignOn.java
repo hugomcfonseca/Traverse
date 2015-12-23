@@ -27,8 +27,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +39,8 @@ import java.util.regex.Pattern;
 
 public class SignOn extends AppCompatActivity implements Communicator {
 
+    private int myflag=0;
+    int questionResult[]=new int[4];
     FragmentManager manager;
     private CustomDrawer drawer;
 
@@ -52,52 +56,16 @@ public class SignOn extends AppCompatActivity implements Communicator {
                 (NavigationView) findViewById(R.id.signon_nav_view), toolbar);
 
 
-
         manager = getFragmentManager();
 
 
         SignOnFragment f1 = new SignOnFragment();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.sign, f1, "SignOn");
+        transaction.addToBackStack(null);
         transaction.commit();
 
     }
-    // private CustomDrawer drawer;
-
-    public void addFragSingON(View v) {
-        SignOnFragment f1 = new SignOnFragment();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.sign, f1, "SignOn");
-        transaction.commit();
-
-    }
-
-    public void addFragQuestion(View v) {
-        QuestionaryFragment f2 = new QuestionaryFragment();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.sign, f2, "Questionary");
-        transaction.commit();
-    }
-
-    public void addFragQuestionBtn(View v) {
-
-    }
-
-    public void replaceFragSingON_FragQuestion(View v) {
-        QuestionaryFragment f2 = new QuestionaryFragment();
-        FragmentTransaction transaction=manager.beginTransaction();
-        transaction.replace(R.id.sign,f2,"ReplpaceQuestion");
-        transaction.commit();
-    }
-
-    public void removeFragQuestion(View v) {
-
-    }
-
-    public void removeFragQuestionBut(View v) {
-
-    }
-
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -137,7 +105,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
         return super.onOptionsItemSelected(item);
     }
 
-    public void closeThisActivity(){
+    public void closeThisActivity() {
         finish();
     }
 
@@ -147,9 +115,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
         if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
             drawer.layout.closeDrawer(GravityCompat.START);
             return;
-        }
-
-        else {
+        } else {
             Intent i = new Intent(this, MainMenu.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
@@ -160,14 +126,91 @@ public class SignOn extends AppCompatActivity implements Communicator {
     }
 
     @Override
-    public void respond(int i) {
-        if(i==1){
+    public void respond(int i, int val) {
+        if (i == 0) {
             QuestionaryFragment f2 = new QuestionaryFragment();
-            FragmentTransaction transaction=manager.beginTransaction();
-            transaction.replace(R.id.sign,f2,"ReplpaceQuestion");
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f2, "ReplpaceQuestion1");
+            transaction.addToBackStack("add1");
             transaction.commit();
         }
+        else if (i == 1) {
+            QuestionaryFragment f3 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f3, "ReplpaceQuestion2");
+            transaction.addToBackStack(null);
+            transaction.commit();
+            questionResult[0]=val;
+            myflag++;
+
+
+        }
+        else if (i == 2) {
+            QuestionaryFragment f4 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f4, "ReplpaceQuestion3");
+            transaction.addToBackStack("add_3");
+            transaction.commit();
+            questionResult[1]=val;
+            myflag++;
+        }
+        else if (i == 3) {
+            QuestionaryFragment f5 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f5, "ReplpaceQuestion4");
+            transaction.addToBackStack("add_4");
+            transaction.commit();
+            questionResult[2]=val;
+            myflag++;
+        }else{
+            questionResult[3]=val;
+            Toast.makeText(this,"É SÓ MANDAR PARA A PÁGINA SEGUINTE E GUARDAR NA BD", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public int getMyFlag() {
+        return myflag;
+    }
+
+    public void Back(View view){
+        myflag--;
+        if(myflag==3){
+            myflag--;
+            QuestionaryFragment f4 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f4, "ReplpaceQuestion3");
+            transaction.addToBackStack("add_3");
+            transaction.commit();
+            myflag++;
+        }
+        else if(myflag==2){
+            myflag--;
+            QuestionaryFragment f4 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f4, "ReplpaceQuestion3");
+            transaction.addToBackStack("add_3");
+            transaction.commit();
+            myflag++;
+        }
+        else if(myflag==1){
+            myflag--;
+            QuestionaryFragment f3 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f3, "ReplpaceQuestion2");
+            transaction.addToBackStack(null);
+            transaction.commit();
+            myflag++;
+        }
+        else if(myflag==0){
+            QuestionaryFragment f2 = new QuestionaryFragment();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.sign, f2, "ReplpaceQuestion2");
+            transaction.addToBackStack(null);
+            transaction.commit();
+}
+        else ;
+
 
     }
-}
 
+}
