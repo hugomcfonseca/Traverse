@@ -1,8 +1,10 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,12 +37,15 @@ public class MainMenu extends AppCompatActivity {
     private LoginButton loginButton;
     private EditText et_Username, et_Password, et_Email;
     private TextView tv_recoverCredentials;
+    private CheckBox cb_saveCredentials;
 
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
 
     DataBaseAdapter dataBaseAdapter;
     private CallbackManager callbackManager;
+
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +64,12 @@ public class MainMenu extends AppCompatActivity {
         drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout),
                 (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
 
+        sharedPreferences = getSharedPreferences(
+                getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
         btn_SignIn = (Button) findViewById(R.id.btn_login);
         btn_SignOn = (Button) findViewById(R.id.btn_signon);
-        loginButton = (LoginButton)findViewById(R.id.login_button);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
 
         tv_recoverCredentials = (TextView)findViewById(R.id.tv_lostpassword);
 
@@ -74,7 +83,7 @@ public class MainMenu extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent nextStep = new Intent("feup.resilience.SignOn");
+                Intent nextStep = new Intent("feup.traverse.SignOn");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
                 closeThisActivity();
@@ -124,6 +133,13 @@ public class MainMenu extends AppCompatActivity {
                 View view = getLayoutInflater().inflate(R.layout.login_form, null);
                 et_Username = (EditText) view.findViewById(R.id.et_username);
                 et_Password = (EditText) view.findViewById(R.id.et_password);
+                cb_saveCredentials = (CheckBox) view.findViewById(R.id.cb_savecredentials);
+
+                if (sharedPreferences != null){
+                    et_Username.setText(sharedPreferences.getString("Username",et_Username.getText().toString()));
+                    et_Password.setText(sharedPreferences.getString("Password",et_Password.getText().toString()));
+                    cb_saveCredentials.setChecked(sharedPreferences.getBoolean("Checked",false));
+                }
 
                 alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
                 alertDialogBuilder.setTitle("Login");
@@ -133,18 +149,32 @@ public class MainMenu extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                // get The User name and Password
                                 String username = et_Username.getText().toString();
                                 String password = et_Password.getText().toString();
+                                boolean checkBox = cb_saveCredentials.isEnabled();
 
                                 // fetch the Password form database for respective user name
                                 String storedPassword = dataBaseAdapter.getSingleEntry(username);
 
                                 // check if the Stored password matches with  Password entered by user
-                                if(password.equals(storedPassword)){
-                                    Toast.makeText(MainMenu.this, "Login Successfull!",
+                                if (password.equals(storedPassword)){
+
+                                    if (cb_saveCredentials.isChecked()){
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                                        editor.putString("Username", username);
+                                        editor.putString("Password", password);
+                                        editor.putBoolean("Checked", checkBox);
+                                        editor.apply();
+                                    }
+
+                                    else {
+                                        sharedPreferences.edit().clear().commit();
+                                    }
+
+                                    Toast.makeText(MainMenu.this, "Login Successful!",
                                             Toast.LENGTH_LONG).show();
-                                    Intent nextStep = new Intent("feup.resilience.MapsActivity");
+                                    Intent nextStep = new Intent("feup.traverse.MapsActivity");
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();
@@ -232,7 +262,7 @@ public class MainMenu extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         /*if (id == R.id.action_settings) {
-            Intent i = new Intent("feup.resilience.SetSettings");
+            Intent i = new Intent("feup.traverse.SetSettings");
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             closeThisActivity();

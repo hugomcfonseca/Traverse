@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -60,7 +60,7 @@ public class QuestionaryFragment extends Fragment {
                 if (questionResult[0]==0)
                     Toast.makeText(getActivity(),"Select one Image",Toast.LENGTH_SHORT).show();
                 else
-                     comm.respond(flag + 1, questionResult[0]);
+                    comm.respond(flag + 1, questionResult[0]);
             }
         });
     }

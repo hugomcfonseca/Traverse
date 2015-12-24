@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

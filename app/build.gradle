@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "feup.resilience"
+        applicationId "feup.traverse"
         minSdkVersion 18
         targetSdkVersion 21
         versionCode 1

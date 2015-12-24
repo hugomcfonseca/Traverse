@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -24,11 +24,11 @@ import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-
 /**
- * Created by Filipe on 16/12/2015.
+ * @author Filipe
+ * @date 16/12/2015.
  */
+
 public class SignOnFragment  extends Fragment {
 
     DataBaseAdapter connector;

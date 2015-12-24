@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 /**
  * Created by Filipe on 20/12/2015.

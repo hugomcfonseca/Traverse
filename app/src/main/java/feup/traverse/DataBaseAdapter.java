@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -40,6 +40,7 @@ public class DataBaseAdapter {
         values.put(DataBaseHelper.EMAIL, email);
         values.put(DataBaseHelper.DATE, date);
         values.put(DataBaseHelper.PASSWORD, password);
+
 
         database.insert(DataBaseHelper.TABLE_NAME, null, values);
     }
@@ -93,4 +94,20 @@ public class DataBaseAdapter {
         String where="USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
     }
+    public String getBirthay(String username) {
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+                DataBaseHelper.USERNAME + " = ?", new String[]{username});
+
+        if(cursor.getCount() < 1) { // UserName Not Exist
+            cursor.close();
+            return "NOT EXIST";
+        }
+
+        cursor.moveToFirst();
+        String date = cursor.getString(cursor.getColumnIndex(DataBaseHelper.DATE));
+        cursor.close();
+
+        return date;
+    }
+
 }

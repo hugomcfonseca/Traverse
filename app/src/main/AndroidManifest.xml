@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="feup.resilience" >
+    package="feup.traverse" >
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -41,7 +41,6 @@
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,7 +50,15 @@
             android:name=".SignOn"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="feup.resilience.SignOn" />
+                <action android:name="feup.traverse.SignOn" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Profile"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.traverse.Profile" />
                 <category android:name="android.intent.category.DEFAULT"  />
             </intent-filter>
         </activity>
@@ -61,7 +68,7 @@
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme" >
             <intent-filter>
-                <action android:name="feup.resilience.MapsActivity" />
+                <action android:name="feup.traverse.MapsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

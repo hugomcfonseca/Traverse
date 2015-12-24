@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
@@ -50,13 +50,13 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         navView.setNavigationItemSelectedListener(this);
 
         if (parent instanceof MainMenu )
-                pos = POSITION_HOME;
+            pos = POSITION_HOME;
         else
         if (parent instanceof SignOn )
             pos = POSITION_SIGNON;
         else
 
-        checked_pos = pos;
+            checked_pos = pos;
         navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem( pos%10 ).setChecked(true);
 
     }
@@ -107,7 +107,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             parent.startActivity(i);
             parent.finish();
-            System.exit(0);
         }
 
 

@@ -1,4 +1,4 @@
-package feup.resilience;
+package feup.traverse;
 
 import org.junit.Test;
 

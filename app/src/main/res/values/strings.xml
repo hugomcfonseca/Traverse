@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Resilience</string>
+    <string name="app_name">Traverse</string>
     <string name="facebook_app_id">1492466484386664</string>
 
     <string name="mainmenu_login">Login</string>
@@ -18,6 +18,7 @@
     <string name="drawer_detailed_progress_view">Detailed Progress View</string>
     <string name="btn_signIn">Login</string>
     <string name="tv_forgotCred"><u>Forgot your credentials?</u></string>
+    <string name="preference_file_key">save_credentials</string>
 
 
 </resources>
