@@ -35,14 +35,14 @@ public class SignOnFragment  extends Fragment {
     Communicator comm;
     private Button btn_nextRegister;
     private EditText et_Username,et_Name, et_Password, et_Password2, et_dateOfBirth, et_Email;
-
+    private Session session;//global variable
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_sign_on_form,container,false);
-
+        session = new Session(getActivity().getBaseContext()); //in oncreate
         return view;
     }
 
@@ -52,7 +52,9 @@ public class SignOnFragment  extends Fragment {
         initicontrol();
     }
 
+
     private void initicontrol(){
+
         et_Username = (EditText) getActivity().findViewById(R.id.et_username);
         et_Name = (EditText) getActivity().findViewById(R.id.et_name);
         et_Password = (EditText) getActivity().findViewById(R.id.et_password);
@@ -166,7 +168,8 @@ public class SignOnFragment  extends Fragment {
                 if (verifyEqualsPasswords(password, password2) &&
                         DateValidate(date) &&
                         !connector.verifyUsernameAndEmail(username, email)) {
-                    connector.createUser(username,name, email, date, password);
+                    connector.createUser(username,name, email, date,"Não Definido",1,0, password);
+                    session.setusername(username);
                     Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
                     comm.respond(0,0);//1 quer dizer que foi positivo
 

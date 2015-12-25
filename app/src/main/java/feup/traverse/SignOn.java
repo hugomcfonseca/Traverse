@@ -22,6 +22,10 @@ public class SignOn extends AppCompatActivity implements Communicator {
     FragmentManager manager;
     private CustomDrawer drawer;
 
+    private Session session;//global variable
+
+    DataBaseAdapter dataBaseAdapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,10 @@ public class SignOn extends AppCompatActivity implements Communicator {
                 (NavigationView) findViewById(R.id.signon_nav_view), toolbar);
 
         manager = getFragmentManager();
+
+        session = new Session(this.getBaseContext()); //in oncreate
+        dataBaseAdapter = new DataBaseAdapter(this);
+        dataBaseAdapter.open();
 
         SignOnFragment f1 = new SignOnFragment();
         FragmentTransaction transaction = manager.beginTransaction();
@@ -140,8 +148,11 @@ public class SignOn extends AppCompatActivity implements Communicator {
             myflag++;
         }else{
             questionResult[3]=val;
-
-            Toast.makeText(this,findPersona(), Toast.LENGTH_SHORT).show();
+            dataBaseAdapter.updatePersona(session.getusername(),findPersona());
+            Intent nextStep = new Intent("feup.traverse.ViewProfile");
+            nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(nextStep);
+            closeThisActivity();
 
         }
     }

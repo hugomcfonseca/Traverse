@@ -15,7 +15,8 @@ public class DataBaseAdapter {
     private SQLiteDatabase database;
     private DataBaseHelper dbHelper;
     private String[] allColumns = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
-            DataBaseHelper.DATE, DataBaseHelper.PASSWORD};
+            DataBaseHelper.DATE,DataBaseHelper.PERSONA,DataBaseHelper.STATUS,
+            DataBaseHelper.PROGRESS, DataBaseHelper.PASSWORD};
 
     public DataBaseAdapter(Context context) {
         dbHelper = new DataBaseHelper(context);
@@ -34,13 +35,16 @@ public class DataBaseAdapter {
         return database;
     }
 
-    public void createUser (String username,String name, String email, String date, String password) {
+    public void createUser (String username,String name, String email, String date,String persona ,int status,int progress,String password) {
         ContentValues values = new ContentValues();
 
         values.put(DataBaseHelper.USERNAME, username);
         values.put(DataBaseHelper.NAME, name);
         values.put(DataBaseHelper.EMAIL, email);
         values.put(DataBaseHelper.DATE, date);
+        values.put(DataBaseHelper.PERSONA, persona);
+        values.put(DataBaseHelper.STATUS, status);
+        values.put(DataBaseHelper.PROGRESS, progress);
         values.put(DataBaseHelper.PASSWORD, password);
 
         database.insert(DataBaseHelper.TABLE_NAME, null, values);
@@ -91,6 +95,16 @@ public class DataBaseAdapter {
         updatedValues.put(DataBaseHelper.EMAIL, email);
         updatedValues.put(DataBaseHelper.DATE, date);
         updatedValues.put(DataBaseHelper.PASSWORD, password);
+
+        String where="USERNAME = ?";
+        database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
+    }
+    public void updatePersona(String username,String persona)
+    {
+        // Define the updated row content.
+        ContentValues updatedValues = new ContentValues();
+        // Assign values for each row.
+        updatedValues.put(DataBaseHelper.PERSONA, persona);
 
         String where="USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
