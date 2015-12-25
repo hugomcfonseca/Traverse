@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * @author hugof
@@ -94,20 +95,19 @@ public class DataBaseAdapter {
         String where="USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
     }
-    public String getBirthay(String username) {
+    public Cursor getProfileData(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
         if(cursor.getCount() < 1) { // UserName Not Exist
+            Log.d("DEBUG","FODASSSSSSSSE");
             cursor.close();
-            return "NOT EXIST";
+            return null;
         }
 
         cursor.moveToFirst();
-        String date = cursor.getString(cursor.getColumnIndex(DataBaseHelper.DATE));
-        cursor.close();
 
-        return date;
+        return cursor;
     }
 
 }

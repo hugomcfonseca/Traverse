@@ -46,6 +46,7 @@ public class MainMenu extends AppCompatActivity {
     private CallbackManager callbackManager;
 
     SharedPreferences sharedPreferences;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class MainMenu extends AppCompatActivity {
         // create a instance of SQLite Database
         dataBaseAdapter = new DataBaseAdapter(this);
         dataBaseAdapter.open();
+
+        session = new Session(this.getBaseContext()); //in oncreate
 
         drawer = new CustomDrawer( this, (DrawerLayout)findViewById(R.id.mainmenu_drawerlayout),
                 (NavigationView)findViewById(R.id.mainmenu_nav_view), toolbar );
@@ -156,6 +159,8 @@ public class MainMenu extends AppCompatActivity {
                                 // fetch the Password form database for respective user name
                                 String storedPassword = dataBaseAdapter.getSingleEntry(username);
 
+                                session.setusername(username);
+
                                 // check if the Stored password matches with  Password entered by user
                                 if (password.equals(storedPassword)){
 
@@ -174,7 +179,7 @@ public class MainMenu extends AppCompatActivity {
 
                                     Toast.makeText(MainMenu.this, "Login Successful!",
                                             Toast.LENGTH_LONG).show();
-                                    Intent nextStep = new Intent("feup.traverse.MapsActivity");
+                                    Intent nextStep = new Intent("feup.traverse.Profile");
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();

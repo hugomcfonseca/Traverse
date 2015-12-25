@@ -17,8 +17,8 @@ import android.widget.Toast;
 
 public class SignOn extends AppCompatActivity implements Communicator {
 
-    private int myflag=0;
-    int questionResult[]=new int[4];
+    private int myflag = 0;
+    int questionResult[] = new int[4];
     FragmentManager manager;
     private CustomDrawer drawer;
 
@@ -33,9 +33,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
         drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.signon_drawerlayout),
                 (NavigationView) findViewById(R.id.signon_nav_view), toolbar);
 
-
         manager = getFragmentManager();
-
 
         SignOnFragment f1 = new SignOnFragment();
         FragmentTransaction transaction = manager.beginTransaction();

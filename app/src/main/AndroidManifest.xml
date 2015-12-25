@@ -54,8 +54,9 @@
                 <category android:name="android.intent.category.DEFAULT"  />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".Profile"
+            android:name=".ViewProfile"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="feup.traverse.Profile" />

@@ -1,7 +1,6 @@
 package feup.traverse;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,11 +21,13 @@ import android.widget.Toast;
  * Created by Filipe on 16/12/2015.
  */
 public class QuestionaryFragment extends Fragment {
+
+    private Button buttons[][] =new Button[NUM_ROWS][NUM_COLS];
+
     Communicator comm;
     public int flag;
     private static final int NUM_COLS = 2 ;
     private static final int NUM_ROWS = 2;
-    Button buttons[][] =new Button[NUM_ROWS][NUM_COLS];
     int questionResult[]=new int[NUM_COLS*NUM_ROWS];
 
 
@@ -37,12 +38,15 @@ public class QuestionaryFragment extends Fragment {
         View view;
         SignOn activity = (SignOn)getActivity();
         flag = activity.getMyFlag();
+
         if(flag==0)
             view= inflater.inflate(R.layout.fragment_question_init,container,false);
         else if (flag==3)
             view= inflater.inflate(R.layout.fragment_question_finish,container,false);
         else
-            view= inflater.inflate(R.layout.fragment_question,container,false);
+            view= inflater.inflate(R.layout.fragment_question, container, false);
+
+
         populateButtons(view, flag * 4);
 
         return view;

@@ -41,8 +41,7 @@ public class SignOnFragment  extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment_singon,container,false);
-
+        View view= inflater.inflate(R.layout.fragment_sign_on_form,container,false);
 
         return view;
     }
@@ -52,7 +51,6 @@ public class SignOnFragment  extends Fragment {
         super.onStart();
         initicontrol();
     }
-
 
     private void initicontrol(){
         et_Username = (EditText) getActivity().findViewById(R.id.et_username);
@@ -176,7 +174,6 @@ public class SignOnFragment  extends Fragment {
         });
     }
 
-
     private boolean DateValidate(String date) {
         String toParse = "01-01-2003";
         String format = "dd-MM-yyy";
@@ -196,9 +193,6 @@ public class SignOnFragment  extends Fragment {
 
     }
 
-
-
-    //Date Fragment
     @SuppressLint("ValidFragment")
     public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
@@ -231,11 +225,6 @@ public class SignOnFragment  extends Fragment {
             return false;
         } else
             return true;
-    }
-
-
-    public void closeThisActivity(){
-        getActivity().finish();
     }
 
     @Override
