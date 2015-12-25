@@ -17,6 +17,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_NAME = "userdata";
     private static final int DATABASE_VERSION = 1;
     public static final String ID = "_id";
+    public static final String NAME = "name";
     public static final String USERNAME = "username";
     public static final String EMAIL = "email";
     public static final String DATE = "date";
@@ -24,15 +25,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String STATUS = "status";
     public static final String PERSONA = "persona";
     public static final String PROGRESS = "progress";
+    public static final String IMAGE = "image";
     private static final String DATABASE_CREATE = "create table "
             + TABLE_NAME + "( " + ID + " integer primary key autoincrement, "
+            + NAME + " varchar(30) not null unique, "
             + USERNAME + " varchar(20) not null unique, "
             + EMAIL + " varchar(40) not null unique, "
             + DATE + " varchar(12) not null, "
             + PERSONA + " varchar(15) not null, "
             + STATUS + " integer not null, "
             + PROGRESS + " integer not null, "
-            + PASSWORD + " varchar(20) not null);";
+            + PASSWORD + " varchar(20) not null, "
+            + IMAGE + " blob"
+            +");";
 
     public DataBaseHelper (Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -46,14 +51,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DATABASE_CREATE);
 
-        String sql = "INSERT or replace INTO " + TABLE_NAME + " ( "+ID+", "+USERNAME+", "+EMAIL+", "+DATE+", "
-                        +PERSONA+" ,"+STATUS+", "+PROGRESS+", "+PASSWORD+" )" +
-                        " VALUES(1,'hugo','hugofonseca93@hotmail.com','11/04/1993','Music Person',1,0,'1234')" ;
+        /**String sql = "INSERT or replace INTO " + TABLE_NAME + " ( "+ID+", "+NAME+", "+USERNAME+", "+EMAIL+", "+DATE+", "
+         +PERSONA+" ,"+STATUS+", "+PROGRESS+", "+PASSWORD+", "+IMAGE+" )" +
+         " VALUES(1,'Hugo M. Fonseca','hugo','hugofonseca93@hotmail.com','11/04/1993','Music Person',1,0,'1234')" ;*/
+
+        String sql = "INSERT or replace INTO " + TABLE_NAME + " ( "+ID+", "+NAME+", "+USERNAME+", "+EMAIL+", "+DATE+", "
+                +PERSONA+" ,"+STATUS+", "+PROGRESS+", "+PASSWORD+" )" +
+                " VALUES(1,'Hugo M. Fonseca','hugo','hugofonseca93@hotmail.com','11/04/1993','Music Person',1,0,'1234')" ;
         db.execSQL(sql);
 
-        String sql1 = "INSERT or replace INTO " + TABLE_NAME + " ( "+ID+", "+USERNAME+", "+EMAIL+", "+DATE+", "
+        String sql1 = "INSERT or replace INTO " + TABLE_NAME + " ( "+ID+", "+NAME+", "+USERNAME+", "+EMAIL+", "+DATE+", "
                 +PERSONA+" ,"+STATUS+", "+PROGRESS+", "+PASSWORD+" )" +
-                " VALUES(2,'morais','filipe_morais@outlook.com','23/07/1993','Arts Person',1,25,'1234')" ;
+                " VALUES(2,'morais','Filipe D. Morais','filipe_morais@outlook.com','23/07/1993','Arts Person',1,25,'1234')" ;
         db.execSQL(sql1);
     }
 

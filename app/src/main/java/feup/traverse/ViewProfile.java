@@ -1,6 +1,7 @@
 package feup.traverse;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -28,6 +31,7 @@ public class ViewProfile extends AppCompatActivity {
     private TextView tv_Username, tv_Name, tv_birthDate,  tv_Email, tv_typeCharacter, tv_progressValue;
     private ProgressBar pb_gameProgress;
     private RadioButton rb_Status;
+    private Button btn_editUserData;
 
     private Session session;//global variable
 
@@ -46,8 +50,8 @@ public class ViewProfile extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.signon_drawerlayout),
-                (NavigationView) findViewById(R.id.signon_nav_view), toolbar);
+        drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.view_profile_drawerlayout),
+                (NavigationView) findViewById(R.id.view_profile_nav_view), toolbar);
 
         //Create Variable
         tv_Name = (TextView)findViewById(R.id.tv_name);
@@ -58,27 +62,33 @@ public class ViewProfile extends AppCompatActivity {
         pb_gameProgress = (ProgressBar)findViewById(R.id.pb_game_progress);
         rb_Status = (RadioButton)findViewById(R.id.rb_status);
         tv_progressValue = (TextView)findViewById(R.id.tv_progress_value);
+        btn_editUserData = (Button)findViewById(R.id.btn_edit_profile);
 
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());
 
-        //get Username
         tv_Username.setText(session.getusername());
-        //get BirthDate
         tv_birthDate.setText(cursor.getString(cursor.getColumnIndex("date")));
-        //Persona
         tv_typeCharacter.setText(cursor.getString(cursor.getColumnIndex("persona")));
-        //Progress
-        tv_Name.setText("Hugo M. Fonseca");
-        //Number of hour in Game
+        tv_Name.setText(cursor.getString(cursor.getColumnIndex("name")));
         tv_Email.setText(cursor.getString(cursor.getColumnIndex("email")));
 
         if (cursor.getInt(cursor.getColumnIndex("status")) == 1){
             rb_Status.setText("Busy");
-            rb_Status.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#00930C")));
+            rb_Status.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
         }
 
         pb_gameProgress.setProgress(cursor.getInt(cursor.getColumnIndex("progress")));
         tv_progressValue.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("progress"))));
+
+        btn_editUserData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextStep = new Intent("feup.traverse.ChangeProfile");
+                nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(nextStep);
+                closeThisActivity();
+            }
+        });
 
     }
 
@@ -138,11 +148,17 @@ public class ViewProfile extends AppCompatActivity {
         if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
             drawer.layout.closeDrawer(GravityCompat.START);
             return;
+        } else {
+            Intent i = new Intent(this, MainMenu.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            closeThisActivity();
         }
 
         super.onBackPressed();
     }
 
 }
+
 
 

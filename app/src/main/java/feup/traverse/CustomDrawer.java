@@ -23,9 +23,11 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
     private final int POSITION_HOME = 00;
     private final int POSITION_SIGNON = 01;
-    private final int POSITION_STARTNEWPHASE = 10;
-    private final int POSITION_SIMPLEVIEW = 11;
-    private final int POSITION_DETAILEDVIEW = 12;
+    private final int POSITION_PROFILE  = 10;
+    private final int POSITION_PROGRESS = 11;
+    private final int POSITION_MAP = 12;
+    private final int POSITION_SOCIAL = 13;
+    private final int POSITION_SETTINGS = 14;
 
     private int checked_pos;
     CustomDrawer (AppCompatActivity nParent, DrawerLayout nLayout, NavigationView nNavView, Toolbar nToolbar) {
@@ -55,8 +57,12 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         if (parent instanceof SignOn )
             pos = POSITION_SIGNON;
         else
+        if (parent instanceof ViewProfile )
+            pos = POSITION_PROFILE;
+        else
 
             checked_pos = pos;
+
         navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem( pos%10 ).setChecked(true);
 
     }
@@ -86,18 +92,27 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
                 pos = POSITION_SIGNON;
                 break;
 
-            case R.id.nav_start_newphase:
-                pos = POSITION_STARTNEWPHASE;
+            case R.id.nav_view_profile:
+                if( !(parent instanceof ViewProfile) )
+                    i = new Intent(parent, ViewProfile.class);
+                pos = POSITION_PROFILE;
                 break;
 
-            case R.id.nav_simple_progress_view:
-                pos = POSITION_SIMPLEVIEW;
+            case R.id.nav_progress:
+                pos = POSITION_PROGRESS;
                 break;
 
-            case R.id.nav_detailed_progress_view:
-                pos = POSITION_DETAILEDVIEW;
+            case R.id.nav_map:
+                pos = POSITION_MAP;
                 break;
 
+            case R.id.nav_social:
+                pos = POSITION_SOCIAL;
+                break;
+
+            case R.id.nav_settings:
+                pos = POSITION_SETTINGS;
+                break;
         }
 
 

@@ -33,11 +33,13 @@
             android:configChanges=
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan"/>
 
         <activity
             android:name=".MainMenu"
             android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,6 +50,7 @@
 
         <activity
             android:name=".SignOn"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="feup.traverse.SignOn" />
@@ -57,9 +60,20 @@
 
         <activity
             android:name=".ViewProfile"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="feup.traverse.Profile" />
+                <action android:name="feup.traverse.ViewProfile" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ChangeProfile"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.traverse.ChangeProfile" />
                 <category android:name="android.intent.category.DEFAULT"  />
             </intent-filter>
         </activity>
@@ -67,6 +81,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme" >
             <intent-filter>
                 <action android:name="feup.traverse.MapsActivity" />

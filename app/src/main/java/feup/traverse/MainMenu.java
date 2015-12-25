@@ -179,7 +179,7 @@ public class MainMenu extends AppCompatActivity {
 
                                     Toast.makeText(MainMenu.this, "Login Successful!",
                                             Toast.LENGTH_LONG).show();
-                                    Intent nextStep = new Intent("feup.traverse.Profile");
+                                    Intent nextStep = new Intent("feup.traverse.ViewProfile");
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();

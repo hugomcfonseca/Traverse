@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * @author hugof
@@ -35,13 +34,14 @@ public class DataBaseAdapter {
         return database;
     }
 
-    public void createUser (String username, String email, String date, String password) {
+    public void createUser (String username,String name, String email, String date, String password) {
         ContentValues values = new ContentValues();
+
         values.put(DataBaseHelper.USERNAME, username);
+        values.put(DataBaseHelper.NAME, name);
         values.put(DataBaseHelper.EMAIL, email);
         values.put(DataBaseHelper.DATE, date);
         values.put(DataBaseHelper.PASSWORD, password);
-
 
         database.insert(DataBaseHelper.TABLE_NAME, null, values);
     }
@@ -82,12 +82,12 @@ public class DataBaseAdapter {
         return true;
     }
 
-    public void  updateEntry(String username, String email, String date, String password)
+    public void updateEntry (String username,String name, String email, String date, String password)
     {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
-        updatedValues.put(DataBaseHelper.USERNAME, username);
+        updatedValues.put(DataBaseHelper.NAME, name);
         updatedValues.put(DataBaseHelper.EMAIL, email);
         updatedValues.put(DataBaseHelper.DATE, date);
         updatedValues.put(DataBaseHelper.PASSWORD, password);
@@ -99,8 +99,7 @@ public class DataBaseAdapter {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
-        if(cursor.getCount() < 1) { // UserName Not Exist
-            Log.d("DEBUG","FODASSSSSSSSE");
+        if(cursor.getCount() < 1) {
             cursor.close();
             return null;
         }
