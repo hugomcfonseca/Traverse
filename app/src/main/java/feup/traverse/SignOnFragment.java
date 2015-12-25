@@ -34,7 +34,7 @@ public class SignOnFragment  extends Fragment {
     DataBaseAdapter connector;
     Communicator comm;
     private Button btn_nextRegister;
-    private EditText et_Username, et_Password, et_Password2, et_dateOfBirth, et_Email;
+    private EditText et_Username,et_Name, et_Password, et_Password2, et_dateOfBirth, et_Email;
 
 
 
@@ -54,6 +54,7 @@ public class SignOnFragment  extends Fragment {
 
     private void initicontrol(){
         et_Username = (EditText) getActivity().findViewById(R.id.et_username);
+        et_Name = (EditText) getActivity().findViewById(R.id.et_name);
         et_Password = (EditText) getActivity().findViewById(R.id.et_password);
         et_Password2 = (EditText) getActivity().findViewById(R.id.et_conf_pass);
         et_Email = (EditText) getActivity().findViewById(R.id.et_email);
@@ -143,12 +144,13 @@ public class SignOnFragment  extends Fragment {
             public void onClick(View v) {
 
                 String username = et_Username.getText().toString();
+                String name = et_Name.getText().toString();
                 String email = et_Email.getText().toString();
                 String password = et_Password.getText().toString();
                 String password2 = et_Password2.getText().toString();
                 String date = et_dateOfBirth.getText().toString();
 
-                if (username.matches("") || password.matches("") || password2.matches("") ||
+                if (username.matches("") || name.matches("")|| password.matches("") || password2.matches("") ||
                         date.matches("") || email.matches("")) {
                     Toast.makeText(getActivity() , "Please, fill all fields.", Toast.LENGTH_SHORT).show();
                 }
@@ -164,12 +166,11 @@ public class SignOnFragment  extends Fragment {
                 if (verifyEqualsPasswords(password, password2) &&
                         DateValidate(date) &&
                         !connector.verifyUsernameAndEmail(username, email)) {
-                    connector.createUser(username, email, date, password);
+                    connector.createUser(username,name, email, date, password);
                     Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
                     comm.respond(0,0);//1 quer dizer que foi positivo
 
                 }
-                //comm.respond(0 , 0);//1
             }
         });
     }

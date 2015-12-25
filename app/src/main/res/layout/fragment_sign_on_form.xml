@@ -88,6 +88,28 @@
                                 android:layout_above="@+id/et_email"
                                 android:layout_alignStart="@+id/et_email" />
                         </LinearLayout>
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:layout_width="35dp"
+                                android:layout_height="38dp"
+                                android:id="@+id/imageView10"
+                                android:src="@drawable/name_logo"
+                                android:padding="2dp" />
+
+                            <EditText
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:inputType="textPersonName"
+                                android:hint="Name"
+                                android:ems="10"
+                                android:id="@+id/et_name"
+                                android:layout_above="@+id/et_email"
+                                android:layout_alignStart="@+id/et_email" />
+                        </LinearLayout>
 
                         <LinearLayout
                             android:orientation="horizontal"

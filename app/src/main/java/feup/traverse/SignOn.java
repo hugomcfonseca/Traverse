@@ -140,8 +140,46 @@ public class SignOn extends AppCompatActivity implements Communicator {
             myflag++;
         }else{
             questionResult[3]=val;
-            Toast.makeText(this,"É SÓ MANDAR PARA A PÁGINA SEGUINTE E GUARDAR NA BD", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(this,findPersona(), Toast.LENGTH_SHORT).show();
+
         }
+    }
+
+    private String findPersona() {
+        String type="";
+        for(int i=0, count1=0,count2=0,count3=0,count4=0;i<4;i++){
+            if (questionResult[i]==1){
+                count1++;
+                if(count1==2){
+                    type="type1";
+                    break;
+                }
+            }
+            else if (questionResult[i]==2){
+                count2++;
+                if(count2==2){
+                    type="type2";
+                    break;
+                }
+            }
+            else if (questionResult[i]==3){
+                count3++;
+                if(count3==2){
+                    type="type3";
+                    break;
+                }
+            }
+            else if (questionResult[i]==4){
+                count4++;
+                if(count4==2){
+                    type="type4";
+                    break;
+                }
+            }
+
+        }
+        return type;
     }
 
     public int getMyFlag() {
