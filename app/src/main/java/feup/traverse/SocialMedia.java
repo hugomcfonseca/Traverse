@@ -1,5 +1,7 @@
 package feup.traverse;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +26,12 @@ public class SocialMedia extends AppCompatActivity {
         drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.social_drawerlayout),
                 (NavigationView) findViewById(R.id.social_nav_view), toolbar);
 
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/426253597411506"));
+            startActivity(intent);
+        } catch(Exception e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/appetizerandroid")));
+        }
     }
 
 }
