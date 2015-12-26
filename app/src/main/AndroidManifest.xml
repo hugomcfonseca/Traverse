@@ -58,31 +58,31 @@
         </activity>
 
         <activity
+            android:name=".ViewProfile"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.traverse.ViewProfile" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ChangeProfile"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.traverse.ChangeProfile" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".SocialMedia"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="feup.traverse.SocialMedia" />
-                <category android:name="android.intent.category.DEFAULT"  />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ChangeProfile"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="feup.traverse.ChangeProfile" />
-                <category android:name="android.intent.category.DEFAULT"  />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".ChangeProfile"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="feup.traverse.ChangeProfile" />
                 <category android:name="android.intent.category.DEFAULT"  />
             </intent-filter>
         </activity>

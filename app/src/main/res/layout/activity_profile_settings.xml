@@ -107,7 +107,7 @@
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapSentences|textPersonName"
                             android:ems="10"
                             android:id="@+id/et_settings_name"
                             android:paddingTop="6dp"

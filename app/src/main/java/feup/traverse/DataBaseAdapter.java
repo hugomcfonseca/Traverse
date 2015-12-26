@@ -35,7 +35,8 @@ public class DataBaseAdapter {
         return database;
     }
 
-    public void createUser (String username,String name, String email, String date,String persona ,int status,int progress,String password) {
+    public void createUser (String username,String name, String email, String date,String persona ,
+                            int status,int progress,String password) {
         ContentValues values = new ContentValues();
 
         values.put(DataBaseHelper.USERNAME, username);
@@ -86,8 +87,7 @@ public class DataBaseAdapter {
         return true;
     }
 
-    public void updateEntry (String username,String name, String email, String date, String password)
-    {
+    public void updateEntry (String username,String name, String email, String date, String password) {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
@@ -99,8 +99,8 @@ public class DataBaseAdapter {
         String where="USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
     }
-    public void updatePersona(String username,String persona)
-    {
+
+    public void updatePersona(String username,String persona) {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
@@ -109,6 +109,7 @@ public class DataBaseAdapter {
         String where="USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
     }
+
     public Cursor getProfileData(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});

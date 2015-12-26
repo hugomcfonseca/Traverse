@@ -1,26 +1,16 @@
 package feup.traverse;
 
-import android.annotation.SuppressLint;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,12 +27,19 @@ public class SignOnFragment  extends Fragment {
     private EditText et_Username,et_Name, et_Password, et_Password2, et_dateOfBirth, et_Email;
     private Session session;//global variable
 
+    private Pattern pattern;
+    private Matcher matcher;
 
-    @Nullable
+    private static final String DATE_PATTERN =
+            "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_sign_on_form,container,false);
+
         session = new Session(getActivity().getBaseContext()); //in oncreate
+        pattern = Pattern.compile(DATE_PATTERN);
+
         return view;
     }
 
@@ -51,7 +48,6 @@ public class SignOnFragment  extends Fragment {
         super.onStart();
         initicontrol();
     }
-
 
     private void initicontrol(){
 
@@ -68,7 +64,6 @@ public class SignOnFragment  extends Fragment {
         connector.open();
 
         comm = (Communicator) getActivity();
-
 
         et_Email.addTextChangedListener(new TextWatcher() {
             @Override
@@ -119,24 +114,9 @@ public class SignOnFragment  extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 if (!DateValidate(et_dateOfBirth.getText().toString()))
-                    et_dateOfBirth.setError("You haven't the minimun age to access to this app.");
+                    et_dateOfBirth.setError("It's doesn't appear with expected date format.");
                 else
                     et_dateOfBirth.setError(null);
-            }
-        });
-
-
-        et_dateOfBirth.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    DateDialog dialog = new DateDialog(v);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    dialog.show(ft, "DatePicker");
-                    return true;
-                }
-
-                return false;
             }
         });
 
@@ -144,83 +124,88 @@ public class SignOnFragment  extends Fragment {
 
             @Override
             public void onClick(View v) {
-
-                String username = et_Username.getText().toString();
-                String name = et_Name.getText().toString();
-                String email = et_Email.getText().toString();
-                String password = et_Password.getText().toString();
-                String password2 = et_Password2.getText().toString();
-                String date = et_dateOfBirth.getText().toString();
-
-                if (username.matches("") || name.matches("")|| password.matches("") || password2.matches("") ||
-                        date.matches("") || email.matches("")) {
-                    Toast.makeText(getActivity() , "Please, fill all fields.", Toast.LENGTH_SHORT).show();
-                }
-
-                if (connector.verifyUsernameAndEmail(username, email))
-                    et_Username.setError("Username or email already in use, insert another please.");
-
-                // TODO: insert condition to validate date
-                if (!DateValidate(date))
-                    Toast.makeText(getActivity(), "You haven't the minimun age to access to this app.", Toast.LENGTH_SHORT).show();
-                //et_dateOfBirth.setError("You haven't the minimun age to access to this app.");
-
-                if (verifyEqualsPasswords(password, password2) &&
-                        DateValidate(date) &&
-                        !connector.verifyUsernameAndEmail(username, email)) {
-                    connector.createUser(username,name, email, date,"Não Definido",1,0, password);
-                    session.setusername(username);
-                    Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
-                    comm.respond(0,0);//1 quer dizer que foi positivo
-
-                }
+                checkError();
             }
         });
     }
 
-    private boolean DateValidate(String date) {
-        String toParse = "01-01-2003";
-        String format = "dd-MM-yyy";
-        SimpleDateFormat formater = new SimpleDateFormat(format);
-        try{
-            Date dateref = formater.parse(toParse);
-            Date datesend = formater.parse(date);
-            if (datesend.compareTo(dateref)>0){
-                return false;
-            }
-            else
-                return true;
-        } catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return true;
+    private void checkError (){
+        boolean flag_minimalError = false;
 
+        String username = et_Username.getText().toString();
+        String name = et_Name.getText().toString();
+        String email = et_Email.getText().toString();
+        String password = et_Password.getText().toString();
+        String password2 = et_Password2.getText().toString();
+        String date = et_dateOfBirth.getText().toString();
+
+        if (username.trim().length() < 1 || name.trim().length() < 1 || password.trim().length() < 1 ||
+                date.trim().length() < 1 || email.trim().length() < 1) {
+            Toast.makeText(getActivity() , "Please, fill all fields in.", Toast.LENGTH_SHORT).show();
+            flag_minimalError = false;
+        } else if (connector.verifyUsernameAndEmail(username, email)) {
+            et_Username.setError("Username or email already in use, insert another please.");
+            flag_minimalError = true;
+        } else if (!DateValidate(date)) {
+            et_dateOfBirth.setError("Please, fill in the date in this format: dd-mm-yyyy.");
+            flag_minimalError = true;
+        } else if (!verifyEqualsPasswords(password,password2)) {
+            et_Password.setError("Passwords doesn't match.");
+            flag_minimalError = true;
+        } else {
+            connector.createUser(username, name, email, date, "Not Defined", 1, 0, password);
+            session.setusername(username);
+            Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+            comm.respond(0, 0);//1 quer dizer que foi positivo
+        }
+
+        if (flag_minimalError)
+            Toast.makeText(getActivity() , "Please, correct assigned errors.", Toast.LENGTH_SHORT).show();
     }
 
-    @SuppressLint("ValidFragment")
-    public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+    public boolean DateValidate(final String date){
 
-        public DateDialog(View view){
-            et_dateOfBirth =(EditText)view;
+        matcher = pattern.matcher(date);
+
+        if(matcher.matches()){
+
+            matcher.reset();
+
+            if(matcher.find()){
+
+                String day = matcher.group(1);
+                String month = matcher.group(2);
+                int year = Integer.parseInt(matcher.group(3));
+
+                if (day.equals("31") &&
+                        (month.equals("4") || month .equals("6") || month.equals("9") ||
+                                month.equals("11") || month.equals("04") || month .equals("06") ||
+                                month.equals("09"))) {
+                    return false; // only 1,3,5,7,8,10,12 has 31 days
+                } else if (month.equals("2") || month.equals("02")) {
+                    //leap year
+                    if(year % 4==0){
+                        if(day.equals("30") || day.equals("31")){
+                            return false;
+                        }else{
+                            return true;
+                        }
+                    }else{
+                        if(day.equals("29")||day.equals("30")||day.equals("31")){
+                            return false;
+                        }else{
+                            return true;
+                        }
+                    }
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }else{
+            return false;
         }
-
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-            // Use the current date as the default date in the dialog
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            //show to the selected date in the text box
-            String date=day+"-"+(month+1)+"-"+year;
-            et_dateOfBirth .setText(date);
-        }
-
     }
 
     private boolean verifyEqualsPasswords(String password, String password2){
