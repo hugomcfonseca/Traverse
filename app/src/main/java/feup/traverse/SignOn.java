@@ -2,6 +2,7 @@ package feup.traverse;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class SignOn extends AppCompatActivity implements Communicator {
 
@@ -24,7 +26,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
     private Session session;//global variable
 
     DataBaseAdapter dataBaseAdapter;
-
+    ContentValues value = new ContentValues();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,8 @@ public class SignOn extends AppCompatActivity implements Communicator {
         transaction.commit();
 
     }
+
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -147,7 +151,9 @@ public class SignOn extends AppCompatActivity implements Communicator {
             myflag++;
         }else{
             questionResult[3]=val;
-            dataBaseAdapter.updatePersona(session.getusername(),findPersona());
+
+            dataBaseAdapter.createUser(session.getusername(), session.getname(), session.getemail(), session.getdate(), findPersona(), 1, 0, session.getpassword());
+            Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
             Intent nextStep = new Intent(this, MainMenu.class);
             nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(nextStep);
@@ -237,4 +243,19 @@ public class SignOn extends AppCompatActivity implements Communicator {
 
     }
 
+    public void putdata(String username, String name, String email, String date, String s, int i, int i1, String password) {
+        value.put("Name", name);
+        value.put("username", username);
+        value.put("email", email);
+        value.put("date", date);
+        value.put("persona", s);
+        value.put("status", i);
+        value.put("progress", i1);
+        value.put("pass", password);
+
+        System.out.println(value.get("Name"));
+
+
+
+    }
 }
