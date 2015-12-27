@@ -101,7 +101,7 @@
                             android:layout_width="35dp"
                             android:layout_height="38dp"
                             android:id="@+id/imageView16"
-                            android:src="@drawable/name_logo"
+                            android:src="@drawable/fullname_logo"
                             android:padding="5dp" />
 
                         <EditText

@@ -12,6 +12,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.style.SubscriptSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +52,7 @@ public class MainMenu extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     private Session session;
 
+    private String error;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,10 +159,10 @@ public class MainMenu extends AppCompatActivity {
                 et_Password = (EditText) view.findViewById(R.id.et_password);
                 cb_saveCredentials = (CheckBox) view.findViewById(R.id.cb_savecredentials);
 
-                if (sharedPreferences != null){
-                    et_Username.setText(sharedPreferences.getString("Username",et_Username.getText().toString()));
-                    et_Password.setText(sharedPreferences.getString("Password",et_Password.getText().toString()));
-                    cb_saveCredentials.setChecked(sharedPreferences.getBoolean("Checked",false));
+                if (sharedPreferences != null) {
+                    et_Username.setText(sharedPreferences.getString("Username", et_Username.getText().toString()));
+                    et_Password.setText(sharedPreferences.getString("Password", et_Password.getText().toString()));
+                    cb_saveCredentials.setChecked(sharedPreferences.getBoolean("Checked", false));
                 }
 
                 alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
@@ -179,18 +183,16 @@ public class MainMenu extends AppCompatActivity {
                                 session.setusername(username);
 
                                 // check if the Stored password matches with  Password entered by user
-                                if (password.equals(storedPassword)){
+                                if (password.equals(storedPassword)) {
 
-                                    if (cb_saveCredentials.isChecked()){
+                                    if (cb_saveCredentials.isChecked()) {
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
 
                                         editor.putString("Username", username);
                                         editor.putString("Password", password);
                                         editor.putBoolean("Checked", checkBox);
                                         editor.apply();
-                                    }
-
-                                    else {
+                                    } else {
                                         sharedPreferences.edit().clear().commit();
                                     }
 
@@ -200,8 +202,7 @@ public class MainMenu extends AppCompatActivity {
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(MainMenu.this, "Wrong or inexistent credentials.",
                                             Toast.LENGTH_LONG).show();
                                 }
@@ -221,39 +222,64 @@ public class MainMenu extends AppCompatActivity {
             }
         });
     }
-
     private void recoverCredentials(){
+
         runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
 
-                View view = getLayoutInflater().inflate(R.layout.recover_form, null);
-                et_Email = (EditText)view.findViewById(R.id.et_email);
+                          @Override
+                          public void run() {
 
-                alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
-                alertDialogBuilder.setTitle("Recover Credentials");
-                alertDialogBuilder.setView(view);
-                alertDialogBuilder.setPositiveButton("Send Email!",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                              View view = getLayoutInflater().inflate(R.layout.recover_form, null);
+                              et_Email = (EditText) view.findViewById(R.id.et_email);
+                              if (error == "Empty") {
+                                  et_Email.setError("Text is empty");
+                              } else if (error == "NULL") {
+                                  et_Email.setError("Inexistence email");
+                              }
 
-                            }
-                        });
+                              alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
+                              alertDialogBuilder.setTitle("Recover Credentials");
+                              alertDialogBuilder.setView(view);
+                              alertDialogBuilder.setPositiveButton("Send Email!",
+                                      new DialogInterface.OnClickListener() {
+                                          @Override
+                                          public void onClick(DialogInterface dialog, int which) {
+                                              if ((et_Email.getText().toString()).isEmpty()) {
+                                                  error = "Empty";
+                                                  run();
+                                              } else if (dataBaseAdapter.verifyemail(et_Email.getText().toString()) == "false") {
+                                                  error = "NULL";
+                                                  run();
+                                              } else {
+                                                  String username=dataBaseAdapter.verifyemail(et_Email.getText().toString());
+                                                  String password=dataBaseAdapter.getSingleEntry(username);
+                                                  //TODo  talk with website
 
-                alertDialogBuilder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                                              }
+                                          }
+                                      }
 
-                            }
-                        });
+                              );
 
-                alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
-    }
+                              alertDialogBuilder.setNegativeButton("Cancel",
+                                      new DialogInterface.OnClickListener()
+
+                                      {
+                                          @Override
+                                          public void onClick(DialogInterface dialog, int which) {
+
+                                          }
+                                      }
+
+                              );
+
+                              alertDialog = alertDialogBuilder.create();
+                              alertDialog.show();
+                          }
+                      }
+
+        );
+        }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
