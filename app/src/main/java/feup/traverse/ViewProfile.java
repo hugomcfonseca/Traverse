@@ -83,7 +83,7 @@ public class ViewProfile extends AppCompatActivity {
         btn_editUserData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent nextStep = new Intent("feup.traverse.ChangeProfile");
+                Intent nextStep = new Intent("feup.traverse.ProfileSettings");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
                 closeThisActivity();

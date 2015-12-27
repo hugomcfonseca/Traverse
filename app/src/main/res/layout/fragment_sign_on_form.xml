@@ -99,7 +99,7 @@
                                 android:layout_height="38dp"
                                 android:id="@+id/imageView10"
                                 android:padding="2dp"
-                                android:src="@android:drawable/ic_menu_my_calendar" />
+                                android:src="@drawable/fullname_logo" />
 
                             <EditText
                                 android:layout_width="wrap_content"

@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class DataBaseAdapter {
     private SQLiteDatabase database;
     private DataBaseHelper dbHelper;
-    private String[] allColumns = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
+    private String[] allColumns_userData = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
             DataBaseHelper.DATE,DataBaseHelper.PERSONA,DataBaseHelper.STATUS,
             DataBaseHelper.PROGRESS, DataBaseHelper.PASSWORD};
 
@@ -30,10 +30,11 @@ public class DataBaseAdapter {
         database.close();
     }
 
-    public  SQLiteDatabase getDatabaseInstance()
-    {
+    public  SQLiteDatabase getDatabaseInstance(){
         return database;
     }
+
+    /** The next methods are about user data table */
 
     public void createUser (String username,String name, String email, String date,String persona ,
                             int status,int progress,String password) {
@@ -48,16 +49,11 @@ public class DataBaseAdapter {
         values.put(DataBaseHelper.PROGRESS, progress);
         values.put(DataBaseHelper.PASSWORD, password);
 
-        database.insert(DataBaseHelper.TABLE_NAME, null, values);
-    }
-
-    public void deleteEntry(String username) {
-        database.delete(DataBaseHelper.TABLE_NAME, DataBaseHelper.USERNAME + " = " + username,
-                null);
+        database.insert(DataBaseHelper.TABLE_NAME_USERDATA, null, values);
     }
 
     public String getSingleEntry(String username) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
         if(cursor.getCount() < 1) { // UserName Not Exist
@@ -73,10 +69,10 @@ public class DataBaseAdapter {
     }
 
     public boolean verifyUsernameAndEmail(String username, String email) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
-        Cursor cursor2 = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+        Cursor cursor2 = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.EMAIL + " = ?", new String[]{email});
 
         if(cursor.getCount() < 1 && cursor2.getCount() < 1) { // UserName Not Exist
@@ -85,6 +81,22 @@ public class DataBaseAdapter {
         }
 
         return true;
+    }
+
+    public String verifyEmail(String email){
+        Cursor cursor=database.rawQuery("SELECT username FROM "+ DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
+                DataBaseHelper.EMAIL + " = ?", new String[]{email});
+        if (cursor.getCount()<1){
+            cursor.close();
+            return "false";
+        }
+        else{
+            cursor.moveToFirst();
+            String username = cursor.getString(cursor.getColumnIndex(DataBaseHelper.USERNAME));
+            cursor.close();
+            return username;
+        }
+
     }
 
     public void updateEntry (String username,String name, String email, String date, String password) {
@@ -97,21 +109,11 @@ public class DataBaseAdapter {
         updatedValues.put(DataBaseHelper.PASSWORD, password);
 
         String where="USERNAME = ?";
-        database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
-    }
-
-    public void updatePersona(String username,String persona) {
-        // Define the updated row content.
-        ContentValues updatedValues = new ContentValues();
-        // Assign values for each row.
-        updatedValues.put(DataBaseHelper.PERSONA, persona);
-
-        String where="USERNAME = ?";
-        database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
+        database.update(DataBaseHelper.TABLE_NAME_USERDATA, updatedValues, where, new String[]{username});
     }
 
     public Cursor getProfileData(String username) {
-        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
         if(cursor.getCount() < 1) {
@@ -122,6 +124,44 @@ public class DataBaseAdapter {
         cursor.moveToFirst();
 
         return cursor;
+    }
+
+    /** The next methods are about places table */
+
+    public String[] getPlaceByPersona(String persona, int phase_number){
+        String [] markup = new String[3];
+        String sql_query = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+
+                " = "+persona+" AND "+DataBaseHelper.PHASE+" = "+phase_number;
+        Cursor cursor = database.rawQuery(sql_query,null);
+
+        if(cursor.getCount() < 1) { // UserName Not Exist
+            cursor.close();
+            return null;
+        } else {
+            cursor.moveToFirst();
+            markup[0] = cursor.getString(cursor.getColumnIndex(DataBaseHelper.LOCAL));
+            markup[1] = Double.toString(cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.LATITUDE)));
+            markup[2] = Double.toString(cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.LONGITUDE)));
+            cursor.close();
+        }
+
+        return markup;
+    }
+
+    public Cursor getChaptersInfo (String username){
+
+        Cursor cursor = getProfileData(username);
+        String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
+
+        cursor.close();
+
+        String sqlQuery = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona
+                +"' ORDER BY "+DataBaseHelper.PHASE;
+        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+
+        cursor2.moveToFirst();
+
+        return cursor2;
     }
 
 }

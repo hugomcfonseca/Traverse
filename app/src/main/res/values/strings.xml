@@ -12,6 +12,7 @@
     <string name="drawer_close">Close</string>
     <string name="drawer_home">Home</string>
     <string name="drawer_signon">Sign On</string>
+    <string name="drawer_homepage_chapters">Chapters</string>
     <string name="drawer_view_profile">Profile</string>
     <string name="drawer_progress">Progress</string>
     <string name="drawer_map">Map</string>

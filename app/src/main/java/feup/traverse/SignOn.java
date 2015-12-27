@@ -2,28 +2,26 @@ package feup.traverse;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 public class SignOn extends AppCompatActivity implements Communicator {
 
     private int myflag = 0;
     int questionResult[] = new int[4];
     FragmentManager manager;
-    private CustomDrawer drawer;
 
     private Session session;//global variable
 
     DataBaseAdapter dataBaseAdapter;
+    ContentValues value = new ContentValues();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,34 +31,18 @@ public class SignOn extends AppCompatActivity implements Communicator {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.signon_drawerlayout),
-                (NavigationView) findViewById(R.id.signon_nav_view), toolbar);
-
         manager = getFragmentManager();
 
         session = new Session(this.getBaseContext()); //in oncreate
         dataBaseAdapter = new DataBaseAdapter(this);
         dataBaseAdapter.open();
 
-        SignOnFragment f1 = new SignOnFragment();
+        SignOnForm f1 = new SignOnForm();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.sign, f1, "SignOn");
         transaction.addToBackStack(null);
         transaction.commit();
 
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        drawer.toggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawer.toggle.onConfigurationChanged(newConfig);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,15 +77,10 @@ public class SignOn extends AppCompatActivity implements Communicator {
     @Override
     public void onBackPressed() {
 
-        if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
-            drawer.layout.closeDrawer(GravityCompat.START);
-            return;
-        } else {
-            Intent i = new Intent(this, MainMenu.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            closeThisActivity();
-        }
+        Intent i = new Intent(this, MainMenu.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        closeThisActivity();
 
         super.onBackPressed();
     }
@@ -111,14 +88,14 @@ public class SignOn extends AppCompatActivity implements Communicator {
     @Override
     public void respond(int i, int val) {
         if (i == 0) {
-            QuestionaryFragment f2 = new QuestionaryFragment();
+            SignOnQuestionary f2 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f2, "ReplaceQuestion1");
             transaction.addToBackStack("add1");
             transaction.commit();
         }
         else if (i == 1) {
-            QuestionaryFragment f3 = new QuestionaryFragment();
+            SignOnQuestionary f3 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f3, "ReplaceQuestion2");
             transaction.addToBackStack(null);
@@ -129,7 +106,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
 
         }
         else if (i == 2) {
-            QuestionaryFragment f4 = new QuestionaryFragment();
+            SignOnQuestionary f4 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f4, "ReplaceQuestion3");
             transaction.addToBackStack("add_3");
@@ -138,7 +115,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
             myflag++;
         }
         else if (i == 3) {
-            QuestionaryFragment f5 = new QuestionaryFragment();
+            SignOnQuestionary f5 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f5, "ReplaceQuestion4");
             transaction.addToBackStack("add_4");
@@ -147,7 +124,9 @@ public class SignOn extends AppCompatActivity implements Communicator {
             myflag++;
         }else{
             questionResult[3]=val;
-            dataBaseAdapter.updatePersona(session.getusername(),findPersona());
+
+            dataBaseAdapter.createUser(session.getusername(), session.getname(), session.getemail(), session.getdate(), findPersona(), 1, 0, session.getpassword());
+            Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
             Intent nextStep = new Intent(this, MainMenu.class);
             nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(nextStep);
@@ -200,7 +179,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
         myflag--;
         if(myflag==3){
             myflag--;
-            QuestionaryFragment f4 = new QuestionaryFragment();
+            SignOnQuestionary f4 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f4, "ReplaceQuestion3");
             transaction.addToBackStack("add_3");
@@ -209,7 +188,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
         }
         else if(myflag==2){
             myflag--;
-            QuestionaryFragment f4 = new QuestionaryFragment();
+            SignOnQuestionary f4 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f4, "ReplaceQuestion3");
             transaction.addToBackStack("add_3");
@@ -218,7 +197,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
         }
         else if(myflag==1){
             myflag--;
-            QuestionaryFragment f3 = new QuestionaryFragment();
+            SignOnQuestionary f3 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f3, "ReplaceQuestion2");
             transaction.addToBackStack(null);
@@ -226,7 +205,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
             myflag++;
         }
         else if(myflag==0){
-            QuestionaryFragment f2 = new QuestionaryFragment();
+            SignOnQuestionary f2 = new SignOnQuestionary();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.sign, f2, "ReplaceQuestion2");
             transaction.addToBackStack(null);

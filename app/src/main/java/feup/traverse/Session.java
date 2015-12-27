@@ -19,8 +19,36 @@ public class Session {
         prefs.edit().putString("username", username).apply();
     }
 
+    public void putdata(String username, String name, String email, String date,  String password) {
+        prefs.edit().putString("username", username).apply();
+        prefs.edit().putString("name", name).apply();
+        prefs.edit().putString("email", email).apply();
+        prefs.edit().putString("date", date).apply();
+        prefs.edit().putString("password", password).apply();
+
+    }
+
     public String getusername() {
-        String username = prefs.getString("username","");
-        return username;
+        return prefs.getString("username","");
+    }
+
+    public String getname() {
+        return prefs.getString("name","");
+    }
+
+    public String getdate() {
+        return prefs.getString("date","");
+    }
+
+    public String getemail() {
+        return prefs.getString("email","");
+    }
+
+    public String getpassword() {
+        return prefs.getString("password","");
+    }
+
+    public void deleteUsername(){
+        prefs.edit().clear().apply();
     }
 }

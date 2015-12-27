@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
  * @date 16/12/2015.
  */
 
-public class SignOnFragment  extends Fragment {
+public class SignOnForm extends Fragment {
 
     DataBaseAdapter connector;
     Communicator comm;
@@ -153,9 +152,9 @@ public class SignOnFragment  extends Fragment {
             et_Password.setError("Passwords doesn't match.");
             flag_minimalError = true;
         } else {
-            connector.createUser(username, name, email, date, "Not Defined", 1, 0, password);
-            session.setusername(username);
-            Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+
+            session.putdata(username, name, email, date,password);
+            //Toast.makeText(getActivity(), "Account created successfully!", Toast.LENGTH_SHORT).show();
             comm.respond(0, 0);//1 quer dizer que foi positivo
         }
 

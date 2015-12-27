@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="General">
-        <menu>
-            <group android:checkableBehavior="single">
-                <item android:id="@+id/nav_home"
-                    android:title="@string/drawer_home" />
-                <item android:id="@+id/nav_signon"
-                    android:title="@string/drawer_signon" />
-            </group>
-        </menu>
-    </item>
+
 
     <item android:title="User Page">
         <menu>
-            <group android:checkableBehavior="single">
+                <item android:id="@+id/nav_homepage_chapters"
+                    android:title="@string/drawer_homepage_chapters" />
                 <item android:id="@+id/nav_view_profile"
                     android:title="@string/drawer_view_profile" />
                 <item android:id="@+id/nav_progress"
@@ -23,9 +15,6 @@
                     android:title="@string/drawer_map" />
                 <item android:id="@+id/nav_social"
                     android:title="@string/drawer_social" />
-                <item android:id="@+id/nav_settings"
-                    android:title="@string/drawer_settings" />
-            </group>
         </menu>
     </item>
 

@@ -21,13 +21,11 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
     NavigationView navView;
     AppCompatActivity parent;
 
-    private final int POSITION_HOME = 00;
-    private final int POSITION_SIGNON = 01;
-    private final int POSITION_PROFILE  = 10;
-    private final int POSITION_PROGRESS = 11;
-    private final int POSITION_MAP = 12;
-    private final int POSITION_SOCIAL = 13;
-    private final int POSITION_SETTINGS = 14;
+    private final int POSITION_CHAPTERS = 00;
+    private final int POSITION_PROFILE  = 01;
+    private final int POSITION_PROGRESS = 02;
+    private final int POSITION_MAP = 03;
+    private final int POSITION_SOCIAL = 04;
 
     private int checked_pos;
     CustomDrawer (AppCompatActivity nParent, DrawerLayout nLayout, NavigationView nNavView, Toolbar nToolbar) {
@@ -51,19 +49,20 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
         navView.setNavigationItemSelectedListener(this);
 
-        if (parent instanceof MainMenu )
-            pos = POSITION_HOME;
-        else
-        if (parent instanceof SignOn )
-            pos = POSITION_SIGNON;
+        if (parent instanceof HomePageChapters )
+            pos = POSITION_CHAPTERS;
         else
         if (parent instanceof ViewProfile )
             pos = POSITION_PROFILE;
         else
 
+        if (parent instanceof SocialMedia)
+            pos = POSITION_SOCIAL;
+        else
+
             checked_pos = pos;
 
-        navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem( pos%10 ).setChecked(true);
+        navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem(pos % 10).setChecked(true);
 
     }
 
@@ -78,18 +77,11 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         int pos = -1;
         Intent i = null;
 
-
         switch (id) {
-            case R.id.nav_home:
-                if( !(parent instanceof MainMenu) )
-                    i = new Intent(parent, MainMenu.class);
-                pos = POSITION_HOME;
-                break;
-
-            case R.id.nav_signon:
-                if( !(parent instanceof SignOn) )
-                    i = new Intent(parent, SignOn.class);
-                pos = POSITION_SIGNON;
+            case R.id.nav_homepage_chapters:
+                if( !(parent instanceof HomePageChapters) )
+                    i = new Intent(parent, HomePageChapters.class);
+                pos = POSITION_CHAPTERS;
                 break;
 
             case R.id.nav_view_profile:
@@ -110,10 +102,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
                 if( !(parent instanceof SocialMedia) )
                     i = new Intent(parent, SocialMedia.class);
                 pos = POSITION_SOCIAL;
-                break;
-
-            case R.id.nav_settings:
-                pos = POSITION_SETTINGS;
                 break;
         }
 

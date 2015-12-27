@@ -1,0 +1,1126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/homepage_chapters_drawerlayout"
+    android:clickable="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/tool_bar"
+            />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView21"
+                android:background="@drawable/main_background" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView4"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter1"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 1"
+                            android:id="@+id/textView4"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView5"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/cb_audio_chapter1"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:textColor="#ffffff"
+                                android:buttonTint="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView6"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView7"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView8"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/tv_place_chapter1"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView9"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter1"
+                                android:src="@drawable/unlocked"
+                                android:padding="4dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout_chapter2"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:background="#8b000000">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 2"
+                            android:id="@+id/textView10"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView11"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/cb_audio_chapter2"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:textColor="#ffffff"
+                                android:buttonTint="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView12"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView13"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView14"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView15"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView16"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter2"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter3"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 3"
+                            android:id="@+id/textView17"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView18"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/checkBox"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:textColor="#ffffff"
+                                android:buttonTint="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView19"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView20"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView21"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView22"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView23"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter3"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter4"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 4"
+                            android:id="@+id/textView29"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView24"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/checkBox2"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:buttonTint="#ffffff"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView25"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView26"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView27"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView28"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView30"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter4"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter5"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 5"
+                            android:id="@+id/textView36"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView31"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/checkBox3"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:buttonTint="#ffffff"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView32"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView33"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView34"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView35"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView37"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter5"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter6"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 6"
+                            android:id="@+id/textView43"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView38"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/checkBox4"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:buttonTint="#ffffff"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView39"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView40"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView41"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView42"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView44"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter6"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter7"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 7"
+                            android:id="@+id/textView50"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView45"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/checkBox5"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:buttonTint="#ffffff"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView46"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView47"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView48"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView49"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView51"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter7"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#8b000000"
+                        android:id="@+id/linearLayout_chapter8"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="2dp"
+                        android:clickable="false" >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Chapter 8"
+                            android:id="@+id/textView57"
+                            android:textAlignment="center"
+                            android:textSize="30sp"
+                            android:textColor="#ffffff"
+                            android:textStyle="bold|italic" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Audio File:"
+                                android:id="@+id/textView52"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <CheckBox
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Yes"
+                                android:id="@+id/checkBox6"
+                                android:checked="true"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:clickable="false"
+                                android:buttonTint="#ffffff"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Chapter Name:"
+                                android:id="@+id/textView53"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Initial Chapter"
+                                android:id="@+id/textView54"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Place to Visit:"
+                                android:id="@+id/textView55"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
+                                android:id="@+id/textView56"
+                                android:textSize="16sp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#ffffff" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Actual State:"
+                                android:id="@+id/textView58"
+                                android:textColor="#ffffff"
+                                android:padding="5dp"
+                                android:layout_gravity="center" />
+
+                            <ImageView
+                                android:layout_width="38dp"
+                                android:layout_height="35dp"
+                                android:id="@+id/im_status_chapter8"
+                                android:src="@drawable/locked"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView android:id="@+id/homepage_chapters_nav_view"
+        android:layout_width="wrap_content" android:layout_height="match_parent"
+        android:layout_gravity="start" android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header" app:menu="@menu/drawer_menu" />
+</android.support.v4.widget.DrawerLayout>

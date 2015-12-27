@@ -68,11 +68,21 @@
         </activity>
 
         <activity
-            android:name=".ChangeProfile"
+            android:name=".ProfileSettings"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="feup.traverse.ChangeProfile" />
+                <action android:name="feup.traverse.ProfileSettings" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".HomePageChapters"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.traverse.HomePageChapters" />
                 <category android:name="android.intent.category.DEFAULT"  />
             </intent-filter>
         </activity>

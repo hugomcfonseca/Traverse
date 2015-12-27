@@ -20,7 +20,7 @@ import android.widget.Toast;
 /**
  * Created by Filipe on 16/12/2015.
  */
-public class QuestionaryFragment extends Fragment {
+public class SignOnQuestionary extends Fragment {
 
     private Button buttons[][] =new Button[NUM_ROWS][NUM_COLS];
 
@@ -29,8 +29,6 @@ public class QuestionaryFragment extends Fragment {
     private static final int NUM_COLS = 2 ;
     private static final int NUM_ROWS = 2;
     int questionResult[]=new int[NUM_COLS*NUM_ROWS];
-
-
 
     @Nullable
     @Override

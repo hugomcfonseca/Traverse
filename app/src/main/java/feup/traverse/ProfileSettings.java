@@ -16,16 +16,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by hugof on 25/12/2015.
  */
-public class ChangeProfile extends AppCompatActivity {
+public class ProfileSettings extends AppCompatActivity {
 
     private CustomDrawer drawer;
 
@@ -73,7 +71,7 @@ public class ChangeProfile extends AppCompatActivity {
         iv_settings_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChangeProfile.this, "Clicked!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileSettings.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -81,7 +79,7 @@ public class ChangeProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (updateUserData()){
-                    Toast.makeText(ChangeProfile.this, "User data updated!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ProfileSettings.this, "User data updated!", Toast.LENGTH_SHORT).show();
 
                     Intent nextStep = new Intent("feup.traverse.ViewProfile");
                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -120,7 +118,8 @@ public class ChangeProfile extends AppCompatActivity {
             et_Name.setError("Set a name with a 30 characters at maximum.");
             isGood = false;
         }
-        else if (!et_Password.getText().toString().matches(et_Password2.getText().toString())){
+        else if (!et_Password.getText().toString().matches(et_Password2.getText().toString())
+                || (et_Password.getText().toString().length() < 1 && et_Password2.getText().toString().length() < 1) ){
             et_Password.setError("Set valid passwords.");
             isGood = false;
         }
