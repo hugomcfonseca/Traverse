@@ -1,12 +1,16 @@
 package feup.traverse;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -66,6 +70,52 @@ public class SocialMedia extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        drawer.toggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawer.toggle.onConfigurationChanged(newConfig);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void closeThisActivity(){
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
+            drawer.layout.closeDrawer(GravityCompat.START);
+            return;
+        } else {
+            Intent i = new Intent(this, HomePageChapters.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            closeThisActivity();
+        }
+
+        super.onBackPressed();
+    }
 
 }
 

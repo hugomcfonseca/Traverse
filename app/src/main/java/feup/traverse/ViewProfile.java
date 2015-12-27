@@ -92,7 +92,6 @@ public class ViewProfile extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -138,7 +137,7 @@ public class ViewProfile extends AppCompatActivity {
             drawer.layout.closeDrawer(GravityCompat.START);
             return;
         } else {
-            Intent i = new Intent(this, MainMenu.class);
+            Intent i = new Intent(this, HomePageChapters.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             closeThisActivity();
