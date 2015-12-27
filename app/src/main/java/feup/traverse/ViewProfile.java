@@ -31,7 +31,7 @@ public class ViewProfile extends AppCompatActivity {
     private TextView tv_Username, tv_Name, tv_birthDate,  tv_Email, tv_typeCharacter, tv_progressValue;
     private ProgressBar pb_gameProgress;
     private RadioButton rb_Status;
-    private Button btn_editUserData;
+    private Button btn_editUserData, btn_seeProgress;
 
     private Session session;//global variable
 
@@ -63,6 +63,7 @@ public class ViewProfile extends AppCompatActivity {
         rb_Status = (RadioButton)findViewById(R.id.rb_status);
         tv_progressValue = (TextView)findViewById(R.id.tv_progress_value);
         btn_editUserData = (Button)findViewById(R.id.btn_edit_profile);
+        btn_seeProgress = (Button)findViewById(R.id.btn_profile_progress);
 
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());
 
@@ -84,6 +85,16 @@ public class ViewProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent nextStep = new Intent("feup.traverse.ProfileSettings");
+                nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(nextStep);
+                closeThisActivity();
+            }
+        });
+
+        btn_seeProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent nextStep = new Intent("feup.traverse.ViewProgress");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
                 closeThisActivity();

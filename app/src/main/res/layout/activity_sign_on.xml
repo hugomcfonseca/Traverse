@@ -25,12 +25,19 @@
                 android:id="@+id/imageView3"
                 android:background="@drawable/main_background" />
 
-            <LinearLayout
-                android:id="@+id/sign"
-                android:orientation="horizontal"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"></LinearLayout>
+                android:id="@+id/scrollView5"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:id="@+id/sign"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"></LinearLayout>
+            </ScrollView>
 
         </FrameLayout>
 

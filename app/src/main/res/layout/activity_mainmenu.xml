@@ -97,7 +97,11 @@
                                     android:id="@+id/btn_login"
                                     android:layout_gravity="center"
                                     android:paddingRight="20dp"
-                                    android:paddingLeft="20dp" />
+                                    android:paddingLeft="20dp"
+                                    android:background="@drawable/rect_round_corner_notselected"
+                                    android:layout_margin="2dp"
+                                    android:backgroundTint="#cfae78"
+                                    android:textSize="17sp" />
 
                                 <Button
                                     android:layout_width="match_parent"
@@ -106,7 +110,11 @@
                                     android:id="@+id/btn_signon"
                                     android:layout_gravity="center"
                                     android:paddingLeft="20dp"
-                                    android:paddingRight="20dp" />
+                                    android:paddingRight="20dp"
+                                    android:background="@drawable/rect_round_corner_notselected"
+                                    android:layout_margin="2dp"
+                                    android:backgroundTint="#cfae78"
+                                    android:textSize="17sp" />
 
                                 <TextView
                                     android:id="@+id/tv_lostpassword"

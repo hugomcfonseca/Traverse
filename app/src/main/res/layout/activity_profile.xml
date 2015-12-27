@@ -267,19 +267,35 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="bottom"
                         android:padding="3dp">
 
                         <Button
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="See Progress"
+                            android:id="@+id/btn_profile_progress"
+                            android:layout_gravity="bottom|center"
+                            android:layout_weight="1"
+                            android:layout_margin="2dp"
+                            android:background="@drawable/rect_round_corner_notselected"
+                            android:backgroundTint="#cfae78"
+                            android:textSize="17sp" />
+
+                        <Button
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:text="Edit Profile"
                             android:id="@+id/btn_edit_profile"
                             android:layout_gravity="bottom|center"
-                            android:padding="2dp" />
+                            android:layout_weight="1"
+                            android:layout_margin="2dp"
+                            android:background="@drawable/rect_round_corner_notselected"
+                            android:backgroundTint="#cfae78"
+                            android:textSize="17sp" />
                     </LinearLayout>
 
                 </LinearLayout>
