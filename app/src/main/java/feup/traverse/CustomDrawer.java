@@ -107,8 +107,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
                 break;
 
             case R.id.nav_social:
-                if( !(parent instanceof SocialMedia) )
-                    i = new Intent(parent, SocialMedia.class);
                 pos = POSITION_SOCIAL;
                 break;
 
