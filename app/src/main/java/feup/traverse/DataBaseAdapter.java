@@ -86,21 +86,6 @@ public class DataBaseAdapter {
 
         return true;
     }
-    public String verifyemail(String email){
-        Cursor cursor=database.rawQuery("SELECT username FROM "+ DataBaseHelper.TABLE_NAME + " WHERE " +
-                DataBaseHelper.EMAIL + " = ?", new String[]{email});
-        if (cursor.getCount()<1){
-            cursor.close();
-            return "false";
-        }
-        else{
-            cursor.moveToFirst();
-            String username = cursor.getString(cursor.getColumnIndex(DataBaseHelper.USERNAME));
-            cursor.close();
-            return username;
-        }
-
-    }
 
     public void updateEntry (String username,String name, String email, String date, String password) {
         // Define the updated row content.
@@ -115,6 +100,15 @@ public class DataBaseAdapter {
         database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
     }
 
+    public void updatePersona(String username,String persona) {
+        // Define the updated row content.
+        ContentValues updatedValues = new ContentValues();
+        // Assign values for each row.
+        updatedValues.put(DataBaseHelper.PERSONA, persona);
+
+        String where="USERNAME = ?";
+        database.update(DataBaseHelper.TABLE_NAME, updatedValues, where, new String[]{username});
+    }
 
     public Cursor getProfileData(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME + " WHERE " +
