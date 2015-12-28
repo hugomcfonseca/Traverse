@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -188,7 +187,7 @@ public class DataBaseAdapter {
 
         return cursor2;
     }
-   /**
+
     public List<PhaseDoneItem> getAllPhasesDone(String username) {
 
         Cursor cursor = getProfileData(username);
@@ -225,7 +224,6 @@ public class DataBaseAdapter {
         return phasesDoneItem;
     }
 
-    // ACRESCENTA ESTE MÉTODO *********************************************
     public Cursor getLastLocalName (String username){
 
         Cursor cursor = getProfileData(username);
@@ -240,6 +238,6 @@ public class DataBaseAdapter {
         cursor2.moveToFirst();
 
         return cursor2;
-    }*/
+    }
 
 }

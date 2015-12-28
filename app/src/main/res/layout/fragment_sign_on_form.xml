@@ -41,198 +41,186 @@
                     android:id="@+id/textView" />
             </LinearLayout>
 
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/scrollView"
-                android:layout_below="@+id/linearLayout"
-                android:fillViewport="true"
-                android:padding="5dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="15dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/linearLayout">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_round_corner_notselected"
+                    android:padding="15dp"
+                    android:layout_gravity="center">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="38dp"
+                            android:id="@+id/imageView4"
+                            android:src="@drawable/user_logo"
+                            android:padding="2dp" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPersonName"
+                            android:hint="Username"
+                            android:ems="10"
+                            android:id="@+id/et_username"
+                            android:layout_above="@+id/et_email"
+                            android:layout_alignStart="@+id/et_email"
+                            android:maxLength="20" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="38dp"
+                            android:id="@+id/imageView10"
+                            android:padding="2dp"
+                            android:src="@drawable/fullname_logo" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textCapSentences|textPersonName"
+                            android:hint="Name"
+                            android:ems="10"
+                            android:id="@+id/et_name"
+                            android:layout_above="@+id/et_email"
+                            android:layout_alignStart="@+id/et_email"
+                            android:maxLength="30" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="38dp"
+                            android:id="@+id/imageView5"
+                            android:src="@drawable/mail_logo" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textEmailAddress"
+                            android:hint="E-mail"
+                            android:ems="10"
+                            android:id="@+id/et_email"
+                            android:layout_above="@+id/et_password"
+                            android:layout_alignStart="@+id/et_password"
+                            android:maxLength="40" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="38dp"
+                            android:id="@+id/imageView6"
+                            android:src="@drawable/date_logo"
+                            android:padding="5dp" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="date"
+                            android:hint="Date of Birth"
+                            android:ems="10"
+                            android:id="@+id/et_dateofbirth"
+                            android:layout_above="@+id/et_password"
+                            android:layout_alignStart="@+id/et_password"
+                            android:maxLength="10" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="38dp"
+                            android:id="@+id/imageView7"
+                            android:src="@drawable/pass_logo"
+                            android:padding="5dp" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:hint="Password"
+                            android:ems="10"
+                            android:id="@+id/et_password"
+                            android:layout_above="@+id/et_conf_pass"
+                            android:layout_centerHorizontal="true" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <ImageView
+                            android:layout_width="35dp"
+                            android:layout_height="38dp"
+                            android:id="@+id/imageView8"
+                            android:src="@drawable/pass_logo"
+                            android:padding="5dp" />
+
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="textPassword"
+                            android:hint="Confirm Password"
+                            android:ems="10"
+                            android:id="@+id/et_conf_pass"
+                            android:layout_above="@+id/btn_register"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="60dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:gravity="bottom">
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rect_round_corner_notselected"
-                        android:padding="15dp"
-                        android:layout_gravity="center">
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="38dp"
-                                android:id="@+id/imageView4"
-                                android:src="@drawable/user_logo"
-                                android:padding="2dp" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="textPersonName"
-                                android:hint="Username"
-                                android:ems="10"
-                                android:id="@+id/et_username"
-                                android:layout_above="@+id/et_email"
-                                android:layout_alignStart="@+id/et_email"
-                                android:maxLength="20" />
-                        </LinearLayout>
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="38dp"
-                                android:id="@+id/imageView10"
-                                android:padding="2dp"
-                                android:src="@drawable/fullname_logo" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="textCapSentences|textPersonName"
-                                android:hint="Name"
-                                android:ems="10"
-                                android:id="@+id/et_name"
-                                android:layout_above="@+id/et_email"
-                                android:layout_alignStart="@+id/et_email"
-                                android:maxLength="30" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="38dp"
-                                android:id="@+id/imageView5"
-                                android:src="@drawable/mail_logo" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="textEmailAddress"
-                                android:hint="E-mail"
-                                android:ems="10"
-                                android:id="@+id/et_email"
-                                android:layout_above="@+id/et_password"
-                                android:layout_alignStart="@+id/et_password"
-                                android:maxLength="40" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="38dp"
-                                android:id="@+id/imageView6"
-                                android:src="@drawable/date_logo"
-                                android:padding="5dp" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="date"
-                                android:hint="Date of Birth"
-                                android:ems="10"
-                                android:id="@+id/et_dateofbirth"
-                                android:layout_above="@+id/et_password"
-                                android:layout_alignStart="@+id/et_password"
-                                android:maxLength="10" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="38dp"
-                                android:id="@+id/imageView7"
-                                android:src="@drawable/pass_logo"
-                                android:padding="5dp" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="textPassword"
-                                android:hint="Password"
-                                android:ems="10"
-                                android:id="@+id/et_password"
-                                android:layout_above="@+id/et_conf_pass"
-                                android:layout_centerHorizontal="true" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
-
-                            <ImageView
-                                android:layout_width="35dp"
-                                android:layout_height="38dp"
-                                android:id="@+id/imageView8"
-                                android:src="@drawable/pass_logo"
-                                android:padding="5dp" />
-
-                            <EditText
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:inputType="textPassword"
-                                android:hint="Confirm Password"
-                                android:ems="10"
-                                android:id="@+id/et_conf_pass"
-                                android:layout_above="@+id/btn_register"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginBottom="60dp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
+                    <Button
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="bottom">
-
-                        <Button
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Next"
-                            android:id="@+id/btn_register"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentEnd="true"
-                            android:background="@drawable/rect_round_corner_notselected"
-                            android:backgroundTint="#cfae78"
-                            android:textSize="17sp" />
-                    </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:text="Next"
+                        android:id="@+id/btn_register"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/rect_round_corner_notselected"
+                        android:backgroundTint="#cfae78"
+                        android:textSize="17sp" />
                 </LinearLayout>
-            </ScrollView>
+            </LinearLayout>
 
         </RelativeLayout>
 

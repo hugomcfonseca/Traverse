@@ -32,6 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String LONGITUDE = "longitude";
     public static final String PHASE = "phase";
     public static final String LOCKED = "locked";
+    public static final String SCORE = "score";
 
     public DataBaseHelper (Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -46,7 +47,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(scriptUserData());
         db.execSQL(scriptPlaces());
 
-        initDatabaseHardcoded(db,2,2,0);
+        initDatabaseHardcoded(db,2,3,0);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         userData_table.append("create table if not exists "+ TABLE_NAME_USERDATA +" ( ");
         userData_table.append(ID + " integer primary key autoincrement, ");
-        userData_table.append(NAME + " varchar(30) not null unique, ");
+        userData_table.append(NAME + " varchar(30) not null, ");
         userData_table.append(USERNAME + " varchar(20) not null unique, ");
         userData_table.append(EMAIL + " varchar(40) not null unique, ");
         userData_table.append(DATE + " varchar(12) not null, ");
@@ -88,7 +89,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         maps_table.append(LATITUDE + " double not null, ");
         maps_table.append(LONGITUDE + " double not null, ");
         maps_table.append(LOCKED + " integer not null, ");
-        maps_table.append(PHASE + " integer not null ");
+        maps_table.append(PHASE + " integer not null, ");
+        maps_table.append(SCORE + " integer ");
         maps_table.append(");");
 
         return maps_table.toString();
@@ -124,13 +126,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         if (n_places > 0) {
             array[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
-                    + LOCKED + " ," + PHASE  + " )" +
-                    " VALUES(1,'Music','Majestik',41.1597026,-8.6057382,0,1)";
+                    + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                    " VALUES(1,'Music','Majestik',41.1597026,-8.6057382,0,1,100)";
             db.execSQL(array[2]);
-            array[3] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
-                    + LOCKED + " ," + PHASE  + " )" +
-                    " VALUES(2,'Music','Maus Hábitos',41.1597026,-8.6057382,1,2)";
+            array[3] =  "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                    + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                    " VALUES(2,'Music','Maus Hábitos',41.1597026,-8.6057382,0,2,75)";
             db.execSQL(array[3]);
+            array[4] =  "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                    + LOCKED + " ," + PHASE + " )" +
+                    " VALUES(3,'Music','Hard Club',41.1597026,-8.6057382,1,3)";
+            db.execSQL(array[4]);
         }
 
     }

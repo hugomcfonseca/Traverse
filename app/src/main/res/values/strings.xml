@@ -17,10 +17,20 @@
     <string name="drawer_progress">Progress</string>
     <string name="drawer_map">Map</string>
     <string name="drawer_social">Social</string>
-    <string name="drawer_settings">Settings</string>
+    <string name="drawer_logout">Log Out</string>
     <string name="btn_signIn">Login</string>
     <string name="tv_forgotCred"><u>Forgot your credentials?</u></string>
     <string name="preference_file_key">save_credentials</string>
 
+    <!--<string-array name="navigation_items">
+        <item>Chapters</item>
+        <item>View Profile</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>-->
 
 </resources>

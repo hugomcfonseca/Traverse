@@ -30,7 +30,7 @@ public class SignOnForm extends Fragment {
     private Matcher matcher;
 
     private static final String DATE_PATTERN =
-            "(0?[1-9]|[12][0-9]|3[01])-(0?[1-9]|1[012])-((19|20)\\d\\d)";
+            "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -146,7 +146,7 @@ public class SignOnForm extends Fragment {
             et_Username.setError("Username or email already in use, insert another please.");
             flag_minimalError = true;
         } else if (!DateValidate(date)) {
-            et_dateOfBirth.setError("Please, fill in the date in this format: dd-mm-yyyy.");
+            et_dateOfBirth.setError("Please, fill in the date in this format: dd/mm/yyyy.");
             flag_minimalError = true;
         } else if (!verifyEqualsPasswords(password,password2)) {
             et_Password.setError("Passwords doesn't match.");

@@ -1,5 +1,7 @@
 package feup.traverse;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -7,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * @author Hugo Fonseca
@@ -21,11 +24,17 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
     NavigationView navView;
     AppCompatActivity parent;
 
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
+
+    private Session session;
+
     private final int POSITION_CHAPTERS = 00;
     private final int POSITION_PROFILE  = 01;
     private final int POSITION_PROGRESS = 02;
     private final int POSITION_MAP = 03;
     private final int POSITION_SOCIAL = 04;
+    private final int POSITION_LOGOUT = 05;
 
     private int checked_pos;
     CustomDrawer (AppCompatActivity nParent, DrawerLayout nLayout, NavigationView nNavView, Toolbar nToolbar) {
@@ -55,7 +64,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         if (parent instanceof ViewProfile )
             pos = POSITION_PROFILE;
         else
-
         if (parent instanceof SocialMedia)
             pos = POSITION_SOCIAL;
         else
@@ -75,18 +83,20 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
         int id = item.getItemId();
         int pos = -1;
-        Intent i = null;
+        final Intent[] i = {null};
+
+        session = new Session(parent.getBaseContext());
 
         switch (id) {
             case R.id.nav_homepage_chapters:
                 if( !(parent instanceof HomePageChapters) )
-                    i = new Intent(parent, HomePageChapters.class);
+                    i[0] = new Intent(parent, HomePageChapters.class);
                 pos = POSITION_CHAPTERS;
                 break;
 
             case R.id.nav_view_profile:
                 if( !(parent instanceof ViewProfile) )
-                    i = new Intent(parent, ViewProfile.class);
+                    i[0] = new Intent(parent, ViewProfile.class);
                 pos = POSITION_PROFILE;
                 break;
 
@@ -100,17 +110,49 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
             case R.id.nav_social:
                 if( !(parent instanceof SocialMedia) )
-                    i = new Intent(parent, SocialMedia.class);
+                    i[0] = new Intent(parent, SocialMedia.class);
                 pos = POSITION_SOCIAL;
+                break;
+            case R.id.nav_logout:
+                if ( !(parent instanceof MainMenu) ) {
+                    View view = parent.getLayoutInflater().inflate(R.layout.logout_form, null);
+
+                    alertDialogBuilder = new AlertDialog.Builder(parent);
+                    alertDialogBuilder.setView(view);
+                    alertDialogBuilder.setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    session.deleteUsername();
+
+                                    i[0] = new Intent(parent, MainMenu.class);
+                                    parent.startActivity(i[0]);
+                                    parent.finish();
+
+                                }
+                            });
+
+                    alertDialogBuilder.setNegativeButton("Cancel",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                    alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+                pos = POSITION_LOGOUT;
                 break;
         }
 
 
-        if(pos!=-1 && i!=null) {
-            navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem( pos%10 ).setChecked(true);
+        if(pos!=-1 && i[0] !=null) {
+            navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem(pos % 10).setChecked(true);
 
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            parent.startActivity(i);
+            i[0].setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            parent.startActivity(i[0]);
             parent.finish();
         }
 

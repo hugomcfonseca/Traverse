@@ -5,16 +5,18 @@
 
     <item android:title="User Page">
         <menu>
-                <item android:id="@+id/nav_homepage_chapters"
+            <item android:id="@+id/nav_homepage_chapters"
                     android:title="@string/drawer_homepage_chapters" />
-                <item android:id="@+id/nav_view_profile"
+            <item android:id="@+id/nav_view_profile"
                     android:title="@string/drawer_view_profile" />
-                <item android:id="@+id/nav_progress"
+            <item android:id="@+id/nav_progress"
                     android:title="@string/drawer_progress" />
-                <item android:id="@+id/nav_map"
+            <item android:id="@+id/nav_map"
                     android:title="@string/drawer_map" />
-                <item android:id="@+id/nav_social"
+            <item android:id="@+id/nav_social"
                     android:title="@string/drawer_social" />
+            <item android:id="@+id/nav_logout"
+                android:title="@string/drawer_logout" />
         </menu>
     </item>
 
