@@ -33,11 +33,10 @@ public class ViewProfile extends AppCompatActivity {
 
     private CustomDrawer drawer;
 
-    private TextView tv_Username, tv_Name, tv_birthDate,  tv_Email, tv_typeCharacter, tv_progressValue;
+    private TextView tv_Username, tv_Name, tv_birthDate,  tv_Email, tv_typeCharacter, tv_progressValue, tv_userStatus;
     private ProgressBar pb_gameProgress;
-    private RadioButton rb_Status;
     private Button btn_editUserData, btn_seeProgress;
-    private CircleImageView img_user;
+    private CircleImageView img_user, im_userStatus;
     private Session session;//global variable
 
     DataBaseAdapter dataBaseAdapter;
@@ -67,8 +66,9 @@ public class ViewProfile extends AppCompatActivity {
         tv_birthDate = (TextView)findViewById(R.id.tv_birthdate);
         tv_Email = (TextView)findViewById(R.id.tv_email);
         tv_typeCharacter = (TextView)findViewById(R.id.tv_type_persona);
+        tv_userStatus = (TextView)findViewById(R.id.tv_user_status);
         pb_gameProgress = (ProgressBar)findViewById(R.id.pb_game_progress);
-        rb_Status = (RadioButton)findViewById(R.id.rb_status);
+        im_userStatus = (CircleImageView)findViewById(R.id.im_user_status);
         tv_progressValue = (TextView)findViewById(R.id.tv_progress_value);
         btn_editUserData = (Button)findViewById(R.id.btn_edit_profile);
         btn_seeProgress = (Button)findViewById(R.id.btn_profile_progress);
@@ -91,10 +91,7 @@ public class ViewProfile extends AppCompatActivity {
         tv_Name.setText(cursor.getString(cursor.getColumnIndex("name")));
         tv_Email.setText(cursor.getString(cursor.getColumnIndex("email")));
 
-        if (cursor.getInt(cursor.getColumnIndex("status")) == 1){
-            rb_Status.setText("Busy");
-            rb_Status.setButtonTintList(ColorStateList.valueOf(Color.parseColor("#FF0000")));
-        }
+        updateStatus(cursor);
 
         pb_gameProgress.setProgress(cursor.getInt(cursor.getColumnIndex("progress")));
         tv_progressValue.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("progress"))));
@@ -119,6 +116,35 @@ public class ViewProfile extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void updateStatus (Cursor cursor){
+
+        if (cursor.getInt(cursor.getColumnIndex("status")) == 0){
+
+            tv_userStatus.setText("Offline");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                im_userStatus.setImageDrawable(getResources().getDrawable(R.color.status_offline, getTheme()));
+            else
+                im_userStatus.setImageDrawable(getResources().getDrawable(R.color.status_offline));
+
+        } else if (cursor.getInt(cursor.getColumnIndex("status")) == 1){
+
+            tv_userStatus.setText("Online [on Android]");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                im_userStatus.setImageDrawable(getResources().getDrawable(R.color.status_online_app, getTheme()));
+            else
+                im_userStatus.setImageDrawable(getResources().getDrawable(R.color.status_online_app));
+
+        } else if (cursor.getInt(cursor.getColumnIndex("status")) == 2) {
+
+            tv_userStatus.setText("Online [on both]");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                im_userStatus.setImageDrawable(getResources().getDrawable(R.color.status_online,getTheme()));
+            else
+                im_userStatus.setImageDrawable(getResources().getDrawable(R.color.status_online));
+
+        } else ;
     }
 
     @Override

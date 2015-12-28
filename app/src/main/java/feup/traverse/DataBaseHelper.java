@@ -14,8 +14,8 @@ import android.util.Log;
 public class DataBaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "traverse.db";
-    public static final String TABLE_NAME_USERDATA = "userdata";
-    public static final String TABLE_NAME_PLACES = "placesbypersona";
+    public static final String TABLE_NAME_USERDATA = "user_data";
+    public static final String TABLE_NAME_PLACES = "chapters_places";
     private static final int DATABASE_VERSION = 1;
     public static final String ID = "_id";
     public static final String NAME = "name";
@@ -68,10 +68,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         userData_table.append(USERNAME + " varchar(20) not null unique, ");
         userData_table.append(EMAIL + " varchar(40) not null unique, ");
         userData_table.append(DATE + " varchar(12) not null, ");
-        userData_table.append(PERSONA + " varchar(15) not null, ");
+        userData_table.append(PERSONA + " varchar(20) not null, ");
         userData_table.append(STATUS + " integer not null, ");
         userData_table.append(PROGRESS + " integer not null, ");
-        userData_table.append(PASSWORD + " varchar(20) not null, ");
+        userData_table.append(PASSWORD + " varchar(25) not null, ");
         userData_table.append(IMAGE + " blob");
         userData_table.append(");");
 
@@ -80,20 +80,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     //ToDo: insert places hardcoded
     public String scriptPlaces (){
-        final StringBuilder maps_table = new StringBuilder();
+        final StringBuilder chapters_places_table = new StringBuilder();
 
-        maps_table.append("create table if not exists " + TABLE_NAME_PLACES + " ( ");
-        maps_table.append(ID + " integer primary key autoincrement, ");
-        maps_table.append(PERSONA + " varchar(15) not null, ");
-        maps_table.append(LOCAL + " varchar(30) not null unique, ");
-        maps_table.append(LATITUDE + " double not null, ");
-        maps_table.append(LONGITUDE + " double not null, ");
-        maps_table.append(LOCKED + " integer not null, ");
-        maps_table.append(PHASE + " integer not null, ");
-        maps_table.append(SCORE + " integer ");
-        maps_table.append(");");
+        chapters_places_table.append("create table if not exists " + TABLE_NAME_PLACES + " ( ");
+        chapters_places_table.append(ID + " integer primary key autoincrement, ");
+        chapters_places_table.append(PERSONA + " varchar(20) not null, ");
+        chapters_places_table.append(LOCAL + " varchar(30) not null unique, ");
+        chapters_places_table.append(LATITUDE + " double not null, ");
+        chapters_places_table.append(LONGITUDE + " double not null, ");
+        chapters_places_table.append(LOCKED + " integer not null, ");
+        chapters_places_table.append(PHASE + " integer not null, ");
+        chapters_places_table.append(SCORE + " integer ");
+        //chapters_places_table.append("FOREIGN KEY ("+PERSONA+") REFERENCES "+TABLE_NAME_USERDATA+" ("+PERSONA+") ");
+        chapters_places_table.append(");");
 
-        return maps_table.toString();
+        return chapters_places_table.toString();
     }
 
     //ToDo: insert each story part by phase
@@ -117,25 +118,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if (n_userData > 0) {
             array[0] = "INSERT or replace INTO " + TABLE_NAME_USERDATA + " ( " + ID + ", " + NAME + ", " + USERNAME + ", " + EMAIL + ", " + DATE + ", "
                     + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD + " )" +
-                    " VALUES(1,'Hugo M. Fonseca','hugo','hugofonseca93@hotmail.com','11/04/1993','Music',1,0,'1234')";
+                    " VALUES(1,'Hugo M. Fonseca','hugo','hugofonseca93@hotmail.com','11/04/1993','Tourist',1,0,'1234')";
             db.execSQL(array[0]);
             array[1] = "INSERT or replace INTO " + TABLE_NAME_USERDATA + " ( " + ID + ", " + NAME + ", " + USERNAME + ", " + EMAIL + ", " + DATE + ", "
                     + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD + " )" +
-                    " VALUES(2,'morais','Filipe D. Morais','filipe_morais@outlook.com','23/07/1993','Arts',1,25,'1234')";
+                    " VALUES(2,'morais','Filipe D. Morais','filipe_morais@outlook.com','23/07/1993','Art',1,25,'1234')";
             db.execSQL(array[1]);
         }
         if (n_places > 0) {
             array[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
                     + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
-                    " VALUES(1,'Music','Majestik',41.1597026,-8.6057382,0,1,100)";
+                    " VALUES(1,'Tourist','Majestik',41.1597026,-8.6057382,0,1,100)";
             db.execSQL(array[2]);
             array[3] =  "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
                     + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
-                    " VALUES(2,'Music','Maus Hábitos',41.1597026,-8.6057382,0,2,75)";
+                    " VALUES(2,'Tourist','Maus Hábitos',41.1597026,-8.6057382,0,2,75)";
             db.execSQL(array[3]);
             array[4] =  "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
                     + LOCKED + " ," + PHASE + " )" +
-                    " VALUES(3,'Music','Hard Club',41.1597026,-8.6057382,1,3)";
+                    " VALUES(3,'Tourist','Hard Club',41.1597026,-8.6057382,1,3)";
             db.execSQL(array[4]);
         }
 

@@ -67,19 +67,14 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="55dp"
                         android:padding="5dp">
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="fill_parent"
-                            android:background="#000000" />
 
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.15"
+                            android:layout_weight="0.2"
                             android:layout_gravity="center">
 
                             <TextView
@@ -88,18 +83,14 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:textColor="#000000"
-                                android:textSize="20sp"
+                                android:textSize="15sp"
                                 android:focusable="false"
                                 android:padding="5dp"
                                 android:hint="id"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:text="Chapter ID" />
 
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="fill_parent"
-                            android:background="#000000" />
 
                         <LinearLayout
                             android:orientation="vertical"
@@ -118,47 +109,43 @@
                                 android:focusable="false"
                                 android:padding="5dp"
                                 android:hint="Local Name"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:text="Place" />
                         </LinearLayout>
-
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="fill_parent"
-                            android:background="#000000" />
 
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="0dip"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.25">
+                            android:layout_weight="0.20">
 
                             <TextView
                                 android:id="@+id/tv_progress_score_phase"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_toRightOf="@id/tv_progress_local_name"
-                                android:gravity="center_vertical"
+                                android:gravity="center_vertical|center"
                                 android:textColor="#000000"
                                 android:textSize="20sp"
                                 android:focusable="false"
                                 android:padding="5dp"
                                 android:hint="Score"
                                 android:enabled="false"
-                                android:layout_gravity="center" />
+                                android:layout_gravity="center"
+                                android:text="Score" />
                         </LinearLayout>
 
-                        <View
-                            android:layout_width="1dp"
-                            android:layout_height="fill_parent"
-                            android:background="#000000" />
-
                     </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#b7000000" />
 
                     <FrameLayout
                         android:id="@+id/viewpager"
                         android:layout_width="match_parent"
                         android:layout_height="fill_parent" />
-
 
 
                 </LinearLayout>
