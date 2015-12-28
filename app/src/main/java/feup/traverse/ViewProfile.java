@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -76,7 +78,9 @@ public class ViewProfile extends AppCompatActivity {
 
 
         if(dataBaseAdapter.verifyImage(session.getusername())== null ){
-            img_user.setBackgroundResource(R.drawable.userprofile_logo);
+            Bitmap icon = BitmapFactory.decodeResource(getBaseContext().getResources(),
+                    R.drawable.userprofile_logo);
+            img_user.setImageBitmap(icon);
         }
         else{
             img_user.setImageBitmap(bitmapUtility.getImage(dataBaseAdapter.verifyImage(session.getusername())));

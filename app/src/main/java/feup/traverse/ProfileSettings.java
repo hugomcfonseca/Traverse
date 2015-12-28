@@ -80,7 +80,9 @@ public class ProfileSettings extends AppCompatActivity {
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());
 
         if(dataBaseAdapter.verifyImage(session.getusername())== null ){
-            iv_settings_photo.setBackgroundResource(R.drawable.userprofile_add_logo);
+            Bitmap icon = BitmapFactory.decodeResource(getBaseContext().getResources(),
+                    R.drawable.userprofile_add_logo);
+            iv_settings_photo.setImageBitmap(icon);
         }
         else{
             iv_settings_photo.setImageBitmap(bitmapUtility.getImage(dataBaseAdapter.verifyImage(session.getusername())));
@@ -98,7 +100,6 @@ public class ProfileSettings extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
-                Toast.makeText(ProfileSettings.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -148,17 +149,13 @@ public class ProfileSettings extends AppCompatActivity {
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
-
-            CircleImageView imageView = (CircleImageView) findViewById(R.id. iv_settings_photo);
-
-
             try {
                 bmp = getBitmapFromUri(selectedImage);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            imageView.setImageBitmap(bmp);
+            iv_settings_photo.setImageBitmap(bmp);
         }
     }
 

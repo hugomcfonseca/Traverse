@@ -188,7 +188,7 @@ public class DataBaseAdapter {
 
         return cursor2;
     }
-    // ACRESCENTA ESTE MÉTODO *********************************************
+   /**
     public List<PhaseDoneItem> getAllPhasesDone(String username) {
 
         Cursor cursor = getProfileData(username);
@@ -240,6 +240,6 @@ public class DataBaseAdapter {
         cursor2.moveToFirst();
 
         return cursor2;
-    }
+    }*/
 
 }
