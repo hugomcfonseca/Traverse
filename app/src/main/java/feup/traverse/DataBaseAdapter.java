@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author hugof
  * @date 28/11/2015.
@@ -17,6 +20,10 @@ public class DataBaseAdapter {
     private String[] allColumns_userData = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
             DataBaseHelper.DATE,DataBaseHelper.PERSONA,DataBaseHelper.STATUS,
             DataBaseHelper.PROGRESS, DataBaseHelper.PASSWORD};
+
+    int[] nChapter;
+    int[] chapterScore;
+    String[] locals;
 
     public DataBaseAdapter(Context context) {
         dbHelper = new DataBaseHelper(context);
@@ -99,7 +106,8 @@ public class DataBaseAdapter {
 
     }
 
-    public void updateEntry (String username,String name, String email, String date, String password) {
+
+    public void updateEntry (String username,String name, String email, String date, String password,byte[] image) {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
@@ -107,23 +115,40 @@ public class DataBaseAdapter {
         updatedValues.put(DataBaseHelper.EMAIL, email);
         updatedValues.put(DataBaseHelper.DATE, date);
         updatedValues.put(DataBaseHelper.PASSWORD, password);
+        if (image!=null)
+            updatedValues.put(DataBaseHelper.IMAGE, image);
+        else;
 
-        String where="USERNAME = ?";
+        String where = "USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME_USERDATA, updatedValues, where, new String[]{username});
     }
 
     public Cursor getProfileData(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
-
         if(cursor.getCount() < 1) {
             cursor.close();
             return null;
         }
-
         cursor.moveToFirst();
-
         return cursor;
+    }
+
+    /**The next Methods are for imageprofile   */
+    public byte[] verifyImage (String username){
+        Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
+                DataBaseHelper.USERNAME + " = ?", new String[]{username});
+        if(cursor.getCount() < 1) {
+            cursor.close();
+            return null;
+        }
+        else {
+            cursor.moveToFirst();
+            byte[] image =  cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.IMAGE));
+            cursor.close();
+            return image;
+        }
+
     }
 
     /** The next methods are about places table */
@@ -148,7 +173,7 @@ public class DataBaseAdapter {
         return markup;
     }
 
-    public Cursor getChaptersInfo (String username){
+    public Cursor getChaptersInfo (String username) {
 
         Cursor cursor = getProfileData(username);
         String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
@@ -157,6 +182,59 @@ public class DataBaseAdapter {
 
         String sqlQuery = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona
                 +"' ORDER BY "+DataBaseHelper.PHASE;
+        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+
+        cursor2.moveToFirst();
+
+        return cursor2;
+    }
+    // ACRESCENTA ESTE MÉTODO *********************************************
+    public List<PhaseDoneItem> getAllPhasesDone(String username) {
+
+        Cursor cursor = getProfileData(username);
+        String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
+
+        cursor.close();
+
+        List<PhaseDoneItem> phasesDoneItem = new ArrayList<PhaseDoneItem>();
+
+        String selectQuery = "SELECT " + DataBaseHelper.LOCAL +", "+ DataBaseHelper.SCORE+", "+ DataBaseHelper.PHASE +
+                " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona+"' AND " +
+                DataBaseHelper.LOCKED + " = 0";
+
+        Cursor cursor2 = database.rawQuery(selectQuery, null);
+        int i = 0;
+        nChapter = new int[cursor2.getCount()];
+        chapterScore = new int[cursor2.getCount()];
+        locals = new String[cursor2.getCount()];
+
+        if (cursor2.moveToFirst()) {
+            do {
+                locals[i] = cursor2.getString(cursor2.getColumnIndex(DataBaseHelper.LOCAL));
+                nChapter[i] = cursor2.getInt(cursor2.getColumnIndex(DataBaseHelper.PHASE));
+                chapterScore[i] = cursor2.getInt(cursor2.getColumnIndex(DataBaseHelper.SCORE));
+
+                PhaseDoneItem items = new PhaseDoneItem(locals[i], nChapter[i],chapterScore[i]);
+                phasesDoneItem.add(items);
+                i++;
+            } while (cursor2.moveToNext()); // até terminar , pode-se usar movetoPrevious posteriormente
+        }
+
+        cursor2.close();
+
+        return phasesDoneItem;
+    }
+
+    // ACRESCENTA ESTE MÉTODO *********************************************
+    public Cursor getLastLocalName (String username){
+
+        Cursor cursor = getProfileData(username);
+        String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
+
+        cursor.close();
+
+        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.LOCKED+" = 0"
+                +" ORDER BY "+DataBaseHelper.PHASE + " DESC";
         Cursor cursor2 = database.rawQuery(sqlQuery,null);
 
         cursor2.moveToFirst();

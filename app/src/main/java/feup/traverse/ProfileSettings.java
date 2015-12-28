@@ -3,7 +3,12 @@ package feup.traverse;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileDescriptor;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -31,10 +39,14 @@ public class ProfileSettings extends AppCompatActivity {
     private CircleImageView iv_settings_photo;
     private Button btn_settingsUpdate;
     private TextView tv_settingsUsername;
+    private Bitmap bmp = null;
 
     private Session session;//global variable
 
+    private static int RESULT_LOAD_IMAGE = 1;
+
     DataBaseAdapter dataBaseAdapter;
+    DbBitmapUtility bitmapUtility;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,14 +54,18 @@ public class ProfileSettings extends AppCompatActivity {
         setContentView(R.layout.activity_profile_settings);
 
         session = new Session(this.getBaseContext()); //in oncreate
+
         dataBaseAdapter = new DataBaseAdapter(this);
         dataBaseAdapter.open();
+
+        bitmapUtility = new DbBitmapUtility();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.settings_drawerlayout),
                 (NavigationView) findViewById(R.id.settings_nav_view), toolbar);
+
 
         //Create Variable
         et_Name = (EditText)findViewById(R.id.et_settings_name);
@@ -58,11 +74,17 @@ public class ProfileSettings extends AppCompatActivity {
         et_Password = (EditText)findViewById(R.id.et_settings_password);
         et_Password2 = (EditText)findViewById(R.id.et_settings_password2);
         tv_settingsUsername = (TextView)findViewById(R.id.tv_settings_username);
-        iv_settings_photo = (CircleImageView)findViewById(R.id.iv_settings_photo);
         btn_settingsUpdate = (Button)findViewById(R.id.btn_settings_update);
+        iv_settings_photo =(CircleImageView)findViewById(R.id.iv_settings_photo);
 
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());
 
+        if(dataBaseAdapter.verifyImage(session.getusername())== null ){
+            iv_settings_photo.setBackgroundResource(R.drawable.userprofile_add_logo);
+        }
+        else{
+            iv_settings_photo.setImageBitmap(bitmapUtility.getImage(dataBaseAdapter.verifyImage(session.getusername())));
+        }
         tv_settingsUsername.setText(session.getusername());
         et_birthDate.setText(cursor.getString(cursor.getColumnIndex("date")));
         et_Name.setText(cursor.getString(cursor.getColumnIndex("name")));
@@ -71,6 +93,11 @@ public class ProfileSettings extends AppCompatActivity {
         iv_settings_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, RESULT_LOAD_IMAGE);
                 Toast.makeText(ProfileSettings.this, "Clicked!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -106,6 +133,43 @@ public class ProfileSettings extends AppCompatActivity {
         }
         return isValid;
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
+            Uri selectedImage = data.getData();
+            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+
+            Cursor cursor = getContentResolver().query(selectedImage,
+                    filePathColumn, null, null, null);
+            cursor.moveToFirst();
+
+            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+            String picturePath = cursor.getString(columnIndex);
+            cursor.close();
+
+            CircleImageView imageView = (CircleImageView) findViewById(R.id. iv_settings_photo);
+
+
+            try {
+                bmp = getBitmapFromUri(selectedImage);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            imageView.setImageBitmap(bmp);
+        }
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
+    }
 
     private boolean updateUserData (){
         boolean isGood = true;
@@ -125,12 +189,18 @@ public class ProfileSettings extends AppCompatActivity {
         }
         else {
             isGood = true;
-            dataBaseAdapter.updateEntry(session.getusername(),et_Name.getText().toString(),
-                    et_Email.getText().toString(),et_birthDate.getText().toString(),
-                    et_Password.getText().toString());
+            if(bmp==null){
+                dataBaseAdapter.updateEntry(session.getusername(),et_Name.getText().toString(),
+                et_Email.getText().toString(),et_birthDate.getText().toString(),
+                et_Password.getText().toString(),null);
+
+            }
+            else{
+                dataBaseAdapter.updateEntry(session.getusername(),et_Name.getText().toString(),
+                        et_Email.getText().toString(),et_birthDate.getText().toString(),
+                        et_Password.getText().toString(),bitmapUtility.getBytes(bmp));
+            }
         }
-
-
         return isGood;
     }
 

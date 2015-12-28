@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 
 /**
@@ -21,6 +22,12 @@ public class SocialMedia extends AppCompatActivity {
 
     private CustomDrawer drawer;
     private ImageView ev_facebook, ev_twitter, ev_site;
+    private WebView tv_about;
+    private String text= "<html><body><h3 align=\"justify\">"
+    + "A message from the future tells you that Humanity is in grave danger and that only by destroying the Artifact, an ancient radiation sensor from another world, will we survive. Meet with Dr. Marco Fogg who will send you back in time, before the Artifact was activated, to stop Phileas Fogg from saving the sensor from certain destruction. Chase him during his journey around the world as you explore Porto, Portugal.\n"
+    +"Turn on the app, get transported to the past, explore Porto and save the world."
+    +"</h3></body></html>";
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,6 +42,12 @@ public class SocialMedia extends AppCompatActivity {
         ev_facebook= (ImageView)findViewById(R.id.btn_facebook);
         ev_twitter= (ImageView)findViewById(R.id.btn_twitter);
         ev_site= (ImageView)findViewById(R.id.btn_site);
+        tv_about=(WebView)findViewById(R.id.webView);
+        tv_about.loadData(text, "text/html", "utf-8");
+        tv_about.setBackgroundColor(0x7AAABBBB);
+
+
+
 
         ev_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,7 +55,7 @@ public class SocialMedia extends AppCompatActivity {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/100001285444664"));
                     startActivity(intent);
-                } catch(Exception e) {
+                } catch (Exception e) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/100001285444664")));
                 }
             }

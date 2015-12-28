@@ -21,6 +21,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Filipe on 23/12/2015.
  */
@@ -32,10 +35,11 @@ public class ViewProfile extends AppCompatActivity {
     private ProgressBar pb_gameProgress;
     private RadioButton rb_Status;
     private Button btn_editUserData, btn_seeProgress;
-
+    private CircleImageView img_user;
     private Session session;//global variable
 
     DataBaseAdapter dataBaseAdapter;
+    DbBitmapUtility bitmapUtility;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -46,6 +50,8 @@ public class ViewProfile extends AppCompatActivity {
         session = new Session(this.getBaseContext()); //in oncreate
         dataBaseAdapter = new DataBaseAdapter(this);
         dataBaseAdapter.open();
+
+        bitmapUtility = new DbBitmapUtility();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,9 +70,17 @@ public class ViewProfile extends AppCompatActivity {
         tv_progressValue = (TextView)findViewById(R.id.tv_progress_value);
         btn_editUserData = (Button)findViewById(R.id.btn_edit_profile);
         btn_seeProgress = (Button)findViewById(R.id.btn_profile_progress);
+        img_user =(CircleImageView)findViewById(R.id.profile_image);
 
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());
 
+
+        if(dataBaseAdapter.verifyImage(session.getusername())== null ){
+            img_user.setBackgroundResource(R.drawable.userprofile_logo);
+        }
+        else{
+            img_user.setImageBitmap(bitmapUtility.getImage(dataBaseAdapter.verifyImage(session.getusername())));
+        }
         tv_Username.setText(session.getusername());
         tv_birthDate.setText(cursor.getString(cursor.getColumnIndex("date")));
         tv_typeCharacter.setText(cursor.getString(cursor.getColumnIndex("persona")));
