@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="0dip"
+        android:layout_height="50dp"
+        android:id="@+id/img_view_chapter_audioplayer"
+        android:layout_margin="5dp"
+        android:src="@drawable/play_logo"
+        android:layout_weight="0.1" />
+
+    <SeekBar
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:id="@+id/sb_viewchapter_music_progress"
+        android:layout_weight="0.9"
+        android:max="100"
+        android:progress="0"
+        android:indeterminate="false" />
+</LinearLayout>

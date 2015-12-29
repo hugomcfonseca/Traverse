@@ -3,23 +3,41 @@ package feup.traverse;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 
 /**
  * @author hugof
  * @date 29/12/2015.
  */
 public class ViewChapterTextPagerAdapter  extends FragmentStatePagerAdapter {
-    public ViewChapterTextPagerAdapter(FragmentManager fm) {
+
+    ViewChapter view = new ViewChapter();
+    int fragment_number;
+
+    public ViewChapterTextPagerAdapter(FragmentManager fm, int fragment_number) {
         super(fm);
+        this.fragment_number = fragment_number;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return new ViewChapterTextFragment();
+
+        Log.d("DEBUG", "flag=" + fragment_number);
+
+        if (fragment_number == 1){
+            return new ViewChapterMenuFragment();
+        } else if (fragment_number == 2) {
+            return new ViewChapterMapsFragment();
+        } else if (fragment_number == 3) {
+            return new ViewChapterTextFragment();
+        } else return null;
     }
 
     @Override
     public int getCount() {
-        return 5;
+        if (fragment_number != 3) {
+            return 1;
+        } else
+            return 1;
     }
 }

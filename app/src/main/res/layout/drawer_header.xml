@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="wrap_content"
-    android:background="#3F51B5"
+    android:background="#048065"
     android:paddingTop="16dp"
     android:paddingLeft="16dp"
     android:paddingBottom="16dp"
@@ -10,7 +10,7 @@
 
     <ImageView android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/logo_test"
+        android:src="@mipmap/ic_launcher"
         android:scaleType="centerInside"
         android:id="@+id/imageView" />
 

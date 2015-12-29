@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#009474</color>
+    <color name="colorPrimaryDark">#048065</color>
+    <color name="colorAccent">#07e7b7</color>
     <color name="status_online_app">#00ff08</color>
     <color name="status_online">#FF1B18D0</color>
     <color name="status_offline">#FFFFFF</color>
