@@ -47,7 +47,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(scriptUserData());
         db.execSQL(scriptPlaces());
 
-        initDatabaseHardcoded(db,2,3,0);
+        initDatabaseHardcoded(db, 2, 0, 0);
+        initPlacesByPersona(db);
     }
 
     @Override
@@ -85,13 +86,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         chapters_places_table.append("create table if not exists " + TABLE_NAME_PLACES + " ( ");
         chapters_places_table.append(ID + " integer primary key autoincrement, ");
         chapters_places_table.append(PERSONA + " varchar(20) not null, ");
-        chapters_places_table.append(LOCAL + " varchar(30) not null unique, ");
+        chapters_places_table.append(LOCAL + " varchar(40) not null, ");
         chapters_places_table.append(LATITUDE + " double not null, ");
         chapters_places_table.append(LONGITUDE + " double not null, ");
         chapters_places_table.append(LOCKED + " integer not null, ");
         chapters_places_table.append(PHASE + " integer not null, ");
         chapters_places_table.append(SCORE + " integer ");
-        //chapters_places_table.append("FOREIGN KEY ("+PERSONA+") REFERENCES "+TABLE_NAME_USERDATA+" ("+PERSONA+") ");
         chapters_places_table.append(");");
 
         return chapters_places_table.toString();
@@ -122,22 +122,127 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             db.execSQL(array[0]);
             array[1] = "INSERT or replace INTO " + TABLE_NAME_USERDATA + " ( " + ID + ", " + NAME + ", " + USERNAME + ", " + EMAIL + ", " + DATE + ", "
                     + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD + " )" +
-                    " VALUES(2,'morais','Filipe D. Morais','filipe_morais@outlook.com','23/07/1993','Art',1,25,'1234')";
+                    " VALUES(2,'Filipe D. Morais','morais','filipe_morais@outlook.com','23/07/1993','Art',1,25,'1234')";
             db.execSQL(array[1]);
         }
-        if (n_places > 0) {
-            array[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
-                    + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
-                    " VALUES(1,'Tourist','Majestik',41.1597026,-8.6057382,0,1,100)";
-            db.execSQL(array[2]);
-            array[3] =  "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
-                    + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
-                    " VALUES(2,'Tourist','Maus Hábitos',41.1597026,-8.6057382,0,2,75)";
-            db.execSQL(array[3]);
-            array[4] =  "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
-                    + LOCKED + " ," + PHASE + " )" +
-                    " VALUES(3,'Tourist','Hard Club',41.1597026,-8.6057382,1,3)";
-            db.execSQL(array[4]);
+
+    }
+
+    public void initPlacesByPersona (SQLiteDatabase db){
+
+        String[] places_art = new String[8];
+
+        places_art[0] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(1,'Art','Serralves Foundation',41.159891,-8.659889,0,1,0)";
+        places_art[1] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(2,'Art','World of Discoveries',41.143346,-8.620973,1,2,0)";
+        places_art[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(3,'Art','National Museum Soares dos Reis',41.1476799,-8.6215614,1,3,0)";
+        places_art[3] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(4,'Art','Romantic Museum Quinta da Macieirinha',41.147585,-8.621568,1,4,0)";
+        places_art[4] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(5,'Art','Military Museum of Porto',41.145976,-8.595297,1,5,0)";
+        places_art[5] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(6,'Art','ArtDistrict - Miguel Bombarda',41.149643,-8.620279,1,6,0)";
+        places_art[6] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(7,'Art','Museum of Natural History',41.146891,-8.615648,1,7,0)";
+        places_art[7] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(8,'Art','House of Arts',41.156470,-8.643426,1,8,0)";
+
+        String[] places_tourist = new String[8];
+
+        places_tourist[0] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(9,'Tourist','Dom Luís I Bridge',41.140043,-8.609444,0,1,0)";
+        places_tourist[1] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(10,'Tourist','Clérigos Church',41.145715,-8.614720,1,2,0)";
+        places_tourist[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(11,'Tourist','São Bento Railway Station',41.145512,-8.610718,1,3,0)";
+        places_tourist[3] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(12,'Tourist','Crystal Palace',41.148248,-8.625494,1,4,0)";
+        places_tourist[4] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(13,'Tourist','Stock Exchange Palace',41.141613,-8.614871,1,5,0)";
+        places_tourist[5] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(14,'Tourist','Lello Bookstore',41.146796,-8.614896,1,6,0)";
+        places_tourist[6] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(15,'Tourist','Porto Cathedral',41.142964,-8.611303,1,7,0)";
+        places_tourist[7] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(16,'Tourist','Church of São Francisco',41.140741,-8.616030,1,8,0)";
+
+        String[] places_gastronomy = new String[8];
+
+        places_gastronomy[0] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(17,'Gastronomy','Maus Hábitos',41.146743,-8.605681,0,1,0)";
+        places_gastronomy[1] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(18,'Gastronomy','Âncora d''Ouro Coffee (''O Piolho'')',41.147012,-8.616529,1,2,0)";
+        places_gastronomy[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(19,'Gastronomy','Rota do Chá',41.149420,-8.622305,1,3,0)";
+        places_gastronomy[3] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(20,'Gastronomy','Toscano Restaurant',41.157418,-8.624769,1,4,0)";
+        places_gastronomy[4] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(21,'Gastronomy','Dama Pé de Cabra',41.145775,-8.603314,1,5,0)";
+        places_gastronomy[5] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(22,'Gastronomy','Port Wine Cellars',41.137398,-8.614819,1,6,0)";
+        places_gastronomy[6] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(23,'Gastronomy','Majestic Café',41.147132,-8.606695,1,7,0)";
+        places_gastronomy[7] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(24,'Gastronomy','A Brasileira',41.146850,-8.609357,1,8,0)";
+
+        String[] places_nature = new String[8];
+
+        places_nature[0] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(25,'Nature','Parque da Cidade (Porto)',41.170476,-8.686492,0,1,0)";
+        places_nature[1] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(26,'Nature','River (Dom Luís I Bridge)',41.140043,-8.609444,1,2,0)";
+        places_nature[2] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(27,'Nature','Rota do Chá',41.149420,-8.622305,1,3,0)";
+        places_nature[3] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(28,'Nature','Toscano Restaurant',41.157418,-8.624769,1,4,0)";
+        places_nature[4] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(29,'Nature','Tait House',41.147948,-8.628159,1,5,0)";
+        places_nature[5] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(30,'Nature','Porto Botanical Garden',41.154024,-8.642415,1,6,0)";
+        places_nature[6] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(31,'Nature','Serralves Foundation',41.159891,-8.659889,1,7,0)";
+        places_nature[7] = "INSERT or replace INTO " + TABLE_NAME_PLACES + " ( " + ID + ", " + PERSONA + ", " + LOCAL + ", " + LATITUDE + ", " + LONGITUDE + ", "
+                + LOCKED + " ," + PHASE + " ," + SCORE  + " )" +
+                " VALUES(32,'Nature','Crystal Palace',41.148248,-8.625494,1,8,0)";
+
+        for (int i = 0; i < 8; i++){
+            db.execSQL(places_art[i]);
+            db.execSQL(places_tourist[i]);
+            db.execSQL(places_gastronomy[i]);
+            db.execSQL(places_nature[i]);
         }
 
     }

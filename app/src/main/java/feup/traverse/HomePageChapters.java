@@ -16,7 +16,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 /**
  * @author hugof
@@ -30,6 +33,7 @@ public class HomePageChapters extends AppCompatActivity {
     private CustomDrawer drawer;
     private ImageView[] im_chapters = new ImageView[8];
     private LinearLayout[] ll_chapters = new LinearLayout[8];
+    private TextView[] tv_placeChapters = new TextView[8];
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
 
@@ -69,6 +73,14 @@ public class HomePageChapters extends AppCompatActivity {
         ll_chapters[5] = (LinearLayout)findViewById(R.id.linearLayout_chapter6);
         ll_chapters[6] = (LinearLayout)findViewById(R.id.linearLayout_chapter7);
         ll_chapters[7] = (LinearLayout)findViewById(R.id.linearLayout_chapter8);
+        tv_placeChapters[0] = (TextView)findViewById(R.id.tv_place_chapter1);
+        tv_placeChapters[1] = (TextView)findViewById(R.id.tv_place_chapter2);
+        tv_placeChapters[2] = (TextView)findViewById(R.id.tv_place_chapter3);
+        tv_placeChapters[3] = (TextView)findViewById(R.id.tv_place_chapter4);
+        tv_placeChapters[4] = (TextView)findViewById(R.id.tv_place_chapter5);
+        tv_placeChapters[5] = (TextView)findViewById(R.id.tv_place_chapter6);
+        tv_placeChapters[6] = (TextView)findViewById(R.id.tv_place_chapter7);
+        tv_placeChapters[7] = (TextView)findViewById(R.id.tv_place_chapter8);
 
         setUIContents();
 
@@ -95,6 +107,8 @@ public class HomePageChapters extends AppCompatActivity {
 
         do {
             local[i] = cursor.getString(cursor.getColumnIndex("local"));
+            tv_placeChapters[i].setText(local[i]);
+
             status[i] = cursor.getInt(cursor.getColumnIndex("locked"));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
