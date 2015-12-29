@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ import com.facebook.login.widget.LoginButton;
 
 public class MainMenu extends AppCompatActivity {
 
+
     private Button btn_SignIn, btn_SignOn;
     private LoginButton loginButton;
     private EditText et_Username, et_Password, et_Email;
@@ -44,9 +46,16 @@ public class MainMenu extends AppCompatActivity {
 
     private String error;
 
+    Typeface regularF;
+    Typeface boldF;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        regularF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsB.otf");
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_mainmenu);
 
@@ -64,10 +73,13 @@ public class MainMenu extends AppCompatActivity {
                 getString(R.string.preference_file_key), Context.MODE_PRIVATE);
 
         btn_SignIn = (Button) findViewById(R.id.btn_login);
+        btn_SignIn.setTypeface(boldF);
         btn_SignOn = (Button) findViewById(R.id.btn_signon);
+        btn_SignOn.setTypeface(boldF);
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
         tv_recoverCredentials = (TextView)findViewById(R.id.tv_lostpassword);
+        tv_recoverCredentials.setTypeface(regularF);
 
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -144,15 +156,17 @@ public class MainMenu extends AppCompatActivity {
 
                 View view = getLayoutInflater().inflate(R.layout.login_form, null);
                 et_Username = (EditText) view.findViewById(R.id.et_username);
+                et_Username.setTypeface(regularF);
                 et_Password = (EditText) view.findViewById(R.id.et_password);
+                et_Password.setTypeface(regularF);
                 cb_saveCredentials = (CheckBox) view.findViewById(R.id.cb_savecredentials);
+                cb_saveCredentials.setTypeface(regularF);
 
                 if (sharedPreferences != null) {
                     et_Username.setText(sharedPreferences.getString("Username", et_Username.getText().toString()));
                     et_Password.setText(sharedPreferences.getString("Password", et_Password.getText().toString()));
                     cb_saveCredentials.setChecked(sharedPreferences.getBoolean("Checked", false));
                 }
-
                 alertDialogBuilder = new AlertDialog.Builder(MainMenu.this);
                 alertDialogBuilder.setTitle("Login");
                 alertDialogBuilder.setView(view);
@@ -220,6 +234,7 @@ public class MainMenu extends AppCompatActivity {
 
                               View view = getLayoutInflater().inflate(R.layout.recover_form, null);
                               et_Email = (EditText) view.findViewById(R.id.et_email);
+                              et_Email.setTypeface(regularF);
                               if (error == "Empty") {
                                   et_Email.setError("Text is empty");
                               } else if (error == "NULL") {

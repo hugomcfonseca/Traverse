@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
@@ -53,10 +54,18 @@ public class ProfileSettings extends AppCompatActivity {
     DataBaseAdapter dataBaseAdapter;
     DbBitmapUtility bitmapUtility;
 
+    private Typeface regularF;
+    private Typeface boldF;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
+
+        regularF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsB.otf");
 
         session = new Session(this.getBaseContext()); //in oncreate
 
@@ -76,12 +85,19 @@ public class ProfileSettings extends AppCompatActivity {
 
         //Create Variable
         et_Name = (EditText)findViewById(R.id.et_settings_name);
+        et_Name.setTypeface(regularF);
         et_birthDate = (EditText)findViewById(R.id.et_settings_birthdate);
+        et_birthDate.setTypeface(regularF);
         et_Email = (EditText)findViewById(R.id.et_settings_email);
+        et_Email.setTypeface(regularF);
         et_Password = (EditText)findViewById(R.id.et_settings_password);
+        et_Password.setTypeface(regularF);
         et_Password2 = (EditText)findViewById(R.id.et_settings_password2);
+        et_Password2.setTypeface(regularF);
         tv_settingsUsername = (TextView)findViewById(R.id.tv_settings_username);
+        tv_settingsUsername.setTypeface(regularF);
         btn_settingsUpdate = (Button)findViewById(R.id.btn_settings_update);
+        btn_settingsUpdate.setTypeface(boldF);
         iv_settings_photo =(CircleImageView)findViewById(R.id.iv_settings_photo);
 
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());
@@ -95,6 +111,7 @@ public class ProfileSettings extends AppCompatActivity {
             iv_settings_photo.setImageBitmap(bitmapUtility.getImage(dataBaseAdapter.verifyImage(session.getusername())));
         }
         tv_settingsUsername.setText(session.getusername());
+        tv_settingsUsername.setTypeface(boldF);
         et_birthDate.setText(cursor.getString(cursor.getColumnIndex("date")));
         et_Name.setText(cursor.getString(cursor.getColumnIndex("name")));
         et_Email.setText(cursor.getString(cursor.getColumnIndex("email")));

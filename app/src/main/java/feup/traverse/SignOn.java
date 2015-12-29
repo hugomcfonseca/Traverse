@@ -2,7 +2,6 @@ package feup.traverse;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,16 +20,16 @@ public class SignOn extends AppCompatActivity implements Communicator {
     private Session session;//global variable
 
     DataBaseAdapter dataBaseAdapter;
-    ContentValues value = new ContentValues();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_on);
 
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         manager = getFragmentManager();
 
         session = new Session(this.getBaseContext()); //in oncreate
@@ -141,28 +140,28 @@ public class SignOn extends AppCompatActivity implements Communicator {
             if (questionResult[i]==1){
                 count1++;
                 if(count1==2){
-                    type="type1";
+                    type="Art";
                     break;
                 }
             }
             else if (questionResult[i]==2){
                 count2++;
                 if(count2==2){
-                    type="type2";
+                    type="Tourist";
                     break;
                 }
             }
             else if (questionResult[i]==3){
                 count3++;
                 if(count3==2){
-                    type="type3";
+                    type="Nature";
                     break;
                 }
             }
             else if (questionResult[i]==4){
                 count4++;
                 if(count4==2){
-                    type="type4";
+                    type="Gastronomy";
                     break;
                 }
             }

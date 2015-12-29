@@ -1,6 +1,7 @@
 package feup.traverse;
 
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,12 +33,20 @@ public class SignOnForm extends Fragment {
     private static final String DATE_PATTERN =
             "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
 
+    private Typeface regularF;
+    private Typeface boldF;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_sign_on_form,container,false);
 
         session = new Session(getActivity().getBaseContext()); //in oncreate
         pattern = Pattern.compile(DATE_PATTERN);
+
+        regularF = Typeface.createFromAsset(getActivity().getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getActivity().getAssets(),
+                "fonts/qsB.otf");
 
         return view;
     }
@@ -51,12 +60,19 @@ public class SignOnForm extends Fragment {
     private void initicontrol(){
 
         et_Username = (EditText) getActivity().findViewById(R.id.et_username);
+        et_Username.setTypeface(regularF);
         et_Name = (EditText) getActivity().findViewById(R.id.et_name);
+        et_Name.setTypeface(regularF);
         et_Password = (EditText) getActivity().findViewById(R.id.et_password);
+        et_Password.setTypeface(regularF);
         et_Password2 = (EditText) getActivity().findViewById(R.id.et_conf_pass);
+        et_Password2.setTypeface(regularF);
         et_Email = (EditText) getActivity().findViewById(R.id.et_email);
+        et_Email.setTypeface(regularF);
         et_dateOfBirth = (EditText) getActivity().findViewById(R.id.et_dateofbirth);
+        et_dateOfBirth.setTypeface(regularF);
         btn_nextRegister = (Button) getActivity().findViewById(R.id.btn_register);
+        btn_nextRegister.setTypeface(boldF);
 
         // create a instance of SQLite Database
         connector = new DataBaseAdapter(getActivity());

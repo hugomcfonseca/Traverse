@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -42,11 +43,19 @@ public class ViewProfile extends AppCompatActivity {
     DataBaseAdapter dataBaseAdapter;
     DbBitmapUtility bitmapUtility;
 
+    private Typeface regularF;
+    private Typeface boldF;
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        regularF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsB.otf");
 
         session = new Session(this.getBaseContext()); //in oncreate
         dataBaseAdapter = new DataBaseAdapter(this);
@@ -62,16 +71,25 @@ public class ViewProfile extends AppCompatActivity {
 
         //Create Variable
         tv_Name = (TextView)findViewById(R.id.tv_name);
+        tv_Name.setTypeface(regularF);
         tv_Username = (TextView)findViewById(R.id.tv_username);
+        tv_Username.setTypeface(regularF);
         tv_birthDate = (TextView)findViewById(R.id.tv_birthdate);
+        tv_birthDate.setTypeface(regularF);
         tv_Email = (TextView)findViewById(R.id.tv_email);
+        tv_Email.setTypeface(regularF);
         tv_typeCharacter = (TextView)findViewById(R.id.tv_type_persona);
+        tv_typeCharacter.setTypeface(regularF);
         tv_userStatus = (TextView)findViewById(R.id.tv_user_status);
+        tv_userStatus.setTypeface(regularF);
         pb_gameProgress = (ProgressBar)findViewById(R.id.pb_game_progress);
         im_userStatus = (CircleImageView)findViewById(R.id.im_user_status);
         tv_progressValue = (TextView)findViewById(R.id.tv_progress_value);
+        tv_progressValue.setTypeface(regularF);
         btn_editUserData = (Button)findViewById(R.id.btn_edit_profile);
+        btn_editUserData.setTypeface(boldF);
         btn_seeProgress = (Button)findViewById(R.id.btn_profile_progress);
+        btn_seeProgress.setTypeface(boldF);
         img_user =(CircleImageView)findViewById(R.id.profile_image);
 
         Cursor cursor = dataBaseAdapter.getProfileData(session.getusername());

@@ -3,6 +3,7 @@ package feup.traverse;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,6 +17,7 @@ import android.view.View;
  * @date 28/11/2015
  */
 public class CustomDrawer implements NavigationView.OnNavigationItemSelectedListener{
+
 
     Toolbar toolbar;
     DrawerLayout layout;
@@ -37,6 +39,7 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
     private final int POSITION_LOGOUT = 05;
 
     private int checked_pos;
+
     CustomDrawer (AppCompatActivity nParent, DrawerLayout nLayout, NavigationView nNavView, Toolbar nToolbar) {
         this.parent = nParent;
         this.layout = nLayout;
@@ -78,6 +81,7 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
 
         navView.getMenu().getItem( (int)(checked_pos/10) ).getSubMenu().getItem( checked_pos%10 ).setChecked(false);
 

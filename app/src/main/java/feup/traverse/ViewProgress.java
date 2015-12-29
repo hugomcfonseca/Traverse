@@ -2,6 +2,7 @@ package feup.traverse;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 /**
  * @author hugof
@@ -22,10 +24,32 @@ public class ViewProgress extends AppCompatActivity {
 
     private CustomDrawer drawer;
 
+    private Typeface regularF;
+    private Typeface boldF;
+
+    private TextView tv_progress_actual_chapter,tv_progress_value,tv_progress_phase_id,tv_progress_local_name,tv_progress_score_phase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        regularF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsB.otf");
         setContentView(R.layout.activity_view_progress);
+
+        tv_progress_actual_chapter=(TextView)findViewById(R.id.tv_progress_actual_chapter);
+        tv_progress_actual_chapter.setTypeface(boldF);
+        tv_progress_value=(TextView)findViewById(R.id.tv_progress_value);
+        tv_progress_value.setTypeface(regularF);
+        tv_progress_phase_id=(TextView)findViewById(R.id.tv_progress_phase_id);
+        tv_progress_phase_id.setTypeface(boldF);
+        tv_progress_local_name=(TextView)findViewById(R.id.tv_progress_local_name);
+        tv_progress_local_name.setTypeface(boldF);
+        tv_progress_score_phase=(TextView)findViewById(R.id.tv_progress_score_phase);
+        tv_progress_score_phase.setTypeface(boldF);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

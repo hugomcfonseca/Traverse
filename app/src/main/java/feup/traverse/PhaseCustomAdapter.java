@@ -2,6 +2,7 @@ package feup.traverse;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ public class PhaseCustomAdapter extends BaseAdapter {
 
     Context context;
     List<PhaseDoneItem> rowItem;
+    private Typeface regularF;
+    private Typeface boldF;
 
     PhaseCustomAdapter(Context context, List<PhaseDoneItem> rowItem) {
         this.context = context;
@@ -43,7 +46,10 @@ public class PhaseCustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        regularF = Typeface.createFromAsset(context.getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(context.getAssets(),
+                "fonts/qsB.otf");
         if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater) context
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -51,8 +57,11 @@ public class PhaseCustomAdapter extends BaseAdapter {
         }
 
         TextView tv_phaseId = (TextView) convertView.findViewById(R.id.tv_progress_phase_id);
+        tv_phaseId.setTypeface(regularF);
         TextView tv_localName = (TextView) convertView.findViewById(R.id.tv_progress_local_name);
+        tv_localName.setTypeface(regularF);
         TextView tv_scorePhase = (TextView) convertView.findViewById(R.id.tv_progress_score_phase);
+        tv_scorePhase.setTypeface(regularF);
 
         PhaseDoneItem row_pos = rowItem.get(position);
 

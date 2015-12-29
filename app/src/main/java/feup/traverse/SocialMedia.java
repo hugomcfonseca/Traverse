@@ -2,6 +2,7 @@ package feup.traverse;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,6 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by hugof on 26/12/2015.
@@ -23,15 +27,24 @@ public class SocialMedia extends AppCompatActivity {
     private CustomDrawer drawer;
     private ImageView ev_facebook, ev_twitter, ev_site;
     private WebView tv_about;
+    private TextView tv_name;
     private String text= "<html><body><h3 align=\"justify\">"
     + "A message from the future tells you that Humanity is in grave danger and that only by destroying the Artifact, an ancient radiation sensor from another world, will we survive. Meet with Dr. Marco Fogg who will send you back in time, before the Artifact was activated, to stop Phileas Fogg from saving the sensor from certain destruction. Chase him during his journey around the world as you explore Porto, Portugal.\n"
     +"Turn on the app, get transported to the past, explore Porto and save the world."
     +"</h3></body></html>";
 
+    private Typeface regularF;
+    private Typeface boldF;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social_media);
+
+        regularF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getAssets(),
+                "fonts/qsB.otf");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,6 +55,8 @@ public class SocialMedia extends AppCompatActivity {
         ev_facebook= (ImageView)findViewById(R.id.btn_facebook);
         ev_twitter= (ImageView)findViewById(R.id.btn_twitter);
         ev_site= (ImageView)findViewById(R.id.btn_site);
+        tv_name=(TextView)findViewById(R.id.tv_name);
+        tv_name.setTypeface(boldF);
         tv_about=(WebView)findViewById(R.id.webView);
         tv_about.loadData(text, "text/html", "utf-8");
         tv_about.setBackgroundColor(0x7AAABBBB);

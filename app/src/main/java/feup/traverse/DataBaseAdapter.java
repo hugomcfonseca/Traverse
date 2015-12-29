@@ -231,8 +231,8 @@ public class DataBaseAdapter {
 
         cursor.close();
 
-        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.LOCKED+" = 0"
-                +" ORDER BY "+DataBaseHelper.PHASE + " DESC";
+        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + "," + DataBaseHelper.PHASE + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.LOCKED+" = 1"
+                +" ORDER BY "+DataBaseHelper.PHASE;
         Cursor cursor2 = database.rawQuery(sqlQuery,null);
 
         cursor2.moveToFirst();
