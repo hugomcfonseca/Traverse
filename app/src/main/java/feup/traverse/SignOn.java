@@ -125,7 +125,7 @@ public class SignOn extends AppCompatActivity implements Communicator {
             questionResult[3]=val;
 
             dataBaseAdapter.createUser(session.getusername(), session.getname(), session.getemail(), session.getdate(), findPersona(), 1, 0, session.getpassword());
-            Toast.makeText(getApplicationContext(), "Account created successfully!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Account created successfully! You get a persona of "+findPersona(), Toast.LENGTH_SHORT).show();
             Intent nextStep = new Intent(this, MainMenu.class);
             nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(nextStep);

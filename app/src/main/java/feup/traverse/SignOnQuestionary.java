@@ -182,7 +182,7 @@ public class SignOnQuestionary extends Fragment {
         }else if (i==11){
             originalBitmap= BitmapFactory.decodeResource(getResources(),R.drawable.cozinheiro3);
         }else if (i==12){
-            originalBitmap= BitmapFactory.decodeResource(getResources(),R.drawable.montmartre);
+            originalBitmap= BitmapFactory.decodeResource(getResources(),R.drawable.montmartre4);
         }else if (i==13){
             originalBitmap= BitmapFactory.decodeResource(getResources(),R.drawable.historco4);
         }else if (i==14){

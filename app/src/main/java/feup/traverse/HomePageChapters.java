@@ -221,8 +221,6 @@ public class HomePageChapters extends AppCompatActivity {
         textView58 = (TextView)findViewById(R.id.textView58);
         textView58.setTypeface(boldF);
 
-
-
         //Initiate imageViews components
         im_chapters[0] = (ImageView)findViewById(R.id.im_status_chapter1);
         im_chapters[1] = (ImageView)findViewById(R.id.im_status_chapter2);
@@ -256,7 +254,10 @@ public class HomePageChapters extends AppCompatActivity {
                 ll_chapters[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(HomePageChapters.this, "Clicked.",Toast.LENGTH_LONG).show();
+                        Intent nextStep = new Intent("feup.traverse.ViewChapter");
+                        nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(nextStep);
+                        finish();
                     }
                 });
             }

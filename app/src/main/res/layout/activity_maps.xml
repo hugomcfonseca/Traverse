@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/maps_navigation_drawerlayout"
+    android:orientation="vertical"
     android:clickable="false">
 
     <LinearLayout
@@ -103,6 +103,7 @@
                         tools:context=".MapsActivity"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_marginTop="2dp" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -113,7 +114,7 @@
 
 
 
-</android.support.v4.widget.DrawerLayout>
+</LinearLayout>
 
 
 

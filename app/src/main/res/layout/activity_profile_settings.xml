@@ -119,7 +119,8 @@
                                 android:ems="10"
                                 android:id="@+id/et_settings_name"
                                 android:paddingTop="6dp"
-                                android:hint="Name" />
+                                android:hint="Name"
+                                android:maxLength="30" />
 
                         </LinearLayout>
 
@@ -144,7 +145,8 @@
                                 android:ems="10"
                                 android:id="@+id/et_settings_email"
                                 android:hint="Email"
-                                android:paddingTop="6dp" />
+                                android:paddingTop="6dp"
+                                android:maxLength="40" />
 
                         </LinearLayout>
 
@@ -171,7 +173,8 @@
                                 android:id="@+id/et_settings_birthdate"
                                 android:layout_weight="1"
                                 android:hint="Birth Date"
-                                android:paddingTop="6dp" />
+                                android:paddingTop="6dp"
+                                android:maxLength="10" />
 
                         </LinearLayout>
 

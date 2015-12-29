@@ -50,10 +50,9 @@ public class ViewProgressList extends ListFragment implements AdapterView.OnItem
 
         Cursor cursor_localname = dataBaseAdapter.getLastLocalName(session.getusername());
 
-        //ACRESCENTEI.......
         String displayedText = cursor_localname.getString(cursor_localname.getColumnIndex("phase"))
                 +". "+cursor_localname.getString(cursor_localname.getColumnIndex("local"));
-        //ALTEREI.......
+
         tv_progressActualChapter.setText(displayedText);
 
         Cursor cursor_progress = dataBaseAdapter.getProfileData(session.getusername());
