@@ -1,5 +1,6 @@
 package feup.traverse;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -12,7 +13,7 @@ import android.util.Log;
 public class ViewChapterTextPagerAdapter  extends FragmentStatePagerAdapter {
 
     ViewChapter view = new ViewChapter();
-    int fragment_number;
+    public int fragment_number;
 
     public ViewChapterTextPagerAdapter(FragmentManager fm, int fragment_number) {
         super(fm);
@@ -21,8 +22,6 @@ public class ViewChapterTextPagerAdapter  extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
-        Log.d("DEBUG", "flag=" + fragment_number);
 
         if (fragment_number == 1){
             return new ViewChapterMenuFragment();
@@ -38,6 +37,6 @@ public class ViewChapterTextPagerAdapter  extends FragmentStatePagerAdapter {
         if (fragment_number != 3) {
             return 1;
         } else
-            return 1;
+            return 3;
     }
 }

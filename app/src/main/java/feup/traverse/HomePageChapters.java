@@ -12,6 +12,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -249,13 +250,15 @@ public class HomePageChapters extends AppCompatActivity {
 
         setUIContents();
 
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 8; i++){
             if (status[i] == 0 ){
+                final int chapter_passed = i+1;
                 ll_chapters[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent nextStep = new Intent("feup.traverse.ViewChapter");
                         nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        nextStep.putExtra("chapter_selected",chapter_passed);
                         startActivity(nextStep);
                         finish();
                     }

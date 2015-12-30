@@ -121,17 +121,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"
-            android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme" >
-            <intent-filter>
-                <action android:name="feup.traverse.MapsActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
     </application>
 
 </manifest>

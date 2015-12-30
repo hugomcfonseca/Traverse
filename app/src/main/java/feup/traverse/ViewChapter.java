@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -26,6 +27,8 @@ public class ViewChapter extends AppCompatActivity {
     public ViewPager mPager;
     public PagerAdapter mPagerAdapter;
 
+    public int flag = 1;
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_chapter);
@@ -40,6 +43,8 @@ public class ViewChapter extends AppCompatActivity {
                 (NavigationView) findViewById(R.id.view_chapter_nav_view), toolbar);
 
         session = new Session(this.getBaseContext()); //in oncreate
+
+        flag = 1;
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
@@ -91,6 +96,11 @@ public class ViewChapter extends AppCompatActivity {
 
         if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
             drawer.layout.closeDrawer(GravityCompat.START);
+            return;
+        } else if (flag == 2 || flag == 3){
+            flag = 1;
+            mPagerAdapter = new ViewChapterTextPagerAdapter(getSupportFragmentManager(),1);
+            mPager.setAdapter(mPagerAdapter);
             return;
         } else {
             Intent i = new Intent(this, HomePageChapters.class);

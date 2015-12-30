@@ -3,6 +3,7 @@ package feup.traverse;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -17,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.IOException;
 
 /**
@@ -37,11 +37,19 @@ public class ViewChapterMenuFragment extends Fragment {
     private MediaPlayer mediaPlayer = new MediaPlayer();
     int mediaFileLengthInMilliseconds;
 
+    DataBaseAdapter dataBaseAdapter;
+
+    private Session session;
+
     Handler handler = new Handler();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_viewchapter_menu, container, false);
+
+        dataBaseAdapter = new DataBaseAdapter(getActivity());
+        dataBaseAdapter.open();
+        session = new Session(getActivity()); //in oncreate
 
         btn_viewchapterAudio = (Button) rootView.findViewById(R.id.btn_viewchapter_listen);
         btn_viewchapterText = (Button) rootView.findViewById(R.id.btn_viewchapter_text);
@@ -49,8 +57,13 @@ public class ViewChapterMenuFragment extends Fragment {
         btn_viewchapterTakePicture = (Button) rootView.findViewById(R.id.btn_viewchapter_takephoto);
         tv_viewchapterAudioname = (TextView)rootView.findViewById(R.id.tv_view_chapter_audio);
         tv_viewchapterTextName = (TextView)rootView.findViewById(R.id.tv_viewchapter_chaptername);
+        tv_viewchapterLocalName = (TextView)rootView.findViewById(R.id.tv_viewchapter_localname);
 
-        final ViewChapter fromActivity = (ViewChapter)getActivity();
+        Bundle extras = getActivity().getIntent().getExtras();
+        int value = extras.getInt("chapter_selected");
+
+        Cursor cursor = dataBaseAdapter.getChapterInfo(session.getusername(), value);
+        tv_viewchapterLocalName.setText(cursor.getString(cursor.getColumnIndex("local")));
 
         btn_viewchapterAudio.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +88,9 @@ public class ViewChapterMenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                fromActivity.mPagerAdapter = new ViewChapterTextPagerAdapter(getActivity().getSupportFragmentManager(),2);
-                fromActivity.mPager.setAdapter(fromActivity.mPagerAdapter);
+                ((ViewChapter) getActivity()).flag = 2;
+                ((ViewChapter) getActivity()).mPagerAdapter = new ViewChapterTextPagerAdapter(getActivity().getSupportFragmentManager(),2);
+                ((ViewChapter) getActivity()).mPager.setAdapter(((ViewChapter) getActivity()).mPagerAdapter);
             }
         });
 
@@ -84,8 +98,9 @@ public class ViewChapterMenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                fromActivity.mPagerAdapter = new ViewChapterTextPagerAdapter(getActivity().getSupportFragmentManager(),3);
-                fromActivity.mPager.setAdapter(fromActivity.mPagerAdapter);
+                ((ViewChapter) getActivity()).flag = 3;
+                ((ViewChapter) getActivity()).mPagerAdapter = new ViewChapterTextPagerAdapter(getActivity().getSupportFragmentManager(),3);
+                ((ViewChapter) getActivity()).mPager.setAdapter(((ViewChapter) getActivity()).mPagerAdapter);
             }
         });
 

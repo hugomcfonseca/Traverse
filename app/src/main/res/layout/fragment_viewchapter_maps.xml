@@ -29,9 +29,10 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dip"
                     android:background="@drawable/rect_round_corner_notselected"
-                    android:layout_margin="2dp">
+                    android:layout_margin="2dp"
+                    android:layout_weight="0.15">
 
                     <LinearLayout
                         android:orientation="horizontal"
@@ -43,7 +44,8 @@
                             android:layout_height="35dp"
                             android:id="@+id/imageView25"
                             android:src="@drawable/destination_logo"
-                            android:padding="5dp" />
+                            android:padding="5dp"
+                            android:layout_gravity="center" />
 
                         <TextView
                             android:layout_width="match_parent"
@@ -84,21 +86,46 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dip"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginBottom="3dp">
+                    android:layout_marginBottom="3dp"
+                    android:layout_weight="0.75">
 
-                    <com.google.android.gms.maps.MapView
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
+                    <com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/map"
-                        tools:context=".MapsActivity"
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_marginTop="2dp" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.1">
+
+                    <Button
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:text="Start Traveling"
+                        android:id="@+id/btn_viewchapter_map_start"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rect_round_corner_notselected"
+                        android:backgroundTint="#cfae78"
+                        android:layout_margin="2dp" />
+
+                    <Button
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:text="Get My Location"
+                        android:id="@+id/btn_viewchapter_maps_getlocation"
+                        android:layout_weight="0.5"
+                        android:background="@drawable/rect_round_corner_notselected"
+                        android:backgroundTint="#cfae78"
+                        android:layout_margin="2dp" />
                 </LinearLayout>
 
             </LinearLayout>

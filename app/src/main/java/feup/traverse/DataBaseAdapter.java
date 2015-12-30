@@ -188,6 +188,22 @@ public class DataBaseAdapter {
         return cursor2;
     }
 
+    public Cursor getChapterInfo (String username, int phase) {
+
+        Cursor cursor = getProfileData(username);
+        String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
+
+        cursor.close();
+
+        String sqlQuery = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona
+                +"' AND " + DataBaseHelper.PHASE + " = " + phase;
+        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+
+        cursor2.moveToFirst();
+
+        return cursor2;
+    }
+
     public List<PhaseDoneItem> getAllPhasesDone(String username) {
 
         Cursor cursor = getProfileData(username);

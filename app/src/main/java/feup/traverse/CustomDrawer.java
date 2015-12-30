@@ -33,10 +33,8 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
     private final int POSITION_CHAPTERS = 00;
     private final int POSITION_PROFILE  = 01;
-    private final int POSITION_PROGRESS = 02;
-    private final int POSITION_MAP = 03;
-    private final int POSITION_SOCIAL = 04;
-    private final int POSITION_LOGOUT = 05;
+    private final int POSITION_SOCIAL = 02;
+    private final int POSITION_LOGOUT = 03;
 
     private int checked_pos;
 
@@ -104,14 +102,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
                 pos = POSITION_PROFILE;
                 break;
 
-            case R.id.nav_progress:
-                pos = POSITION_PROGRESS;
-                break;
-
-            case R.id.nav_map:
-                pos = POSITION_MAP;
-                break;
-
             case R.id.nav_social:
                 if( !(parent instanceof SocialMedia) )
                     i[0] = new Intent(parent, SocialMedia.class);
@@ -164,7 +154,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         checked_pos = pos;
         navView.getMenu().getItem( (int)(pos/10) ).getSubMenu().getItem( pos%10 ).setChecked(true);
 
-        //layout.closeDrawer(GravityCompat.START);
         return true;
     }
 }
