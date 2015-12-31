@@ -11,10 +11,10 @@
         android:layout_height="wrap_content" >
     </ListView>
 
-    <TextView
+    <feup.traverse.CustomTextRegularF
         android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </TextView>
+    </feup.traverse.CustomTextRegularF>
 
 </LinearLayout>

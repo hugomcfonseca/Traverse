@@ -70,7 +70,7 @@
                             android:src="@drawable/chronometer_logo"
                             android:padding="5dp" />
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textAppearance="?android:attr/textAppearanceMedium"

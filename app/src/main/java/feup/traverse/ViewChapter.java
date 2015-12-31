@@ -21,13 +21,15 @@ import android.view.MenuItem;
 public class ViewChapter extends AppCompatActivity {
 
     DataBaseAdapter dataBaseAdapter;
-    private Session session;
+    public Session session;
     private CustomDrawer drawer;
 
     public ViewPager mPager;
     public PagerAdapter mPagerAdapter;
 
     public int flag = 1;
+    public int value;
+    public int finished = 0;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -44,7 +46,11 @@ public class ViewChapter extends AppCompatActivity {
 
         session = new Session(this.getBaseContext()); //in oncreate
 
+        Bundle extras = getIntent().getExtras();
+        value = extras.getInt("chapter_selected");
+
         flag = 1;
+        finished = 0;
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);

@@ -256,4 +256,20 @@ public class DataBaseAdapter {
         return cursor2;
     }
 
+    public Cursor getCoordinatesAndLocal (int phase, String username){
+        Cursor cursor = getProfileData(username);
+        String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
+
+        cursor.close();
+
+        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + "," + DataBaseHelper.LATITUDE + "," + DataBaseHelper.LONGITUDE
+                + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PHASE+" = " + phase +" AND "
+                + DataBaseHelper.PERSONA + " = '"+persona+"'";
+        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+
+        cursor2.moveToFirst();
+
+        return cursor2;
+    }
+
 }

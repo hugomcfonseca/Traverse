@@ -79,7 +79,7 @@ public class MainMenu extends AppCompatActivity {
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
         tv_recoverCredentials = (TextView)findViewById(R.id.tv_lostpassword);
-        tv_recoverCredentials.setTypeface(regularF);
+        tv_recoverCredentials.setTypeface(boldF);
 
         btn_SignIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -200,7 +200,7 @@ public class MainMenu extends AppCompatActivity {
 
                                     Toast.makeText(MainMenu.this, "Login Successful!",
                                             Toast.LENGTH_LONG).show();
-                                    Intent nextStep = new Intent("feup.traverse.HomePageChapters");
+                                    Intent nextStep = new Intent("feup.traverse.HomePageGeneral");
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();

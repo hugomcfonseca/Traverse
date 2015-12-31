@@ -112,6 +112,16 @@
         </activity>
 
         <activity
+            android:name=".HomePageGeneral"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="feup.traverse.HomePageGeneral" />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ViewChapter"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme">

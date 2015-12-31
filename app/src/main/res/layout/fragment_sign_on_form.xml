@@ -18,7 +18,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/rect_round_corner_notselected"
                 android:padding="5dp"
-                android:id="@+id/linearLayout">
+                android:id="@+id/linearLayout"
+                android:layout_margin="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -53,7 +54,8 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rect_round_corner_notselected"
                     android:padding="15dp"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp">
 
                     <LinearLayout
                         android:orientation="horizontal"

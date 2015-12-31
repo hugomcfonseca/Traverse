@@ -21,6 +21,9 @@
     <string name="btn_signIn">Login</string>
     <string name="tv_forgotCred"><u>Forgot your credentials?</u></string>
     <string name="preference_file_key">save_credentials</string>
+    <string name="drawer_homepage">HomePage</string>
+    <string name="maps_get_location">Getting your location...</string>
+    <string name="maps_cancel_location">Cancel</string>
 
     <!--<string-array name="navigation_items">
         <item>Chapters</item>

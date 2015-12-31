@@ -31,10 +31,12 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
     private Session session;
 
-    private final int POSITION_CHAPTERS = 00;
-    private final int POSITION_PROFILE  = 01;
-    private final int POSITION_SOCIAL = 02;
-    private final int POSITION_LOGOUT = 03;
+    private final int POSITION_HOMEPAGE = 00;
+    private final int POSITION_CHAPTERS = 01;
+    private final int POSITION_PROGRESS  = 02;
+    private final int POSITION_SOCIAL  = 03;
+    private final int POSITION_PROFILE  = 04;
+    private final int POSITION_LOGOUT = 05;
 
     private int checked_pos;
 
@@ -59,10 +61,16 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
 
         navView.setNavigationItemSelectedListener(this);
 
+        if (parent instanceof HomePageGeneral )
+            pos = POSITION_HOMEPAGE;
+        else
         if (parent instanceof HomePageChapters )
             pos = POSITION_CHAPTERS;
         else
-        if (parent instanceof ViewProfile )
+        if (parent instanceof ViewProgress )
+            pos = POSITION_PROGRESS;
+        else
+        if (parent instanceof ViewProfile)
             pos = POSITION_PROFILE;
         else
         if (parent instanceof SocialMedia)
@@ -90,10 +98,28 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
         session = new Session(parent.getBaseContext());
 
         switch (id) {
+            case R.id.nav_homepage:
+                if( !(parent instanceof HomePageGeneral) )
+                    i[0] = new Intent(parent, HomePageGeneral.class);
+                pos = POSITION_HOMEPAGE;
+                break;
+
             case R.id.nav_homepage_chapters:
                 if( !(parent instanceof HomePageChapters) )
                     i[0] = new Intent(parent, HomePageChapters.class);
                 pos = POSITION_CHAPTERS;
+                break;
+
+            case R.id.nav_progress:
+                if( !(parent instanceof ViewProgress) )
+                    i[0] = new Intent(parent, ViewProgress.class);
+                pos = POSITION_PROGRESS;
+                break;
+
+            case R.id.nav_social:
+                if( !(parent instanceof SocialMedia) )
+                    i[0] = new Intent(parent, SocialMedia.class);
+                pos = POSITION_SOCIAL;
                 break;
 
             case R.id.nav_view_profile:
@@ -102,11 +128,6 @@ public class CustomDrawer implements NavigationView.OnNavigationItemSelectedList
                 pos = POSITION_PROFILE;
                 break;
 
-            case R.id.nav_social:
-                if( !(parent instanceof SocialMedia) )
-                    i[0] = new Intent(parent, SocialMedia.class);
-                pos = POSITION_SOCIAL;
-                break;
             case R.id.nav_logout:
                 if ( !(parent instanceof MainMenu) ) {
                     View view = parent.getLayoutInflater().inflate(R.layout.logout_form, null);

@@ -9,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,8 +38,6 @@ public class HomePageChapters extends AppCompatActivity {
     private ImageView[] im_chapters = new ImageView[8];
     private LinearLayout[] ll_chapters = new LinearLayout[8];
     private TextView[] tv_placeChapters = new TextView[8];
-    private AlertDialog.Builder alertDialogBuilder;
-    private AlertDialog alertDialog;
 
     private Session session;
 
@@ -343,40 +342,17 @@ public class HomePageChapters extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
+        if (drawer.layout.isDrawerOpen(GravityCompat.START)) {
+            drawer.layout.closeDrawer(GravityCompat.START);
+            return;
+        } else {
+            Intent i = new Intent(this, HomePageGeneral.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            finish();
+        }
 
-                View view = getLayoutInflater().inflate(R.layout.logout_form, null);
-
-                alertDialogBuilder = new AlertDialog.Builder(HomePageChapters.this);
-                alertDialogBuilder.setView(view);
-                alertDialogBuilder.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                session.deleteUsername();
-
-                                Intent i = new Intent(getApplicationContext(), MainMenu.class);
-                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(i);
-                                finish();
-
-                            }
-                        });
-
-                alertDialogBuilder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        });
-
-                alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-            }
-        });
+        super.onBackPressed();
 
     }
 }

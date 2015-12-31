@@ -20,7 +20,7 @@
             android:baselineAligned="false"
             android:layout_margin="2dp">
 
-            <TextView
+            <feup.traverse.CustomTextBoldF
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -35,7 +35,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp" />
 
-            <TextView
+            <feup.traverse.CustomTextRegularF
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -70,7 +70,42 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/rect_round_corner_notselected"
-                        android:layout_margin="2dp"></LinearLayout>
+                        android:layout_margin="2dp">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.25"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:rotation="-90"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:id="@+id/tv_viewchapter_music_timer"
+                                android:gravity="center" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.25" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.25" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.25" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <LinearLayout
@@ -90,7 +125,7 @@
                         android:layout_gravity="center"
                         android:gravity="center">
 
-                        <TextView
+                        <feup.traverse.CustomTextRegularF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -121,7 +156,7 @@
                         android:layout_gravity="center"
                         android:gravity="center">
 
-                        <TextView
+                        <feup.traverse.CustomTextRegularF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -159,7 +194,7 @@
                             android:layout_gravity="center"
                             android:gravity="center">
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -170,10 +205,16 @@
                                 android:padding="5dp"
                                 android:textSize="20sp" />
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:text="Medium Text"
                                 android:id="@+id/tv_viewchapter_localname"
                                 android:paddingTop="4dp"
@@ -201,7 +242,7 @@
                         android:layout_gravity="center"
                         android:gravity="center">
 
-                        <TextView
+                        <feup.traverse.CustomTextRegularF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"

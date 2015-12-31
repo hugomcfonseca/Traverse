@@ -70,8 +70,7 @@ public class ViewProgress extends AppCompatActivity {
             drawer.layout.closeDrawer(GravityCompat.START);
             return;
         }
-
-        Intent i = new Intent(this, ViewProfile.class);
+        Intent i = new Intent(this, HomePageGeneral.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         closeThisActivity();

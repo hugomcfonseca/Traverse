@@ -33,6 +33,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PHASE = "phase";
     public static final String LOCKED = "locked";
     public static final String SCORE = "score";
+    public static final String CHAPTERNAME = "chapter_name";
+    public static final String FLAG_AUDIO = "flag_audio";       // 0: no video, 1: on app, 2:on web, 3:on both
+    public static final String FLAG_VIDEO = "flag_video";       // 0: no video, 1: on app, 2:on web, 3:on both
+    public static final String PATH_AUDIO = "path_audio";
+    public static final String PATH_VIDEO = "path_video";
 
     public DataBaseHelper (Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -46,6 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(scriptUserData());
         db.execSQL(scriptPlaces());
+        db.execSQL(scriptChaptersData());
 
         initDatabaseHardcoded(db, 2, 0, 0);
         initPlacesByPersona(db);
@@ -98,18 +104,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //ToDo: insert each story part by phase
-    public String scriptChapters (){
-        final StringBuilder maps_table = new StringBuilder();
+    public String scriptChaptersData (){
+        final StringBuilder chapters_data_table = new StringBuilder();
 
-        maps_table.append("create table if not exists " + TABLE_NAME_PLACES + " ( ");
-        maps_table.append(ID + " integer primary key autoincrement, ");
-        maps_table.append(PERSONA + " varchar(15) not null, ");
-        maps_table.append(LOCAL + " varchar(30) not null unique, ");
-        maps_table.append(LATITUDE + " double not null unique, ");
-        maps_table.append(LONGITUDE + " double not null unique ");
-        maps_table.append(");");
+        chapters_data_table.append("create table if not exists " + TABLE_NAME_PLACES + " ( ");
+        chapters_data_table.append(ID + " integer primary key autoincrement, ");
+        chapters_data_table.append(CHAPTERNAME + " varchar(30) not null, ");
+        chapters_data_table.append(FLAG_AUDIO + " integer not null, ");
+        chapters_data_table.append(FLAG_VIDEO + " integer not null, ");
+        chapters_data_table.append(PATH_AUDIO + " integer not null, ");
+        chapters_data_table.append(PATH_VIDEO + " integer not null ");
+        chapters_data_table.append(");");
 
-        return maps_table.toString();
+        return chapters_data_table.toString();
     }
 
     public void initDatabaseHardcoded (SQLiteDatabase db, int n_userData, int n_places, int n_chapters) {

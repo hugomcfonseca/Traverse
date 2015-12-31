@@ -210,7 +210,7 @@ public class ViewProfile extends AppCompatActivity {
             drawer.layout.closeDrawer(GravityCompat.START);
             return;
         } else {
-            Intent i = new Intent(this, HomePageChapters.class);
+            Intent i = new Intent(this, HomePageGeneral.class);
             i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             closeThisActivity();
