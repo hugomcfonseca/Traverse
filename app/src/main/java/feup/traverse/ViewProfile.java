@@ -1,13 +1,10 @@
 package feup.traverse;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,9 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.RadioButton;
 import android.widget.TextView;
-
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,7 +41,6 @@ public class ViewProfile extends AppCompatActivity {
     private Typeface regularF;
     private Typeface boldF;
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

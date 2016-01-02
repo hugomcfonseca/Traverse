@@ -17,8 +17,6 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import junit.framework.TestCase;
-
 
 /**
  * Created by Filipe on 16/12/2015.

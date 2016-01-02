@@ -1,6 +1,5 @@
 package feup.traverse;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
@@ -16,13 +15,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -43,6 +39,7 @@ public class ViewChapterMenuFragment extends Fragment {
 
     boolean firstStart = true;
     boolean pontuationOnMusic = false;
+    boolean isPaused = false;
     Handler handler_music = new Handler();
 
     @Override
@@ -73,13 +70,11 @@ public class ViewChapterMenuFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                final boolean[] play_status = {false};
-
                 if (!mediaPlayer.isPlaying()) {
                     btn_viewchapterAudio.setText("Listening To");
-                    isStartPrepared();
 
-                    if (firstStart){
+                    if (firstStart || !isPaused){       //TEST IT
+                        isStartPrepared();              //TEST IT
                         handler_music.post(music_timer);
                     }
 
@@ -87,6 +82,7 @@ public class ViewChapterMenuFragment extends Fragment {
                     firstStart = false;
                 } else {
                     btn_viewchapterAudio.setText("Paused/Stopped");
+                    isPaused = true;
                     mediaPlayer.pause();
                 }
 
@@ -121,6 +117,7 @@ public class ViewChapterMenuFragment extends Fragment {
             }
         });
 
+        /*::::FIX BUGS HERE::::
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -133,7 +130,7 @@ public class ViewChapterMenuFragment extends Fragment {
                 else
                     Toast.makeText(getActivity(),"Ops, you did not listened to music on time required.", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 
         return rootView;
     }

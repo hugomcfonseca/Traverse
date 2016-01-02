@@ -90,7 +90,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="3dp"
-                    android:layout_weight="0.75">
+                    android:layout_weight="0.70">
 
                     <com.google.android.gms.maps.MapView xmlns:android="http://schemas.android.com/apk/res/android"
                         android:layout_width="match_parent"
@@ -99,6 +99,40 @@
                         android:name="com.google.android.gms.maps.SupportMapFragment"
                         android:layout_marginTop="2dp" />
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dip"
+                    android:layout_weight="0.05"
+                    android:gravity="center|end"
+                    android:layout_gravity="right"
+                    android:background="@drawable/rect_round_corner_notselected"
+                    android:layout_margin="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Last Sync:"
+                        android:id="@+id/textView60"
+                        android:padding="3dp"
+                        android:gravity="right"
+                        android:layout_gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:id="@+id/tv_viewchapter_maps_last_sync"
+                        android:padding="3dp"
+                        android:gravity="left"
+                        android:layout_gravity="center"
+                        android:textColor="#000000"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout

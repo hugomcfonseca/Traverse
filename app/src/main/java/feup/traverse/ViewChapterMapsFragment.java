@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -12,14 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import android.os.Handler;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author hugof
@@ -37,6 +39,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
     private Button btn_viewChapterMaps_getLocation, btn_viewChapterMaps_startTraveling;
     private TextView tv_viewchapterMapsLocalName;
+    private TextView tv_viewchapterLastSync;
 
     private Cursor cursor;
 
@@ -61,8 +64,13 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
         btn_viewChapterMaps_getLocation = (Button)view.findViewById(R.id.btn_viewchapter_maps_getlocation);
         btn_viewChapterMaps_startTraveling = (Button)view.findViewById(R.id.btn_viewchapter_map_start);
         tv_viewchapterMapsLocalName = (TextView)view.findViewById(R.id.tv_maps_place);
+        tv_viewchapterLastSync = (TextView)view.findViewById(R.id.tv_viewchapter_maps_last_sync);
 
         tv_viewchapterMapsLocalName.setText(cursor.getString(cursor.getColumnIndex("local")));
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        String currentDateandTime = sdf.format(new Date());
+        tv_viewchapterLastSync.setText(currentDateandTime);
 
         initializeMap();
         getLocation = GetMyLocation.getInstance();
@@ -71,6 +79,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
         btn_viewChapterMaps_getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
+                handler_getPosition.removeCallbacks(getting_userPosition);          //TESTAR
                 handler_getPosition.post(getting_userPosition);
             }
         });
@@ -104,8 +113,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
             mSupportMapFragment = SupportMapFragment.newInstance();
             fragmentTransaction.replace(R.id.map, mSupportMapFragment).commit();
         }
-        if (mSupportMapFragment != null)
-        {
+        if (mSupportMapFragment != null) {
             mSupportMapFragment.getMapAsync(this);
             if (mMap != null)
                 mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
@@ -148,6 +156,10 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
             handler_getPosition.postDelayed(getting_userPosition, 5*1000*60);
 
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            String currentDateandTime = sdf.format(new Date());
+            tv_viewchapterLastSync.setText(currentDateandTime);
+
             getLocation.getLocation(getContext());
             mMap.clear();
 
@@ -156,7 +168,9 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
                     .title(cursor.getString(cursor.getColumnIndex("local"))));
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(getLocation.getLatitude(), getLocation.getLongitude()))
-                    .title("You are here!"));
+                    .title("You are here!" + "(Lat,Lon): ("+getLocation.latitude+", "+getLocation.getLongitude()+")"));
+
+            Toast.makeText(getActivity(),"Location update!\nLatitude: "+getLocation.latitude+"\nLongitude:"+getLocation.getLongitude(),Toast.LENGTH_LONG).show();
 
             if (checkUserPosition(cursor.getDouble(cursor.getColumnIndex("latitude")), cursor.getDouble(cursor.getColumnIndex("longitude")),
                     getLocation.getLatitude(), getLocation.getLongitude())) {
@@ -187,6 +201,8 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
                     }
                 });
                 alertDialog.show();
+
+                getLocation.stopUsingGPS();
             }
         }
     };

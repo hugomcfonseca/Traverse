@@ -17,8 +17,6 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by hugof on 26/12/2015.
  */
