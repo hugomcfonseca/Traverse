@@ -3,55 +3,95 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="0.2"
+        android:layout_margin="5dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="3dp">
+
+            <feup.traverse.CustomTextRegularF
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Chapter"
+                android:id="@+id/textView3"
+                android:padding="3dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#000000" />
+
+            <feup.traverse.CustomTextRegularF
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="number"
+                android:id="@+id/tv_viewchapter_text_ch_number"
+                android:padding="3dp"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="#000000" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="3dp"
+            android:gravity="center">
+
+            <feup.traverse.CustomTextBoldF
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Title"
+                android:id="@+id/tv_viewchapter_text_ch_title"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:padding="3dp" />
+        </LinearLayout>
+    </LinearLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="0.85"
-        android:layout_margin="5dp"
-        android:background="@drawable/rect_round_corner_notselected">
+        android:layout_weight="0.8"
+        android:layout_margin="5dp">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:background="@drawable/rect_round_corner_notselected">
 
             <feup.traverse.CustomTextBoldF
                 style="?android:textAppearanceMedium"
                 android:padding="16dp"
+                android:id="@+id/tv_chapter_content"
                 android:lineSpacingMultiplier="1.2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="#000000" />
         </ScrollView>
 
     </FrameLayout>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="0.15"
-        android:gravity="bottom"
-        android:layout_margin="5dp">
-
-        <Button
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:text="Previous Page"
-            android:id="@+id/btn_view_chapter_text_back"
-            android:layout_weight="0.5"
-            android:background="@drawable/rect_round_corner_notselected"
-            android:backgroundTint="#cfae78"
-            android:layout_marginRight="2dp" />
-
-        <Button
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:text="Next Page"
-            android:id="@+id/btn_view_chapter_text_next"
-            android:layout_weight="0.5"
-            android:background="@drawable/rect_round_corner_notselected"
-            android:backgroundTint="#cfae78"
-            android:layout_marginLeft="2dp" />
-    </LinearLayout>
 </LinearLayout>

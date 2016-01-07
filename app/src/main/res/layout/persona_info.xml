@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView7"
+        android:fillViewport="true">
+
+        <feup.traverse.CustomTextBoldF
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/tv_viewprofile_persona_info"
+            android:textIsSelectable="false"
+            android:textSize="20sp"
+            android:paddingTop="4dp" />
+    </ScrollView>
+
+</LinearLayout>

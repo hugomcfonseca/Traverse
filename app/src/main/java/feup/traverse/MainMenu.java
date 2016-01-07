@@ -23,14 +23,17 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class MainMenu extends AppCompatActivity {
 
 
     private Button btn_SignIn, btn_SignOn;
-    private LoginButton loginButton;
     private EditText et_Username, et_Password, et_Email;
     private TextView tv_recoverCredentials;
     private CheckBox cb_saveCredentials;
@@ -39,7 +42,6 @@ public class MainMenu extends AppCompatActivity {
     private AlertDialog alertDialog;
 
     DataBaseAdapter dataBaseAdapter;
-    private CallbackManager callbackManager;
 
     SharedPreferences sharedPreferences;
     private Session session;
@@ -49,19 +51,21 @@ public class MainMenu extends AppCompatActivity {
     Typeface regularF;
     Typeface boldF;
 
+    private CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        regularF = Typeface.createFromAsset(getAssets(),
-                "fonts/qsR.otf");
-        boldF = Typeface.createFromAsset(getAssets(),
-                "fonts/qsB.otf");
         FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+
+        regularF = Typeface.createFromAsset(getAssets(),"fonts/qsR.otf");
+        boldF = Typeface.createFromAsset(getAssets(),"fonts/qsB.otf");
+
         setContentView(R.layout.activity_mainmenu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        callbackManager = CallbackManager.Factory.create();
 
         // create a instance of SQLite Database
         dataBaseAdapter = new DataBaseAdapter(this);
@@ -76,18 +80,38 @@ public class MainMenu extends AppCompatActivity {
         btn_SignIn.setTypeface(boldF);
         btn_SignOn = (Button) findViewById(R.id.btn_signon);
         btn_SignOn.setTypeface(boldF);
-        loginButton = (LoginButton) findViewById(R.id.login_button);
 
         tv_recoverCredentials = (TextView)findViewById(R.id.tv_lostpassword);
         tv_recoverCredentials.setTypeface(boldF);
 
-        btn_SignIn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                userLogin();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+
             }
         });
 
-        btn_SignOn.setOnClickListener(new View.OnClickListener(){
+        btn_SignIn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                userLogin();
+
+                LoginManager.getInstance().logInWithReadPermissions(MainMenu.this, Arrays.asList("public_profile"));
+                LoginManager.getInstance().logInWithPublishPermissions(MainMenu.this, Arrays.asList("publish_actions"));
+            }
+        });
+
+        btn_SignOn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -100,30 +124,6 @@ public class MainMenu extends AppCompatActivity {
         });
 
         // TODO: 06/12/2015
-        // Test it with Facebook app and verify which message log is generated
-        // Substitute it with a transparent login on Facebook?
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Toast.makeText(MainMenu.this, "User ID: " + loginResult.getAccessToken().getUserId(),
-                        Toast.LENGTH_SHORT).show();
-                Log.d("Facebook", "Entrei");
-            }
-
-            @Override
-            public void onCancel() {
-                Toast.makeText(MainMenu.this, "Login attempt canceled!", Toast.LENGTH_SHORT).show();
-                Log.d("Facebook", "Cancelei");
-            }
-
-            @Override
-            public void onError(FacebookException e) {
-                Toast.makeText(MainMenu.this, "Login attempt failed!", Toast.LENGTH_SHORT).show();
-                Log.d("Facebook", "Errei");
-            }
-        });
-
-        // TODO: 06/12/2015
         // Implement way to send email with password and username
         tv_recoverCredentials.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -131,6 +131,12 @@ public class MainMenu extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -195,7 +201,7 @@ public class MainMenu extends AppCompatActivity {
                                         editor.putBoolean("Checked", checkBox);
                                         editor.apply();
                                     } else {
-                                        sharedPreferences.edit().clear().commit();
+                                        sharedPreferences.edit().clear().apply();
                                     }
 
                                     Toast.makeText(MainMenu.this, "Login Successful!",

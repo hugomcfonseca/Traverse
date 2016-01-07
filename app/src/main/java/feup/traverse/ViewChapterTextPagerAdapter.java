@@ -32,9 +32,6 @@ public class ViewChapterTextPagerAdapter  extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        if (fragment_number != 3) {
-            return 1;
-        } else
-            return 3;
+        return 1;
     }
 }

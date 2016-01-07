@@ -13,6 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author hugof
  * @date 29/12/2015.
@@ -29,6 +39,7 @@ public class ViewChapter extends AppCompatActivity {
     public int flag = 1;
     public int value;
     public int finished = 0;
+    public int part = 1;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -50,6 +61,7 @@ public class ViewChapter extends AppCompatActivity {
 
         flag = 1;
         finished = 0;
+        part = 1;
 
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);

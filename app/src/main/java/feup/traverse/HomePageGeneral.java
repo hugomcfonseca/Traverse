@@ -60,7 +60,7 @@ public class HomePageGeneral extends AppCompatActivity {
         ll_buttons[4] = (LinearLayout)findViewById(R.id.ll_homepage_logout);
         tv_homepageUsername = (TextView)findViewById(R.id.tv_homepage_username);
 
-        tv_homepageUsername.setText(session.getusername()+" !");
+        tv_homepageUsername.setText(session.getusername());
         tv_homepageUsername.setTypeface(boldF);
 
         ll_buttons[0].setOnClickListener(new View.OnClickListener() {

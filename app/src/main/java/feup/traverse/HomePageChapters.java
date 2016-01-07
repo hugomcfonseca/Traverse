@@ -45,13 +45,6 @@ public class HomePageChapters extends AppCompatActivity {
     private Typeface regularF;
     private Typeface boldF;
 
-    TextView textView4,textView5,textView6,textView7,textView8,textView9;
-    TextView textView10,textView11,textView12,textView13,textView14,textView16,textView17,textView18,textView19,textView20,
-            textView21,textView23,textView24,textView25,textView26,textView27,textView29,textView30,textView31,
-            textView32,textView33,textView34,textView36,textView37,textView38,textView39,textView40,textView41,
-            textView43,textView44,textView45,textView46,textView47,textView48,textView50,textView51,textView52,
-            textView53,textView54,textView55,textView57,textView58;
-
     CheckBox cb_audio_chapter1,cb_audio_chapter2,checkBox, checkBox2,checkBox3,checkBox4,	checkBox5,checkBox6;
 
 
@@ -113,114 +106,6 @@ public class HomePageChapters extends AppCompatActivity {
         tv_place_chapter8 = (TextView)findViewById(R.id.tv_place_chapter8);
         tv_place_chapter8.setTypeface(regularF);
 
-        //Text
-        textView4 = (TextView)findViewById(R.id.textView4);
-        textView4.setTypeface(boldF);
-        textView5 = (TextView)findViewById(R.id.textView5);
-        textView5.setTypeface(boldF);
-        textView6 = (TextView)findViewById(R.id.textView6);
-        textView6.setTypeface(boldF);
-        textView7 = (TextView)findViewById(R.id.textView7);
-        textView7.setTypeface(regularF);
-        textView8 = (TextView)findViewById(R.id.textView8);
-        textView8.setTypeface(boldF);
-        textView9 = (TextView)findViewById(R.id.textView9);
-        textView9.setTypeface(boldF);
-        textView10 = (TextView)findViewById(R.id.textView10);
-        textView10.setTypeface(boldF);
-
-
-        textView11 = (TextView)findViewById(R.id.textView11);
-        textView11.setTypeface(boldF);
-        textView12 = (TextView)findViewById(R.id.textView12);
-        textView12.setTypeface(boldF);
-        textView13 = (TextView)findViewById(R.id.textView13);
-        textView13.setTypeface(regularF);
-        textView14 = (TextView)findViewById(R.id.textView14);
-        textView14.setTypeface(boldF);
-        textView16 = (TextView)findViewById(R.id.textView16);
-        textView16.setTypeface(boldF);
-        textView17 = (TextView)findViewById(R.id.textView17);
-        textView17.setTypeface(boldF);
-
-        textView18 = (TextView)findViewById(R.id.textView18);
-        textView18.setTypeface(boldF);
-        textView19= (TextView)findViewById(R.id.textView19);
-        textView19.setTypeface(boldF);
-        textView20 = (TextView)findViewById(R.id.textView20);
-        textView20.setTypeface(regularF);
-        textView21 = (TextView)findViewById(R.id.textView21);
-        textView21.setTypeface(boldF);
-        textView23 = (TextView)findViewById(R.id.textView23);
-        textView23.setTypeface(boldF);
-
-        textView24 = (TextView)findViewById(R.id.textView24);
-        textView24.setTypeface(boldF);
-        textView25 = (TextView)findViewById(R.id.textView25);
-        textView25.setTypeface(boldF);
-        textView26 = (TextView)findViewById(R.id.textView26);
-        textView26.setTypeface(regularF);
-        textView27 = (TextView)findViewById(R.id.textView27);
-        textView27.setTypeface(boldF);
-        textView29 = (TextView)findViewById(R.id.textView29);
-        textView29.setTypeface(boldF);
-        textView30 = (TextView)findViewById(R.id.textView30);
-        textView30.setTypeface(boldF);
-
-        textView30 = (TextView)findViewById(R.id.textView30);
-        textView30.setTypeface(boldF);
-        textView31 = (TextView)findViewById(R.id.textView31);
-        textView31.setTypeface(boldF);
-        textView32 = (TextView)findViewById(R.id.textView32);
-        textView32.setTypeface(boldF);
-        textView33 = (TextView)findViewById(R.id.textView33);
-        textView33.setTypeface(regularF);
-        textView34 = (TextView)findViewById(R.id.textView34);
-        textView34.setTypeface(boldF);
-        textView36 = (TextView)findViewById(R.id.textView36);
-        textView36.setTypeface(boldF);
-        textView37 = (TextView)findViewById(R.id.textView37);
-        textView37.setTypeface(boldF);
-
-        textView38 = (TextView)findViewById(R.id.textView38);
-        textView38.setTypeface(boldF);
-        textView39 = (TextView)findViewById(R.id.textView39);
-        textView39.setTypeface(boldF);
-        textView40 = (TextView)findViewById(R.id.textView40);
-        textView40.setTypeface(regularF);
-        textView41 = (TextView)findViewById(R.id.textView41);
-        textView41.setTypeface(boldF);
-        textView43 = (TextView)findViewById(R.id.textView43);
-        textView43.setTypeface(boldF);
-        textView44 = (TextView)findViewById(R.id.textView44);
-        textView44.setTypeface(boldF);
-
-        textView45 = (TextView)findViewById(R.id.textView45);
-        textView45.setTypeface(boldF);
-        textView46 = (TextView)findViewById(R.id.textView46);
-        textView46.setTypeface(boldF);
-        textView47 = (TextView)findViewById(R.id.textView47);
-        textView47.setTypeface(regularF);
-        textView48 = (TextView)findViewById(R.id.textView48);
-        textView48.setTypeface(boldF);
-        textView50 = (TextView)findViewById(R.id.textView50);
-        textView50.setTypeface(boldF);
-        textView51 = (TextView)findViewById(R.id.textView51);
-        textView51.setTypeface(boldF);
-
-        textView52 = (TextView)findViewById(R.id.textView52);
-        textView52.setTypeface(boldF);
-        textView53 = (TextView)findViewById(R.id.textView53);
-        textView53.setTypeface(boldF);
-        textView54 = (TextView)findViewById(R.id.textView54);
-        textView54.setTypeface(regularF);
-        textView55 = (TextView)findViewById(R.id.textView55);
-        textView55.setTypeface(boldF);
-        textView57 = (TextView)findViewById(R.id.textView57);
-        textView57.setTypeface(boldF);
-        textView58 = (TextView)findViewById(R.id.textView58);
-        textView58.setTypeface(boldF);
-
         //Initiate imageViews components
         im_chapters[0] = (ImageView)findViewById(R.id.im_status_chapter1);
         im_chapters[1] = (ImageView)findViewById(R.id.im_status_chapter2);
@@ -252,9 +137,11 @@ public class HomePageChapters extends AppCompatActivity {
         for (int i = 0; i < 8; i++){
             if (status[i] == 0 ){
                 final int chapter_passed = i+1;
+                final int finalI = i;
                 ll_chapters[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        ll_chapters[finalI].setBackground(getResources().getDrawable(R.drawable.rect_round_corner_selected));
                         Intent nextStep = new Intent("feup.traverse.ViewChapter");
                         nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         nextStep.putExtra("chapter_selected",chapter_passed);

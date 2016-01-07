@@ -105,7 +105,6 @@ public class DataBaseAdapter {
 
     }
 
-
     public void updateEntry (String username,String name, String email, String date, String password,byte[] image) {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
@@ -133,7 +132,6 @@ public class DataBaseAdapter {
         return cursor;
     }
 
-    /**The next Methods are for imageprofile   */
     public byte[] verifyImage (String username){
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});

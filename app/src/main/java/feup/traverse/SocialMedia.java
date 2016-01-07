@@ -23,13 +23,16 @@ import android.widget.TextView;
 public class SocialMedia extends AppCompatActivity {
 
     private CustomDrawer drawer;
-    private ImageView ev_facebook, ev_twitter, ev_site;
+    private ImageView ev_facebook, ev_twitter, ev_site, ev_googleplus;
     private WebView tv_about;
     private TextView tv_name;
     private String text= "<html><body><h3 align=\"justify\">"
-    + "A message from the future tells you that Humanity is in grave danger and that only by destroying the Artifact, an ancient radiation sensor from another world, will we survive. Meet with Dr. Marco Fogg who will send you back in time, before the Artifact was activated, to stop Phileas Fogg from saving the sensor from certain destruction. Chase him during his journey around the world as you explore Porto, Portugal.\n"
-    +"Turn on the app, get transported to the past, explore Porto and save the world."
-    +"</h3></body></html>";
+    + "A message from the future tells you that Humanity is in grave danger and that only by destroying"
+    + " the Artifact, an ancient radiation sensor from another world, will we survive. Meet with Dr. Marco"
+    + " Fogg who will send you back in time, before the Artifact was activated, to stop Phileas Fogg from "
+    + "saving the sensor from certain destruction. Chase him during his journey around the world as you explore Porto, Portugal.\n"
+    + "Turn on the app, get transported to the past, explore Porto and save the world."
+    + "</h3></body></html>";
 
     private Typeface regularF;
     private Typeface boldF;
@@ -53,23 +56,20 @@ public class SocialMedia extends AppCompatActivity {
         ev_facebook= (ImageView)findViewById(R.id.btn_facebook);
         ev_twitter= (ImageView)findViewById(R.id.btn_twitter);
         ev_site= (ImageView)findViewById(R.id.btn_site);
+        ev_googleplus = (ImageView)findViewById(R.id.btn_googleplus);
         tv_name=(TextView)findViewById(R.id.tv_name);
         tv_name.setTypeface(boldF);
         tv_about=(WebView)findViewById(R.id.webView);
         tv_about.loadData(text, "text/html", "utf-8");
-        tv_about.setBackgroundColor(0x7AAABBBB);
-
-
-
 
         ev_facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://profile/100001285444664"));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/989951914409156"));
                     startActivity(intent);
                 } catch (Exception e) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com/100001285444664")));
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/traverseproject/")));
                 }
             }
         });
@@ -78,12 +78,12 @@ public class SocialMedia extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     Intent intent = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("twitter://user?user_id=4615381997"));
+                            Uri.parse("twitter://user?user_id=4705481208"));
                     startActivity(intent);
 
                 } catch (Exception e) {
                     startActivity(new Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://twitter.com/FilipeDMorais")));
+                            Uri.parse("https://twitter.com/M0172oF14gg")));
                 }
             }
         });
@@ -91,7 +91,23 @@ public class SocialMedia extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW,
-                        Uri.parse("https://traverse-rangers.herokuapp.com/")));
+                        Uri.parse("https://paginas.fe.up.pt/~up201501013/traverse/")));
+            }
+        });
+
+        ev_googleplus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setClassName("com.google.android.apps.plus", "com.google.android.apps.plus.phone.UrlGatewayActivity");
+                    i.putExtra("customAppUri", "101266899643014043497");
+                    startActivity(i);
+
+                } catch (Exception e) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://plus.google.com/106475838895411979118")));
+                }
             }
         });
     }

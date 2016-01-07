@@ -57,45 +57,82 @@
                     android:padding="10dp"
                     android:layout_gravity="center" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp">
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_site"
-                        android:layout_gravity="right"
-                        android:background="@drawable/website_logo"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentEnd="true"
-                        android:clickable="true" />
+                        android:layout_weight="0.25"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_facebook"
+                            android:background="@drawable/facebook_logo"
+                            android:clickable="true"
+                            android:nestedScrollingEnabled="false" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_facebook"
-                        android:background="@drawable/facebook_logo"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentStart="true"
-                        android:clickable="true"
-                        android:nestedScrollingEnabled="false" />
+                        android:layout_weight="0.25"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
-                    <ImageButton
-                        android:layout_width="wrap_content"
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_googleplus"
+                            android:background="@drawable/google_logo"
+                            android:clickable="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dip"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_twitter"
-                        android:gravity="center"
-                        android:background="@drawable/twitter_logo"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:clickable="true"/>
+                        android:layout_weight="0.25"
+                        android:layout_gravity="center"
+                        android:gravity="center">
 
-                </RelativeLayout>
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_twitter"
+                            android:gravity="center"
+                            android:background="@drawable/twitter_logo"
+                            android:clickable="true" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/btn_site"
+                            android:background="@drawable/website_logo"
+                            android:clickable="true" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <ScrollView
                     android:layout_width="fill_parent"
@@ -117,7 +154,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/webView"
-                            android:alpha="100" />
+                            android:alpha="100"
+                            android:background="@drawable/rect_round_corner_notselected" />
 
                     </LinearLayout>
                 </ScrollView>

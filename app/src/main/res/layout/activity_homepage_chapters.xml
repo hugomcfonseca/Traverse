@@ -51,7 +51,7 @@
                         android:clickable="true"
                         android:focusable="true">
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="fonts/qsR.otf"
@@ -65,9 +65,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content">
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:fontFamily="fonts/qsR.otf"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -94,9 +94,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -106,7 +106,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -125,9 +125,10 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -137,12 +138,18 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
                                 android:id="@+id/tv_place_chapter1"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
                                 android:gravity="center"
@@ -155,9 +162,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -191,7 +198,7 @@
                         android:focusable="false"
                         android:background="#8b000000">
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 2"
@@ -204,9 +211,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -232,9 +239,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -244,7 +251,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -262,9 +269,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -274,11 +281,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter2"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -292,9 +305,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -325,7 +338,7 @@
                         android:layout_marginBottom="2dp"
                         android:clickable="false" >
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 3"
@@ -338,9 +351,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -366,9 +379,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -378,7 +391,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -396,9 +409,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -408,11 +421,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter3"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -426,9 +445,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -459,7 +478,7 @@
                         android:layout_marginBottom="2dp"
                         android:clickable="false" >
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 4"
@@ -472,9 +491,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -500,9 +519,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -512,7 +531,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -530,9 +549,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -542,11 +561,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter4"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -560,9 +585,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -593,7 +618,7 @@
                         android:layout_marginBottom="2dp"
                         android:clickable="false" >
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 5"
@@ -606,9 +631,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -634,9 +659,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -646,7 +671,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -664,9 +689,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -676,11 +701,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter5"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -694,9 +725,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -727,7 +758,7 @@
                         android:layout_marginBottom="2dp"
                         android:clickable="false" >
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 6"
@@ -740,9 +771,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -768,9 +799,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -780,7 +811,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -798,9 +829,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -810,11 +841,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter6"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -828,9 +865,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -861,7 +898,7 @@
                         android:layout_marginBottom="2dp"
                         android:clickable="false" >
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 7"
@@ -874,9 +911,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -902,9 +939,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -914,7 +951,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -932,9 +969,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -944,11 +981,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter7"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -962,9 +1005,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -995,7 +1038,7 @@
                         android:layout_marginBottom="2dp"
                         android:clickable="false" >
 
-                        <TextView
+                        <feup.traverse.CustomTextBoldF
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Chapter 8"
@@ -1008,9 +1051,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -1036,9 +1079,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -1048,7 +1091,7 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -1066,9 +1109,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -1078,11 +1121,17 @@
                                 android:padding="5dp"
                                 android:layout_gravity="center" />
 
-                            <TextView
+                            <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
                                 android:text="Maus Hábitos"
+                                android:singleLine="true"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit ="marquee_forever"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:scrollHorizontally="true"
                                 android:id="@+id/tv_place_chapter8"
                                 android:textSize="16sp"
                                 android:layout_gravity="center"
@@ -1096,9 +1145,9 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" >
+                            android:layout_height="wrap_content" >
 
-                            <TextView
+                            <feup.traverse.CustomTextBoldF
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?android:attr/textAppearanceMedium"

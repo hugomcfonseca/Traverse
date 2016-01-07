@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.database.Cursor;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -22,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author hugof
@@ -38,15 +43,16 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
     private AlertDialog alertDialog;
 
     private Button btn_viewChapterMaps_getLocation, btn_viewChapterMaps_startTraveling;
-    private TextView tv_viewchapterMapsLocalName;
-    private TextView tv_viewchapterLastSync;
+    private TextView tv_viewchapterMapsLocalName, tv_viewchapterLastSync, tv_viewchapterTimer;
 
     private Cursor cursor;
 
     final int phase_number = 1;
+    private boolean started = false;
 
     Handler handler_getPosition = new Handler();
     Handler handler_timerToCheckDestination = new Handler();
+    CountDownTimer getDestination;
 
     public void onCreate(Bundle savedInstanceState) {
         setRetainInstance(true);
@@ -63,12 +69,14 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
         btn_viewChapterMaps_getLocation = (Button)view.findViewById(R.id.btn_viewchapter_maps_getlocation);
         btn_viewChapterMaps_startTraveling = (Button)view.findViewById(R.id.btn_viewchapter_map_start);
-        tv_viewchapterMapsLocalName = (TextView)view.findViewById(R.id.tv_maps_place);
+        tv_viewchapterMapsLocalName = (TextView)view.findViewById(R.id.tv_viewchapter_maps_place);
         tv_viewchapterLastSync = (TextView)view.findViewById(R.id.tv_viewchapter_maps_last_sync);
+        tv_viewchapterTimer = (TextView)view.findViewById(R.id.tv_viewchapter_maps_timer);
 
         tv_viewchapterMapsLocalName.setText(cursor.getString(cursor.getColumnIndex("local")));
+        btn_viewChapterMaps_getLocation.setEnabled(false);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd@HH:mm:ss");
         String currentDateandTime = sdf.format(new Date());
         tv_viewchapterLastSync.setText(currentDateandTime);
 
@@ -79,8 +87,21 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
         btn_viewChapterMaps_getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                handler_getPosition.removeCallbacks(getting_userPosition);          //TESTAR
+                handler_getPosition.removeCallbacks(getting_userPosition);
                 handler_getPosition.post(getting_userPosition);
+            }
+        });
+
+        btn_viewChapterMaps_startTraveling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!started){
+                    started = true;
+                    btn_viewChapterMaps_getLocation.setEnabled(true);
+                    handler_timerToCheckDestination.post(timer_CheckDestination);
+                }
+
             }
         });
 
@@ -103,6 +124,9 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
             //handle this situation because you are necessary will get
             //an exception here :-(
         }
+
+        if (started)
+            getDestination.cancel();
     }
 
     private void initializeMap() {
@@ -131,10 +155,14 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         Cursor cursor = ((ViewChapter) getActivity()).dataBaseAdapter.getCoordinatesAndLocal(
-                        ((ViewChapter) getActivity()).value,((ViewChapter) getActivity()).session.getusername());
+                ((ViewChapter) getActivity()).value, ((ViewChapter) getActivity()).session.getusername());
         mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(cursor.getDouble(cursor.getColumnIndex("latitude")), cursor.getDouble(cursor.getColumnIndex("longitude"))))
-                        .title(cursor.getString(cursor.getColumnIndex("local"))));
+                .position(new LatLng(cursor.getDouble(cursor.getColumnIndex("latitude")), cursor.getDouble(cursor.getColumnIndex("longitude"))))
+                .title(cursor.getString(cursor.getColumnIndex("local"))));
+
+        CameraUpdate center = CameraUpdateFactory.newLatLngZoom(new LatLng(cursor.getDouble(cursor.getColumnIndex("latitude")), cursor.getDouble(cursor.getColumnIndex("longitude"))),11);
+
+        mMap.moveCamera(center);
     }
 
     private boolean checkUserPosition (double req_lat, double req_long, double my_lat, double my_long) {
@@ -145,6 +173,9 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
         if (results[0] <= 30){
             handler_getPosition.removeCallbacks(getting_userPosition);
+            handler_timerToCheckDestination.removeCallbacks(timer_CheckDestination);
+            getDestination.cancel();
+            started = false;
             return true;
         } else
            return false;
@@ -156,7 +187,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
             handler_getPosition.postDelayed(getting_userPosition, 5*1000*60);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd@HH:mm:ss");
             String currentDateandTime = sdf.format(new Date());
             tv_viewchapterLastSync.setText(currentDateandTime);
 
@@ -169,6 +200,8 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(getLocation.getLatitude(), getLocation.getLongitude()))
                     .title("You are here!" + "(Lat,Lon): ("+getLocation.latitude+", "+getLocation.getLongitude()+")"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(cursor.getDouble(cursor.getColumnIndex("latitude")),
+                    cursor.getDouble(cursor.getColumnIndex("longitude"))),11));
 
             Toast.makeText(getActivity(),"Location update!\nLatitude: "+getLocation.latitude+"\nLongitude:"+getLocation.getLongitude(),Toast.LENGTH_LONG).show();
 
@@ -177,7 +210,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
                 alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setTitle("Phase " + phase_number + " finished!");
-                alertDialogBuilder.setNegativeButton("Cancel",
+                alertDialogBuilder.setPositiveButton("Next",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -210,7 +243,25 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
     private Runnable timer_CheckDestination = new Runnable() {
         @Override
         public void run() {
+             getDestination = new CountDownTimer(2*60*60*1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    String time = String.format("%02d:%02d:%02d",
+                            TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) -
+                                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
+                    tv_viewchapterTimer.setText(time);
+                }
 
+                @Override
+                public void onFinish() {
+                    handler_timerToCheckDestination.removeCallbacks(timer_CheckDestination);
+                    tv_viewchapterTimer.setText("00:00:00");
+                    Toast.makeText(getActivity(),"Time to get the destination finished!", Toast.LENGTH_SHORT).show();
+                }
+            }.start();
         }
     };
 

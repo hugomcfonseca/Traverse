@@ -1,5 +1,8 @@
 package feup.traverse;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ViewProgressList extends ListFragment implements AdapterView.OnItemClickListener {
+public class   ViewProgressList extends ListFragment implements AdapterView.OnItemClickListener {
 
     List<PhaseDoneItem> phaseDoneItem;
     DataBaseAdapter dataBaseAdapter;
@@ -26,6 +29,9 @@ public class ViewProgressList extends ListFragment implements AdapterView.OnItem
 
     private Typeface regularF;
     private Typeface boldF;
+
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,17 +74,34 @@ public class ViewProgressList extends ListFragment implements AdapterView.OnItem
         phaseDoneItem = new ArrayList<PhaseDoneItem>();
         phaseDoneItem = dataBaseAdapter.getAllPhasesDone(session.getusername());
         adapter = new PhaseCustomAdapter(getActivity(), phaseDoneItem);
-        //View header = getLayoutInflater().inflate(R.layout.header, null);
-        //getListView().addHeaderView(header);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), dataBaseAdapter.nChapter[position] + " Clicked!"
-                , Toast.LENGTH_SHORT).show();
 
-        //ToDo: Implement a AlertDialog to show row details when user click in one item.
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                View view = getActivity().getLayoutInflater().inflate(R.layout.view_progress_item_info, null);
+
+                alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setView(view);
+                alertDialogBuilder.setPositiveButton("Done!",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+
+                            }
+                        });
+
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.setCanceledOnTouchOutside(true);
+                alertDialog.show();
+            }
+        });
     }
 }

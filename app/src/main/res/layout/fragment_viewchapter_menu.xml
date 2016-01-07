@@ -41,7 +41,8 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Medium Text"
                 android:id="@+id/tv_viewchapter_chapter_title"
-                android:padding="2dp" />
+                android:padding="2dp"
+                android:textColor="#000000" />
         </LinearLayout>
 
         <ScrollView
@@ -55,56 +56,122 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
-                android:layout_weight="0.7"
                 android:baselineAligned="false">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.13"
                     android:background="@drawable/custom_border">
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/rect_round_corner_notselected"
-                        android:layout_margin="2dp">
+                        android:background="@drawable/rect_round_corner_notselected">
 
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="0dip"
-                            android:layout_weight="0.25"
-                            android:gravity="center">
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:layout_gravity="center">
 
-                            <TextView
+                            <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:rotation="-90"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:id="@+id/tv_viewchapter_music_timer"
-                                android:gravity="center" />
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageView39"
+                                android:adjustViewBounds="false"
+                                android:src="@drawable/chronometer_logo"
+                                android:padding="3dp" />
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:orientation="vertical"
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="0dip"
-                            android:layout_weight="0.25" />
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
 
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="0dip"
-                            android:layout_weight="0.25" />
+                            android:layout_weight="0.2"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageView35"
+                                android:adjustViewBounds="false"
+                                android:src="@drawable/book_chapters_logo"
+                                android:padding="3dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
 
                         <LinearLayout
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="0dip"
-                            android:layout_weight="0.25" />
+                            android:layout_weight="0.2"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageView38"
+                                android:adjustViewBounds="false"
+                                android:src="@drawable/maps_logo"
+                                android:padding="3dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.2"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageView37"
+                                android:adjustViewBounds="false"
+                                android:src="@drawable/book_chapters_logo"
+                                android:padding="3dp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="@android:color/black" />
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dip"
+                            android:layout_weight="0.2"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/imageView36"
+                                android:adjustViewBounds="false"
+                                android:src="@drawable/facebook_logo_bw"
+                                android:padding="3dp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -112,29 +179,48 @@
                     android:orientation="vertical"
                     android:layout_width="0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.75"
+                    android:layout_weight="0.87"
                     android:background="@drawable/custom_border">
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.2"
                         android:background="@drawable/rect_round_corner_notselected"
                         android:layout_margin="2dp"
                         android:layout_gravity="center"
                         android:gravity="center">
 
-                        <feup.traverse.CustomTextRegularF
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Message Received"
-                            android:id="@+id/tv_view_chapter_audio"
                             android:layout_gravity="center"
-                            android:gravity="center"
-                            android:padding="5dp"
-                            android:textSize="20sp" />
+                            android:gravity="center">
+
+                            <feup.traverse.CustomTextRegularF
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="Message Received"
+                                android:id="@+id/tv_view_chapter_audio"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:padding="5dp"
+                                android:textSize="20sp"
+                                android:layout_weight="0.65" />
+
+                            <feup.traverse.CustomTextRegularF
+                                android:layout_width="0dip"
+                                android:layout_height="match_parent"
+                                android:id="@+id/tv_viewchapter_music_timer"
+                                android:gravity="center"
+                                android:textColor="#000000"
+                                android:textSize="16sp"
+                                android:text="( 00:00:00 )"
+                                android:layout_weight="0.35" />
+                        </LinearLayout>
 
                         <Button
                             android:layout_width="match_parent"
@@ -144,13 +230,14 @@
                             android:layout_margin="5dp"
                             android:backgroundTint="#cfae78"
                             android:background="@drawable/rect_round_corner_notselected" />
+
                     </LinearLayout>
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.2"
                         android:background="@drawable/rect_round_corner_notselected"
                         android:layout_margin="2dp"
                         android:layout_gravity="center"
@@ -160,8 +247,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceLarge"
-                            android:text="Chapter Content"
-                            android:id="@+id/tv_viewchapter_chaptername"
+                            android:text="Chapter Content (Part I)"
+                            android:id="@+id/tv_viewchapter_chaptername_i"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:padding="5dp"
@@ -171,7 +258,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="View Content"
-                            android:id="@+id/btn_viewchapter_text"
+                            android:id="@+id/btn_viewchapter_text_part_i"
                             android:layout_margin="5dp"
                             android:backgroundTint="#cfae78"
                             android:background="@drawable/rect_round_corner_notselected" />
@@ -181,7 +268,7 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.2"
                         android:background="@drawable/rect_round_corner_notselected"
                         android:layout_margin="2dp"
                         android:layout_gravity="center"
@@ -209,17 +296,22 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="Maus Hábitos"
                                 android:singleLine="true"
                                 android:ellipsize="marquee"
                                 android:marqueeRepeatLimit ="marquee_forever"
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 android:scrollHorizontally="true"
-                                android:text="Medium Text"
                                 android:id="@+id/tv_viewchapter_localname"
-                                android:paddingTop="4dp"
+                                android:textSize="20sp"
+                                android:layout_gravity="center"
                                 android:gravity="center"
-                                android:layout_gravity="center" />
+                                android:paddingTop="3dp"
+                                android:paddingRight="3dp"
+                                android:paddingBottom="3dp"
+                                android:textColor="#000" />
+
                         </LinearLayout>
 
                         <Button
@@ -236,7 +328,38 @@
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/rect_round_corner_notselected"
+                        android:layout_margin="2dp"
+                        android:layout_gravity="center"
+                        android:gravity="center">
+
+                        <feup.traverse.CustomTextRegularF
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:text="Chapter Content (Part II)"
+                            android:id="@+id/tv_viewchapter_chaptername_ii"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="20sp" />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="View Content"
+                            android:id="@+id/btn_viewchapter_text_part_ii"
+                            android:layout_margin="5dp"
+                            android:backgroundTint="#cfae78"
+                            android:background="@drawable/rect_round_corner_notselected" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dip"
+                        android:layout_weight="0.2"
                         android:background="@drawable/rect_round_corner_notselected"
                         android:layout_margin="2dp"
                         android:layout_gravity="center"
