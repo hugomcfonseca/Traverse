@@ -106,8 +106,6 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 userLogin();
 
-                LoginManager.getInstance().logInWithReadPermissions(MainMenu.this, Arrays.asList("public_profile"));
-                LoginManager.getInstance().logInWithPublishPermissions(MainMenu.this, Arrays.asList("publish_actions"));
             }
         });
 
@@ -168,6 +166,9 @@ public class MainMenu extends AppCompatActivity {
                 cb_saveCredentials = (CheckBox) view.findViewById(R.id.cb_savecredentials);
                 cb_saveCredentials.setTypeface(regularF);
 
+                //LoginManager.getInstance().logInWithReadPermissions(MainMenu.this, Arrays.asList("public_profile"));
+                //LoginManager.getInstance().logInWithPublishPermissions(MainMenu.this, Arrays.asList("publish_actions"));
+
                 if (sharedPreferences != null) {
                     et_Username.setText(sharedPreferences.getString("Username", et_Username.getText().toString()));
                     et_Password.setText(sharedPreferences.getString("Password", et_Password.getText().toString()));
@@ -204,12 +205,15 @@ public class MainMenu extends AppCompatActivity {
                                         sharedPreferences.edit().clear().apply();
                                     }
 
+                                    dataBaseAdapter.updateUsernameInfoChapter(session.getusername());
+
                                     Toast.makeText(MainMenu.this, "Login Successful!",
                                             Toast.LENGTH_LONG).show();
                                     Intent nextStep = new Intent("feup.traverse.HomePageGeneral");
                                     nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(nextStep);
                                     closeThisActivity();
+
                                 } else {
                                     Toast.makeText(MainMenu.this, "Wrong or inexistent credentials.",
                                             Toast.LENGTH_LONG).show();

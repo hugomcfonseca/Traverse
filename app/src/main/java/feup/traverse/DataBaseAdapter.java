@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,26 +150,71 @@ public class DataBaseAdapter {
 
     }
 
+    public void updateProgress (String username){
+
+        double progress = 0;
+        Cursor cursor = getProfileData(username);
+
+        progress = 12.5 + cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS));
+
+        ContentValues updatedValues = new ContentValues();
+        updatedValues.put(DataBaseHelper.PROGRESS, progress);
+
+        String where = "USERNAME = ?";
+        database.update(DataBaseHelper.TABLE_NAME_USERDATA, updatedValues, where, new String[]{username});
+    }
+
     /** The next methods are about places table */
 
-    public String[] getPlaceByPersona(String persona, int phase_number){
-        String [] markup = new String[3];
-        String sql_query = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+
-                " = "+persona+" AND "+DataBaseHelper.PHASE+" = "+phase_number;
-        Cursor cursor = database.rawQuery(sql_query,null);
+    public void convertLockedUserToLockedPlaces (String username){
 
-        if(cursor.getCount() < 1) { // UserName Not Exist
-            cursor.close();
-            return null;
+        String sqlQuery = "SELECT "+ DataBaseHelper.PROGRESS + " , "+ DataBaseHelper.PERSONA +" FROM "+
+                DataBaseHelper.TABLE_NAME_USERDATA+" WHERE "+DataBaseHelper.USERNAME+" = '" + username + "'";
+
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        cursor.moveToFirst();
+
+        if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 0){
+            int[] chapters_unlocked = new int[]{1, 0, 0, 0, 0, 0, 0, 0};
+            updatePlaceStatus(chapters_unlocked, cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
+        } else if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 12.5){
+            int[] chapters_unlocked = new int[]{1, 1, 0, 0, 0, 0, 0, 0};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
+        } else if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 25){
+            int[] chapters_unlocked = new int[]{1, 1, 1, 0, 0, 0, 0, 0};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
+        } else if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 37.5){
+            int[] chapters_unlocked = new int[]{1, 1, 1, 1, 0, 0, 0, 0};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
+        } else if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 50){
+            int[] chapters_unlocked = new int[]{1, 1, 1, 1, 1, 0, 0, 0};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
+        } else if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 62.5){
+            int[] chapters_unlocked = new int[]{1, 1, 1, 1, 1, 1, 0, 0};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
+        } else if (cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.PROGRESS)) == 75){
+            int[] chapters_unlocked = new int[]{1, 1, 1, 1, 1, 1, 1, 0};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
         } else {
-            cursor.moveToFirst();
-            markup[0] = cursor.getString(cursor.getColumnIndex(DataBaseHelper.LOCAL));
-            markup[1] = Double.toString(cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.LATITUDE)));
-            markup[2] = Double.toString(cursor.getDouble(cursor.getColumnIndex(DataBaseHelper.LONGITUDE)));
-            cursor.close();
+            int[] chapters_unlocked = new int[]{1, 1, 1, 1, 1, 1, 1, 1};
+            updatePlaceStatus(chapters_unlocked,cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA)));
         }
 
-        return markup;
+        cursor.close();
+    }
+
+    public void updatePlaceStatus (int[] chapter, String persona) {
+        ContentValues updatedValues = new ContentValues();
+
+        updatedValues.put(DataBaseHelper.LOCKED, 0);
+
+        String where = DataBaseHelper.PHASE+ " = ? AND " + DataBaseHelper.PERSONA + " = ?";
+
+        for (int i= 0; i < chapter.length; i++){
+            if (chapter[i] == 1)
+                database.update(DataBaseHelper.TABLE_NAME_PLACES, updatedValues, where, new String[]{String.valueOf(i+1),persona});
+        }
     }
 
     public Cursor getChaptersInfo (String username) {
@@ -211,29 +258,39 @@ public class DataBaseAdapter {
 
         List<PhaseDoneItem> phasesDoneItem = new ArrayList<PhaseDoneItem>();
 
-        String selectQuery = "SELECT " + DataBaseHelper.LOCAL +", "+ DataBaseHelper.SCORE+", "+ DataBaseHelper.PHASE +
-                " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona+"' AND " +
+        String selectQuery = "SELECT " + DataBaseHelper.LOCAL +", "+ DataBaseHelper.PHASE + " FROM "
+                +DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona+"' AND " +
                 DataBaseHelper.LOCKED + " = 0";
 
         Cursor cursor2 = database.rawQuery(selectQuery, null);
+
+        String selectQuery2 = "SELECT " + DataBaseHelper.SCORE + " FROM "
+                +DataBaseHelper.TABLE_NAME_CHAPTERS+" WHERE "+DataBaseHelper.USERNAME+" = '"+username
+                +"' AND "+DataBaseHelper.CHAPTERNUMBER + "<=" + cursor2.getCount();
+
+        Cursor cursor3 = database.rawQuery(selectQuery2, null);
+        Log.d("DEBUG",""+cursor3.getCount());
+
         int i = 0;
         nChapter = new int[cursor2.getCount()];
-        chapterScore = new int[cursor2.getCount()];
+        chapterScore = new int[cursor3.getCount()];
         locals = new String[cursor2.getCount()];
 
-        if (cursor2.moveToFirst()) {
+        if (cursor2.moveToFirst() && cursor3.moveToFirst()) {
             do {
                 locals[i] = cursor2.getString(cursor2.getColumnIndex(DataBaseHelper.LOCAL));
                 nChapter[i] = cursor2.getInt(cursor2.getColumnIndex(DataBaseHelper.PHASE));
-                chapterScore[i] = cursor2.getInt(cursor2.getColumnIndex(DataBaseHelper.SCORE));
+                chapterScore[i] = cursor3.getInt(cursor3.getColumnIndex(DataBaseHelper.SCORE));
+                Log.d("DEBUG/SCORE",""+chapterScore[i]);
 
                 PhaseDoneItem items = new PhaseDoneItem(locals[i], nChapter[i],chapterScore[i]);
                 phasesDoneItem.add(items);
                 i++;
-            } while (cursor2.moveToNext()); // até terminar , pode-se usar movetoPrevious posteriormente
+            } while (cursor2.moveToNext() && cursor3.moveToNext()); // até terminar , pode-se usar movetoPrevious posteriormente
         }
 
         cursor2.close();
+        cursor3.close();
 
         return phasesDoneItem;
     }
@@ -245,8 +302,8 @@ public class DataBaseAdapter {
 
         cursor.close();
 
-        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + "," + DataBaseHelper.PHASE + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.LOCKED+" = 1 AND "
-                + DataBaseHelper.PERSONA + " = '"+persona+"' ORDER BY "+DataBaseHelper.PHASE;
+        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + "," + DataBaseHelper.PHASE + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.LOCKED+" = 0 AND "
+                + DataBaseHelper.PERSONA + " = '"+persona+"' ORDER BY "+DataBaseHelper.PHASE + " DESC";
         Cursor cursor2 = database.rawQuery(sqlQuery,null);
 
         cursor2.moveToFirst();
@@ -268,6 +325,105 @@ public class DataBaseAdapter {
         cursor2.moveToFirst();
 
         return cursor2;
+    }
+
+    /** The next methods are about chapters titles and score flags table */
+
+    public Cursor getInfoByChapter (String username, int chapter_number){
+
+        String sqlQuery = "SELECT * FROM "+ DataBaseHelper.TABLE_NAME_CHAPTERS + " WHERE " + DataBaseHelper.USERNAME+ " = '" +username+
+                "' AND " + DataBaseHelper.CHAPTERNUMBER + " = " + chapter_number;
+        Cursor cursor = database.rawQuery(sqlQuery,null);
+
+        cursor.moveToFirst();
+
+        return cursor;
+    }
+
+    public void updateUsernameInfoChapter (String username){
+        String countQuery = "SELECT  * FROM " + DataBaseHelper.TABLE_NAME_CHAPTERS;
+
+        Cursor cursor = database.rawQuery(countQuery, null);
+        int cnt = cursor.getCount();
+
+        for (int i = 0; i < cnt; i++){
+            ContentValues updatedValues = new ContentValues();
+            updatedValues.put(DataBaseHelper.USERNAME, username);
+            int chapter_number = i+1;
+            database.update(DataBaseHelper.TABLE_NAME_CHAPTERS,updatedValues,DataBaseHelper.CHAPTERNUMBER+" = ?",new String[]{String.valueOf(chapter_number)});
+        }
+    }
+
+    public Cursor getAllChaptersName (String username){
+
+        String sqlQuery = "SELECT * FROM "+ DataBaseHelper.TABLE_NAME_CHAPTERS + " WHERE " + DataBaseHelper.USERNAME+ " = '" +username+
+                "'";
+        Cursor cursor = database.rawQuery(sqlQuery,null);
+
+        cursor.moveToFirst();
+
+        return cursor;
+    }
+
+    public void updateChallengesByChapter (String username, int chapter_number, int[] flags){
+
+        ContentValues updatedValues = new ContentValues();
+
+        if (flags[0] == 1){
+            updatedValues.put(DataBaseHelper.FLAG_SCORE_MUSIC, flags[0]);
+        }
+        if (flags[1] == 1){
+            updatedValues.put(DataBaseHelper.FLAG_SCORE_TEXT1, flags[1]);
+        }
+        if (flags[2] == 1){
+            updatedValues.put(DataBaseHelper.FLAG_SCORE_MAPS, flags[2]);
+        }
+        if (flags[3] == 1){
+            updatedValues.put(DataBaseHelper.FLAG_SCORE_TEXT2, flags[3]);
+        }
+        if (flags[4] == 1){
+            updatedValues.put(DataBaseHelper.FLAG_SCORE_SHARING, flags[4]);
+        }
+
+        String where_clause = DataBaseHelper.CHAPTERNUMBER + " = ? AND " + DataBaseHelper.USERNAME + " = ?";
+
+        database.update(DataBaseHelper.TABLE_NAME_CHAPTERS, updatedValues, where_clause, new String[]{String.valueOf(chapter_number), username});
+    }
+
+    public void updateScore (int addingValue, String username, int chapter_number){
+
+        String sqlQuery = "SELECT "+ DataBaseHelper.SCORE +" FROM "+ DataBaseHelper.TABLE_NAME_CHAPTERS + " WHERE " + DataBaseHelper.USERNAME+ " = '" +username+
+                "' AND " + DataBaseHelper.CHAPTERNUMBER + " = " + chapter_number;
+        Cursor cursor = database.rawQuery(sqlQuery,null);
+
+        cursor.moveToFirst();
+
+        ContentValues updatedValues = new ContentValues();
+        int score = 0;
+
+        score = addingValue + cursor.getInt(cursor.getColumnIndex(DataBaseHelper.SCORE));
+
+        updatedValues.put(DataBaseHelper.SCORE,score);
+
+        String where_clause = DataBaseHelper.USERNAME + " = ? AND "+ DataBaseHelper.CHAPTERNUMBER + " = ? ";
+
+        database.update(DataBaseHelper.TABLE_NAME_CHAPTERS,updatedValues,where_clause,new String[]{username, String.valueOf(chapter_number)});
+    }
+
+    public int[] getScoreFlags (String username, int chapter_number){
+        int[] flags = new int[5];
+
+        Cursor cursor = getInfoByChapter(username,chapter_number);
+
+        flags[0] = cursor.getInt(cursor.getColumnIndex("score_audio"));
+        flags[1] = cursor.getInt(cursor.getColumnIndex("score_text1"));
+        flags[2] = cursor.getInt(cursor.getColumnIndex("score_maps"));
+        flags[3] = cursor.getInt(cursor.getColumnIndex("score_text2"));
+        flags[4] = cursor.getInt(cursor.getColumnIndex("score_sharing"));
+
+        cursor.close();
+
+        return flags;
     }
 
 }

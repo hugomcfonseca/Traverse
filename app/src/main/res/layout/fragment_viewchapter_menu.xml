@@ -82,9 +82,9 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView39"
+                                android:id="@+id/im_viewchapter_menu_music"
                                 android:adjustViewBounds="false"
-                                android:src="@drawable/chronometer_logo"
+                                android:src="@drawable/play_logo"
                                 android:padding="3dp" />
                         </LinearLayout>
 
@@ -124,7 +124,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:id="@+id/imageView38"
+                                android:id="@+id/im_viewchapter_secret_hint"
                                 android:adjustViewBounds="false"
                                 android:src="@drawable/maps_logo"
                                 android:padding="3dp" />

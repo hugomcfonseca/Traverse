@@ -95,7 +95,7 @@
                     <feup.traverse.CustomTextRegularF
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/100"
+                        android:text="/20"
                         android:id="@+id/textView66"
                         android:paddingTop="3dp"
                         android:paddingRight="3dp"
@@ -165,7 +165,7 @@
                     <feup.traverse.CustomTextRegularF
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/100"
+                        android:text="/10"
                         android:id="@+id/textView68"
                         android:paddingTop="3dp"
                         android:paddingRight="3dp"
@@ -236,7 +236,7 @@
                     <feup.traverse.CustomTextRegularF
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/100"
+                        android:text="/40"
                         android:id="@+id/textView71"
                         android:paddingTop="3dp"
                         android:paddingRight="3dp"
@@ -307,7 +307,7 @@
                     <feup.traverse.CustomTextRegularF
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/100"
+                        android:text="/10"
                         android:id="@+id/textView74"
                         android:paddingTop="3dp"
                         android:paddingRight="3dp"
@@ -376,7 +376,7 @@
                     <feup.traverse.CustomTextRegularF
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="/100"
+                        android:text="/20"
                         android:id="@+id/textView77"
                         android:paddingTop="3dp"
                         android:paddingRight="3dp"

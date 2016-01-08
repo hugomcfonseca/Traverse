@@ -119,7 +119,7 @@ public class ViewProfile extends AppCompatActivity {
         updateStatus(cursor);
 
         pb_gameProgress.setProgress(cursor.getInt(cursor.getColumnIndex("progress")));
-        tv_progressValue.setText(Integer.toString(cursor.getInt(cursor.getColumnIndex("progress"))));
+        tv_progressValue.setText(Double.toString(cursor.getDouble(cursor.getColumnIndex("progress"))));
 
         im_viewprofile_info.setOnClickListener(new View.OnClickListener() {
             @Override
