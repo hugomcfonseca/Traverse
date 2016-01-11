@@ -5,8 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author hugof
@@ -16,8 +19,8 @@ import java.util.List;
 public class DataBaseAdapter {
     private SQLiteDatabase database;
     private DataBaseHelper dbHelper;
-    private String[] allColumns_userData = { DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
-            DataBaseHelper.DATE,DataBaseHelper.PERSONA,DataBaseHelper.STATUS,
+    private String[] allColumns_userData = {DataBaseHelper.ID, DataBaseHelper.USERNAME, DataBaseHelper.EMAIL,
+            DataBaseHelper.DATE, DataBaseHelper.PERSONA, DataBaseHelper.STATUS,
             DataBaseHelper.PROGRESS, DataBaseHelper.PASSWORD};
 
     int[] nChapter;
@@ -36,14 +39,16 @@ public class DataBaseAdapter {
         database.close();
     }
 
-    public  SQLiteDatabase getDatabaseInstance(){
+    public SQLiteDatabase getDatabaseInstance() {
         return database;
     }
 
-    /** The next methods are about user data table */
+    /**
+     * The next methods are about user data table
+     */
 
-    public void createUser (String username,String name, String email, String date,String persona ,
-                            int status,int progress,String password) {
+    public void createUser(String username, String name, String email, String date, String persona,
+                           int status, int progress, String password) {
         ContentValues values = new ContentValues();
 
         values.put(DataBaseHelper.USERNAME, username);
@@ -55,14 +60,34 @@ public class DataBaseAdapter {
         values.put(DataBaseHelper.PROGRESS, progress);
         values.put(DataBaseHelper.PASSWORD, password);
 
+
         database.insert(DataBaseHelper.TABLE_NAME_USERDATA, null, values);
+
     }
 
+    /**
+     * Teste the external Login
+     */
+    public String getpassword(String username) {
+        String password="";
+        ExternalDB db = new ExternalDB();
+        try {
+            return db.SingleValue(username, "traverseusers", "password", "SELECT");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return password;
+    }
+
+
     public String getSingleEntry(String username) {
+
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
-        if(cursor.getCount() < 1) { // UserName Not Exist
+        if (cursor.getCount() < 1) { // UserName Not Exist
             cursor.close();
             return "NOT EXIST";
         }
@@ -75,28 +100,46 @@ public class DataBaseAdapter {
     }
 
     public boolean verifyUsernameAndEmail(String username, String email) {
+        String verify1 = "";
+        String verify2=" ";
+        ExternalDB db = new ExternalDB();
+        try {
+            verify1= db.verifydata(email, "traverseusers", "email", "VERIFY");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ExternalDB db2 = new ExternalDB();
+
+        try {
+            verify2= db2.verifydata(username, "traverseusers", "username", "VERIFY");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        /**
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
 
         Cursor cursor2 = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
-                DataBaseHelper.EMAIL + " = ?", new String[]{email});
+                DataBaseHelper.EMAIL + " = ?", new String[]{email});*/
 
-        if(cursor.getCount() < 1 && cursor2.getCount() < 1) { // UserName Not Exist
-            cursor.close();
+        if (verify1=="empty" && verify2=="empty") { // UserName Not Exist
             return false;
         }
 
         return true;
     }
 
-    public String verifyEmail(String email){
-        Cursor cursor=database.rawQuery("SELECT username FROM "+ DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
+    public String verifyEmail(String email) {
+        Cursor cursor = database.rawQuery("SELECT username FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.EMAIL + " = ?", new String[]{email});
-        if (cursor.getCount()<1){
+        if (cursor.getCount() < 1) {
             cursor.close();
             return "false";
-        }
-        else{
+        } else {
             cursor.moveToFirst();
             String username = cursor.getString(cursor.getColumnIndex(DataBaseHelper.USERNAME));
             cursor.close();
@@ -105,7 +148,7 @@ public class DataBaseAdapter {
 
     }
 
-    public void updateEntry (String username,String name, String email, String date, String password,byte[] image) {
+    public void updateEntry(String username, String name, String email, String date, String password, byte[] image) {
         // Define the updated row content.
         ContentValues updatedValues = new ContentValues();
         // Assign values for each row.
@@ -113,9 +156,9 @@ public class DataBaseAdapter {
         updatedValues.put(DataBaseHelper.EMAIL, email);
         updatedValues.put(DataBaseHelper.DATE, date);
         updatedValues.put(DataBaseHelper.PASSWORD, password);
-        if (image!=null)
+        if (image != null)
             updatedValues.put(DataBaseHelper.IMAGE, image);
-        else;
+        else ;
 
         String where = "USERNAME = ?";
         database.update(DataBaseHelper.TABLE_NAME_USERDATA, updatedValues, where, new String[]{username});
@@ -124,7 +167,7 @@ public class DataBaseAdapter {
     public Cursor getProfileData(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
-        if(cursor.getCount() < 1) {
+        if (cursor.getCount() < 1) {
             cursor.close();
             return null;
         }
@@ -132,31 +175,32 @@ public class DataBaseAdapter {
         return cursor;
     }
 
-    public byte[] verifyImage (String username){
+    public byte[] verifyImage(String username) {
         Cursor cursor = database.rawQuery("SELECT * FROM " + DataBaseHelper.TABLE_NAME_USERDATA + " WHERE " +
                 DataBaseHelper.USERNAME + " = ?", new String[]{username});
-        if(cursor.getCount() < 1) {
+        if (cursor.getCount() < 1) {
             cursor.close();
             return null;
-        }
-        else {
+        } else {
             cursor.moveToFirst();
-            byte[] image =  cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.IMAGE));
+            byte[] image = cursor.getBlob(cursor.getColumnIndex(DataBaseHelper.IMAGE));
             cursor.close();
             return image;
         }
 
     }
 
-    /** The next methods are about places table */
+    /**
+     * The next methods are about places table
+     */
 
-    public String[] getPlaceByPersona(String persona, int phase_number){
-        String [] markup = new String[3];
-        String sql_query = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+
-                " = "+persona+" AND "+DataBaseHelper.PHASE+" = "+phase_number;
-        Cursor cursor = database.rawQuery(sql_query,null);
+    public String[] getPlaceByPersona(String persona, int phase_number) {
+        String[] markup = new String[3];
+        String sql_query = "SELECT * FROM " + DataBaseHelper.TABLE_NAME_PLACES + " WHERE " + DataBaseHelper.PERSONA +
+                " = " + persona + " AND " + DataBaseHelper.PHASE + " = " + phase_number;
+        Cursor cursor = database.rawQuery(sql_query, null);
 
-        if(cursor.getCount() < 1) { // UserName Not Exist
+        if (cursor.getCount() < 1) { // UserName Not Exist
             cursor.close();
             return null;
         } else {
@@ -170,32 +214,32 @@ public class DataBaseAdapter {
         return markup;
     }
 
-    public Cursor getChaptersInfo (String username) {
+    public Cursor getChaptersInfo(String username) {
 
         Cursor cursor = getProfileData(username);
         String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
 
         cursor.close();
 
-        String sqlQuery = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona
-                +"' ORDER BY "+DataBaseHelper.PHASE;
-        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+        String sqlQuery = "SELECT * FROM " + DataBaseHelper.TABLE_NAME_PLACES + " WHERE " + DataBaseHelper.PERSONA + " = '" + persona
+                + "' ORDER BY " + DataBaseHelper.PHASE;
+        Cursor cursor2 = database.rawQuery(sqlQuery, null);
 
         cursor2.moveToFirst();
 
         return cursor2;
     }
 
-    public Cursor getChapterInfo (String username, int phase) {
+    public Cursor getChapterInfo(String username, int phase) {
 
         Cursor cursor = getProfileData(username);
         String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
 
         cursor.close();
 
-        String sqlQuery = "SELECT * FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona
-                +"' AND " + DataBaseHelper.PHASE + " = " + phase;
-        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+        String sqlQuery = "SELECT * FROM " + DataBaseHelper.TABLE_NAME_PLACES + " WHERE " + DataBaseHelper.PERSONA + " = '" + persona
+                + "' AND " + DataBaseHelper.PHASE + " = " + phase;
+        Cursor cursor2 = database.rawQuery(sqlQuery, null);
 
         cursor2.moveToFirst();
 
@@ -211,8 +255,8 @@ public class DataBaseAdapter {
 
         List<PhaseDoneItem> phasesDoneItem = new ArrayList<PhaseDoneItem>();
 
-        String selectQuery = "SELECT " + DataBaseHelper.LOCAL +", "+ DataBaseHelper.SCORE+", "+ DataBaseHelper.PHASE +
-                " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PERSONA+" = '"+persona+"' AND " +
+        String selectQuery = "SELECT " + DataBaseHelper.LOCAL + ", " + DataBaseHelper.SCORE + ", " + DataBaseHelper.PHASE +
+                " FROM " + DataBaseHelper.TABLE_NAME_PLACES + " WHERE " + DataBaseHelper.PERSONA + " = '" + persona + "' AND " +
                 DataBaseHelper.LOCKED + " = 0";
 
         Cursor cursor2 = database.rawQuery(selectQuery, null);
@@ -227,10 +271,11 @@ public class DataBaseAdapter {
                 nChapter[i] = cursor2.getInt(cursor2.getColumnIndex(DataBaseHelper.PHASE));
                 chapterScore[i] = cursor2.getInt(cursor2.getColumnIndex(DataBaseHelper.SCORE));
 
-                PhaseDoneItem items = new PhaseDoneItem(locals[i], nChapter[i],chapterScore[i]);
+                PhaseDoneItem items = new PhaseDoneItem(locals[i], nChapter[i], chapterScore[i]);
                 phasesDoneItem.add(items);
                 i++;
-            } while (cursor2.moveToNext()); // até terminar , pode-se usar movetoPrevious posteriormente
+            }
+            while (cursor2.moveToNext()); // até terminar , pode-se usar movetoPrevious posteriormente
         }
 
         cursor2.close();
@@ -238,36 +283,38 @@ public class DataBaseAdapter {
         return phasesDoneItem;
     }
 
-    public Cursor getLastLocalName (String username){
+    public Cursor getLastLocalName(String username) {
 
         Cursor cursor = getProfileData(username);
         String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
 
         cursor.close();
 
-        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + "," + DataBaseHelper.PHASE + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.LOCKED+" = 1 AND "
-                + DataBaseHelper.PERSONA + " = '"+persona+"' ORDER BY "+DataBaseHelper.PHASE;
-        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+        String sqlQuery = "SELECT " + DataBaseHelper.LOCAL + "," + DataBaseHelper.PHASE + " FROM " + DataBaseHelper.TABLE_NAME_PLACES + " WHERE " + DataBaseHelper.LOCKED + " = 1 AND "
+                + DataBaseHelper.PERSONA + " = '" + persona + "' ORDER BY " + DataBaseHelper.PHASE;
+        Cursor cursor2 = database.rawQuery(sqlQuery, null);
 
         cursor2.moveToFirst();
 
         return cursor2;
     }
 
-    public Cursor getCoordinatesAndLocal (int phase, String username){
+    public Cursor getCoordinatesAndLocal(int phase, String username) {
         Cursor cursor = getProfileData(username);
         String persona = cursor.getString(cursor.getColumnIndex(DataBaseHelper.PERSONA));
 
         cursor.close();
 
-        String sqlQuery = "SELECT "+DataBaseHelper.LOCAL + "," + DataBaseHelper.LATITUDE + "," + DataBaseHelper.LONGITUDE
-                + " FROM "+DataBaseHelper.TABLE_NAME_PLACES+" WHERE "+DataBaseHelper.PHASE+" = " + phase +" AND "
-                + DataBaseHelper.PERSONA + " = '"+persona+"'";
-        Cursor cursor2 = database.rawQuery(sqlQuery,null);
+        String sqlQuery = "SELECT " + DataBaseHelper.LOCAL + "," + DataBaseHelper.LATITUDE + "," + DataBaseHelper.LONGITUDE
+                + " FROM " + DataBaseHelper.TABLE_NAME_PLACES + " WHERE " + DataBaseHelper.PHASE + " = " + phase + " AND "
+                + DataBaseHelper.PERSONA + " = '" + persona + "'";
+        Cursor cursor2 = database.rawQuery(sqlQuery, null);
 
         cursor2.moveToFirst();
 
         return cursor2;
     }
+
 
 }
+

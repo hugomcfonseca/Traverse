@@ -11,6 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
 public class SignOn extends AppCompatActivity implements Communicator {
 
     private int myflag = 0;
@@ -126,6 +128,16 @@ public class SignOn extends AppCompatActivity implements Communicator {
 
             dataBaseAdapter.createUser(session.getusername(), session.getname(), session.getemail(), session.getdate(), findPersona(), 1, 0, session.getpassword());
             Toast.makeText(getApplicationContext(), "Account created successfully! You get a persona of "+findPersona(), Toast.LENGTH_SHORT).show();
+            ExternalDB db = new ExternalDB();
+
+            try {
+                db.insertuser("traverseusers", "INSERT", session.getusername(), session.getname(), session.getemail(), session.getdate(), findPersona(), 1, 0, session.getpassword());
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             Intent nextStep = new Intent(this, MainMenu.class);
             nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(nextStep);
