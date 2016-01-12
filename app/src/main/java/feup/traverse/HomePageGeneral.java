@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -13,11 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static android.widget.Toast.LENGTH_SHORT;
+import android.os.Handler;
 
 /**
  * @author hugof
@@ -32,7 +32,11 @@ public class HomePageGeneral extends AppCompatActivity {
     private AlertDialog.Builder alertDialogBuilder;
     private AlertDialog alertDialog;
 
+    private ImageView im_homepage_logo;
+
     private Session session;
+
+    Handler handler_logo = new Handler();
 
     Typeface regularF;
     Typeface boldF;
@@ -59,13 +63,17 @@ public class HomePageGeneral extends AppCompatActivity {
         ll_buttons[3] = (LinearLayout)findViewById(R.id.ll_homepage_profilesettings);
         ll_buttons[4] = (LinearLayout)findViewById(R.id.ll_homepage_logout);
         tv_homepageUsername = (TextView)findViewById(R.id.tv_homepage_username);
+        im_homepage_logo = (ImageView)findViewById(R.id.im_homepage_logo);
 
         tv_homepageUsername.setText(session.getusername());
         tv_homepageUsername.setTypeface(boldF);
 
+        handler_logo.post(logo_change);
+
         ll_buttons[0].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ll_buttons[0].setBackground(getResources().getDrawable(R.drawable.rect_round_corner_selected));
+                handler_logo.removeCallbacks(logo_change);
                 Intent nextStep = new Intent("feup.traverse.HomePageChapters");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
@@ -76,6 +84,7 @@ public class HomePageGeneral extends AppCompatActivity {
         ll_buttons[1].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ll_buttons[1].setBackground(getResources().getDrawable(R.drawable.rect_round_corner_selected));
+                handler_logo.removeCallbacks(logo_change);
                 Intent nextStep = new Intent("feup.traverse.ViewProgress");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
@@ -86,6 +95,7 @@ public class HomePageGeneral extends AppCompatActivity {
         ll_buttons[2].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ll_buttons[2].setBackground(getResources().getDrawable(R.drawable.rect_round_corner_selected));
+                handler_logo.removeCallbacks(logo_change);
                 Intent nextStep = new Intent("feup.traverse.SocialMedia");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
@@ -96,6 +106,7 @@ public class HomePageGeneral extends AppCompatActivity {
         ll_buttons[3].setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 ll_buttons[3].setBackground(getResources().getDrawable(R.drawable.rect_round_corner_selected));
+                handler_logo.removeCallbacks(logo_change);
                 Intent nextStep = new Intent("feup.traverse.ViewProfile");
                 nextStep.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(nextStep);
@@ -119,6 +130,7 @@ public class HomePageGeneral extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         session.deleteUsername();
+                                        handler_logo.removeCallbacks(logo_change);
 
                                         Intent i = new Intent(getApplicationContext(), MainMenu.class);
                                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -206,6 +218,7 @@ public class HomePageGeneral extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 session.deleteUsername();
+                                handler_logo.removeCallbacks(logo_change);
 
                                 Intent i = new Intent(getApplicationContext(), MainMenu.class);
                                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -229,5 +242,40 @@ public class HomePageGeneral extends AppCompatActivity {
         });
 
     }
+
+    private Runnable logo_change = new Runnable() {
+        @Override
+        public void run() {
+            handler_logo.postDelayed(logo_change,500);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (im_homepage_logo.getDrawable().getConstantState().equals
+                        (getDrawable(R.drawable.logo2).getConstantState())) {
+                    im_homepage_logo.setTag(2);
+                    im_homepage_logo.setImageDrawable(getResources().getDrawable(R.drawable.logo3, getTheme()));
+                } else if (im_homepage_logo.getDrawable().getConstantState().equals
+                        (getDrawable(R.drawable.logo3).getConstantState())) {
+                    im_homepage_logo.setTag(3);
+                    im_homepage_logo.setImageDrawable(getResources().getDrawable(R.drawable.logo4, getTheme()));
+                } else {
+                    im_homepage_logo.setTag(1);
+                    im_homepage_logo.setImageDrawable(getResources().getDrawable(R.drawable.logo2, getTheme()));
+                }
+            } else {
+                if (im_homepage_logo.getDrawable().getConstantState().equals
+                        (getResources().getDrawable(R.drawable.logo2).getConstantState())) {
+                    im_homepage_logo.setTag(2);
+                    im_homepage_logo.setImageDrawable(getResources().getDrawable(R.drawable.logo3));
+                } else if (im_homepage_logo.getDrawable().getConstantState().equals
+                        (getResources().getDrawable(R.drawable.logo3).getConstantState())) {
+                    im_homepage_logo.setTag(3);
+                    im_homepage_logo.setImageDrawable(getResources().getDrawable(R.drawable.logo4));
+                } else {
+                    im_homepage_logo.setTag(1);
+                    im_homepage_logo.setImageDrawable(getResources().getDrawable(R.drawable.logo2));
+                }
+            }
+        }
+    };
 
 }

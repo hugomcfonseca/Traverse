@@ -39,61 +39,79 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="0dip"
                         android:layout_weight="0.22"
                         android:background="@drawable/rect_round_corner_notselected"
                         android:layout_margin="3dp"
-                        android:gravity="center"
                         android:layout_gravity="center">
 
                         <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <feup.traverse.CustomTextRegularF
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:text="Welcome,"
-                                android:id="@+id/textView56"
-                                android:textSize="30sp"
-                                android:padding="5dp" />
-
-                            <feup.traverse.CustomTextBoldF
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:id="@+id/tv_homepage_username"
-                                android:textSize="30sp"
-                                android:padding="5dp" />
-
-                            <feup.traverse.CustomTextRegularF
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:text="!"
-                                android:id="@+id/textView63"
-                                android:textSize="30sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
                             android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center">
+                            android:layout_width="0dip"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:layout_weight="0.85">
 
-                            <feup.traverse.CustomTextRegularF
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <feup.traverse.CustomTextRegularF
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="Welcome,"
+                                    android:id="@+id/textView56"
+                                    android:textSize="30sp"
+                                    android:padding="5dp" />
+
+                                <feup.traverse.CustomTextBoldF
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:id="@+id/tv_homepage_username"
+                                    android:textSize="30sp"
+                                    android:padding="5dp" />
+
+                                <feup.traverse.CustomTextRegularF
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="!"
+                                    android:id="@+id/textView63"
+                                    android:textSize="30sp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?android:attr/textAppearanceLarge"
-                                android:text="What do you want to start doing?"
-                                android:id="@+id/textView61"
-                                android:padding="5dp" />
+                                android:layout_gravity="center">
+
+                                <feup.traverse.CustomTextRegularF
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textAppearance="?android:attr/textAppearanceLarge"
+                                    android:text="What do you want to start doing?"
+                                    android:id="@+id/textView61"
+                                    android:padding="5dp" />
+
+                            </LinearLayout>
+
                         </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="0dip"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/im_homepage_logo"
+                            android:src="@drawable/logo2"
+                            android:layout_weight="0.15"
+                            android:padding="5dp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -152,8 +170,9 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:id="@+id/imageView31"
-                                android:src="@drawable/progress_logo" />
+                                android:id="@+id/imageView38"
+                                android:src="@drawable/progress_logo"
+                                android:layout_gravity="center_horizontal" />
 
                             <feup.traverse.CustomTextRegularF
                                 android:layout_width="wrap_content"
@@ -276,6 +295,7 @@
                         </LinearLayout>
 
                     </LinearLayout>
+
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>
