@@ -62,7 +62,7 @@ public class   ViewProgressList extends ListFragment implements AdapterView.OnIt
         tv_progressActualChapter.setText(displayedText);
 
         Cursor cursor_progress = dataBaseAdapter.getProfileData(session.getusername());
-        tv_progressValue.setText(Integer.toString(cursor_progress.getInt(cursor_progress.getColumnIndex("progress")))+"/100");
+        tv_progressValue.setText(Double.toString(cursor_progress.getInt(cursor_progress.getColumnIndex("progress")))+"/100");
 
         return view;
     }

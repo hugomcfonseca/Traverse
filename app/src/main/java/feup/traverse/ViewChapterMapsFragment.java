@@ -49,6 +49,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
 
     final int phase_number = 1;
     private boolean started = false;
+    private boolean timeFinished = false;
 
     Handler handler_getPosition = new Handler();
     Handler handler_timerToCheckDestination = new Handler();
@@ -168,12 +169,27 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
     private boolean checkUserPosition (double req_lat, double req_long, double my_lat, double my_long) {
 
         float[] results = new float[1];
-        Location.distanceBetween(req_lat, req_long,
-                my_lat, my_long, results);
+        Location.distanceBetween(req_lat, req_long, my_lat, my_long, results);
+        //Location.distanceBetween(my_lat, my_long, my_lat, my_long, results); //ALTEREIIIIIIIIIIII PARA TESTESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+
 
         if (results[0] <= 30){
             handler_getPosition.removeCallbacks(getting_userPosition);
             handler_timerToCheckDestination.removeCallbacks(timer_CheckDestination);
+
+            int[] checker_phase = ((ViewChapter)getActivity()).dataBaseAdapter.getScoreFlags(((ViewChapter)getActivity()).session.getusername(),((ViewChapter)getActivity()).value);
+
+            if (timeFinished && checker_phase[0] == 1 && checker_phase[1] == 1 && checker_phase[2] == 0 && checker_phase[3] == 0 && checker_phase[4] == 0) {
+                ((ViewChapter)getActivity()).dataBaseAdapter.updateScore(25,((ViewChapter) getActivity()).session.getusername(),((ViewChapter) getActivity()).value);
+            } else if (!timeFinished && checker_phase[0] == 1 && checker_phase[1] == 1 && checker_phase[2] == 0 && checker_phase[3] == 0 && checker_phase[4] == 0) {
+                ((ViewChapter)getActivity()).dataBaseAdapter.updateScore(40,((ViewChapter) getActivity()).session.getusername(),((ViewChapter) getActivity()).value);
+            } else ;
+
+            ((ViewChapter)getActivity()).dataBaseAdapter.updateProgress(((ViewChapter) getActivity()).session.getusername());
+
+            int[] check = {0, 0, 1, 0, 0};
+            ((ViewChapter)getActivity()).dataBaseAdapter.updateChallengesByChapter(((ViewChapter) getActivity()).session.getusername(), ((ViewChapter) getActivity()).value, check);
+
             getDestination.cancel();
             started = false;
             return true;
@@ -260,6 +276,7 @@ public class ViewChapterMapsFragment extends SupportMapFragment implements OnMap
                     handler_timerToCheckDestination.removeCallbacks(timer_CheckDestination);
                     tv_viewchapterTimer.setText("00:00:00");
                     Toast.makeText(getActivity(),"Time to get the destination finished!", Toast.LENGTH_SHORT).show();
+                    timeFinished = true;
                 }
             }.start();
         }

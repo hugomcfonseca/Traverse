@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -58,6 +59,8 @@ public class ViewChapter extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         value = extras.getInt("chapter_selected");
+
+        Log.d("DEBUG/CHAPTER", "" + value);
 
         flag = 1;
         finished = 0;

@@ -1,11 +1,13 @@
 package feup.traverse;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,6 +19,7 @@ import java.io.InputStream;
 public class ViewChapterTextFragment extends Fragment {
 
     private TextView tv_viewchapter_textContent, tv_viewchapter_ch_title,tv_viewchapter_ch_number;
+    int[] values;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,7 +29,28 @@ public class ViewChapterTextFragment extends Fragment {
         tv_viewchapter_ch_number = (TextView)rootView.findViewById(R.id.tv_viewchapter_text_ch_number);
         tv_viewchapter_ch_title = (TextView)rootView.findViewById(R.id.tv_viewchapter_text_ch_title);
 
-        loadTextToTextView(1,((ViewChapter) getActivity()).part);
+        int[] checker_phase = ((ViewChapter)getActivity()).dataBaseAdapter.getScoreFlags(((ViewChapter)getActivity()).session.getusername(),((ViewChapter)getActivity()).value);
+
+        if (((ViewChapter)getActivity()).part == 1 && checker_phase[0] == 1 && checker_phase[1] == 0 && checker_phase[2] == 0 && checker_phase[3] == 0 && checker_phase[4] == 0) {
+             values = new int[]{0, 1, 0, 0, 0};
+            ((ViewChapter)getActivity()).dataBaseAdapter.updateChallengesByChapter(((ViewChapter)getActivity()).session.getusername(),((ViewChapter)getActivity()).value,values);
+            ((ViewChapter)getActivity()).dataBaseAdapter.updateScore(10, ((ViewChapter) getActivity()).session.getusername(), ((ViewChapter) getActivity()).value);
+            Toast.makeText(getActivity(), "Congratulations, you have earned 10 points.", Toast.LENGTH_LONG).show();
+        } else if (((ViewChapter)getActivity()).part == 2 && checker_phase[0] == 1 && checker_phase[1] == 1 && checker_phase[2] == 1 && checker_phase[3] == 0 && checker_phase[4] == 0){
+            values = new int[]{0, 0, 0, 1, 0};
+            ((ViewChapter)getActivity()).dataBaseAdapter.updateChallengesByChapter(((ViewChapter)getActivity()).session.getusername(),((ViewChapter)getActivity()).value,values);
+            ((ViewChapter)getActivity()).dataBaseAdapter.updateScore(10, ((ViewChapter) getActivity()).session.getusername(), ((ViewChapter) getActivity()).value);
+            Toast.makeText(getActivity(), "Congratulations, you have earned 10 points.", Toast.LENGTH_LONG).show();
+        } else ;
+
+        Cursor cursor2 = ((ViewChapter)getActivity()).dataBaseAdapter.getInfoByChapter(((ViewChapter)getActivity()).session.getusername(), ((ViewChapter) getActivity()).value);
+        tv_viewchapter_ch_title.setText(cursor2.getString(cursor2.getColumnIndex("chapter_name")));
+        if (((ViewChapter)getActivity()).part == 1)
+            tv_viewchapter_ch_number.setText(String.valueOf(((ViewChapter) getActivity()).value)+" (Part I)");
+        else
+            tv_viewchapter_ch_number.setText(String.valueOf(((ViewChapter) getActivity()).value) + " (Part II)");
+
+        loadTextToTextView(((ViewChapter) getActivity()).value, ((ViewChapter) getActivity()).part);
 
         return rootView;
     }

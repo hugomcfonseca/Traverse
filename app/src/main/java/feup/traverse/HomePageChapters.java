@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * @author hugof
  * @date 27/12/2015.
@@ -38,12 +41,17 @@ public class HomePageChapters extends AppCompatActivity {
     private ImageView[] im_chapters = new ImageView[8];
     private LinearLayout[] ll_chapters = new LinearLayout[8];
     private TextView[] tv_placeChapters = new TextView[8];
+    private TextView[] tv_chaptersName = new TextView[8];
+    private TextView instructions_text;
 
     private Session session;
 
     int[] status;
     private Typeface regularF;
     private Typeface boldF;
+
+    private AlertDialog.Builder alertDialogBuilder;
+    private AlertDialog alertDialog;
 
     CheckBox cb_audio_chapter1,cb_audio_chapter2,checkBox, checkBox2,checkBox3,checkBox4,	checkBox5,checkBox6;
 
@@ -66,9 +74,16 @@ public class HomePageChapters extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        dataBaseAdapter.convertLockedUserToLockedPlaces(session.getusername());
+
         drawer = new CustomDrawer(this, (DrawerLayout) findViewById(R.id.homepage_chapters_drawerlayout),
                 (NavigationView) findViewById(R.id.homepage_chapters_nav_view), toolbar);
 
+        int[] checker_phase = (dataBaseAdapter.getScoreFlags(session.getusername(),1));
+
+        if (checker_phase[0] == 0 && checker_phase[1] == 0 && checker_phase[2] == 0 && checker_phase[3] == 0 && checker_phase[4] == 0){
+            instructions();
+        }
 
         //checkbox
         cb_audio_chapter1=(CheckBox)findViewById(R.id.cb_audio_chapter1);
@@ -88,24 +103,6 @@ public class HomePageChapters extends AppCompatActivity {
         checkBox6=(CheckBox)findViewById(R.id.checkBox6);
         checkBox6.setTypeface(regularF);
 
-        //
-        tv_place_chapter1 = (TextView)findViewById(R.id.tv_place_chapter1);
-        tv_place_chapter1.setTypeface(regularF);
-        tv_place_chapter2 = (TextView)findViewById(R.id.tv_place_chapter2);
-        tv_place_chapter2.setTypeface(regularF);
-        tv_place_chapter3 = (TextView)findViewById(R.id.tv_place_chapter3);
-        tv_place_chapter3.setTypeface(regularF);
-        tv_place_chapter4 = (TextView)findViewById(R.id.tv_place_chapter4);
-        tv_place_chapter4.setTypeface(regularF);
-        tv_place_chapter5 = (TextView)findViewById(R.id.tv_place_chapter5);
-        tv_place_chapter5.setTypeface(regularF);
-        tv_place_chapter6 = (TextView)findViewById(R.id.tv_place_chapter6);
-        tv_place_chapter6.setTypeface(regularF);
-        tv_place_chapter7 = (TextView)findViewById(R.id.tv_place_chapter7);
-        tv_place_chapter7.setTypeface(regularF);
-        tv_place_chapter8 = (TextView)findViewById(R.id.tv_place_chapter8);
-        tv_place_chapter8.setTypeface(regularF);
-
         //Initiate imageViews components
         im_chapters[0] = (ImageView)findViewById(R.id.im_status_chapter1);
         im_chapters[1] = (ImageView)findViewById(R.id.im_status_chapter2);
@@ -123,6 +120,7 @@ public class HomePageChapters extends AppCompatActivity {
         ll_chapters[5] = (LinearLayout)findViewById(R.id.linearLayout_chapter6);
         ll_chapters[6] = (LinearLayout)findViewById(R.id.linearLayout_chapter7);
         ll_chapters[7] = (LinearLayout)findViewById(R.id.linearLayout_chapter8);
+
         tv_placeChapters[0] = (TextView)findViewById(R.id.tv_place_chapter1);
         tv_placeChapters[1] = (TextView)findViewById(R.id.tv_place_chapter2);
         tv_placeChapters[2] = (TextView)findViewById(R.id.tv_place_chapter3);
@@ -131,6 +129,15 @@ public class HomePageChapters extends AppCompatActivity {
         tv_placeChapters[5] = (TextView)findViewById(R.id.tv_place_chapter6);
         tv_placeChapters[6] = (TextView)findViewById(R.id.tv_place_chapter7);
         tv_placeChapters[7] = (TextView)findViewById(R.id.tv_place_chapter8);
+
+        tv_chaptersName[0] = (TextView)findViewById(R.id.tv_homepagechapters_ch1_name);
+        tv_chaptersName[1] = (TextView)findViewById(R.id.tv_homepagechapters_ch2_name);
+        tv_chaptersName[2] = (TextView)findViewById(R.id.tv_homepagechapters_ch3_name);
+        tv_chaptersName[3] = (TextView)findViewById(R.id.tv_homepagechapters_ch4_name);
+        tv_chaptersName[4] = (TextView)findViewById(R.id.tv_homepagechapters_ch5_name);
+        tv_chaptersName[5] = (TextView)findViewById(R.id.tv_homepagechapters_ch6_name);
+        tv_chaptersName[6] = (TextView)findViewById(R.id.tv_homepagechapters_ch7_name);
+        tv_chaptersName[7] = (TextView)findViewById(R.id.tv_homepagechapters_ch8_name);
 
         setUIContents();
 
@@ -157,7 +164,9 @@ public class HomePageChapters extends AppCompatActivity {
 
     private void setUIContents (){
         Cursor cursor = dataBaseAdapter.getChaptersInfo(session.getusername());
+        Cursor cursor1 = dataBaseAdapter.getAllChaptersName(session.getusername());
         String[] local = new String[cursor.getCount()];
+        String[] chName = new String[cursor1.getCount()];
         int i = 0;
 
         status = new int[cursor.getCount()];
@@ -165,6 +174,8 @@ public class HomePageChapters extends AppCompatActivity {
         do {
             local[i] = cursor.getString(cursor.getColumnIndex("local"));
             tv_placeChapters[i].setText(local[i]);
+            chName[i] = cursor1.getString(cursor1.getColumnIndex("chapter_name"));
+            tv_chaptersName[i].setText(chName[i]);
 
             status[i] = cursor.getInt(cursor.getColumnIndex("locked"));
 
@@ -186,11 +197,52 @@ public class HomePageChapters extends AppCompatActivity {
                 }
             }
 
-
             i++;
-        } while (cursor.moveToNext());
+        } while (cursor.moveToNext() && cursor1.moveToNext());
 
         cursor.close();
+    }
+
+    private void instructions(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+
+                View view = getLayoutInflater().inflate(R.layout.instructions, null);
+                instructions_text = (TextView)view.findViewById(R.id.instructions_info);
+
+                try {
+                    InputStream is = getAssets().open("instructions.txt");
+
+                    int size = is.available();
+
+                    byte[] buffer = new byte[size];
+                    is.read(buffer);
+                    is.close();
+
+                    String text = new String(buffer);
+
+                    instructions_text.setText(text);
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                alertDialogBuilder = new AlertDialog.Builder(HomePageChapters.this);
+                alertDialogBuilder.setTitle("Instructions");
+                alertDialogBuilder.setView(view);
+                alertDialogBuilder.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        }
+                );
+
+                alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
     }
 
     @Override

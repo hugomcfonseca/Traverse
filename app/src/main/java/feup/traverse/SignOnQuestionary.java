@@ -188,7 +188,7 @@ public class SignOnQuestionary extends Fragment {
         }else if (i==15){
             originalBitmap= BitmapFactory.decodeResource(getResources(),R.drawable.city4);
         }
-        Bitmap scaleBitmap =Bitmap.createScaledBitmap(originalBitmap,100,100,true);
+        Bitmap scaleBitmap =Bitmap.createScaledBitmap(originalBitmap,400,400,true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaleBitmap));
 
