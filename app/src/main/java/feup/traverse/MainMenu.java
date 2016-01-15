@@ -106,8 +106,8 @@ public class MainMenu extends AppCompatActivity {
             public void onClick(View v) {
                 userLogin();
 
-               // LoginManager.getInstance().logInWithReadPermissions(MainMenu.this, Arrays.asList("public_profile"));
-               // LoginManager.getInstance().logInWithPublishPermissions(MainMenu.this, Arrays.asList("publish_actions"));
+                LoginManager.getInstance().logInWithReadPermissions(MainMenu.this, Arrays.asList("public_profile"));
+                LoginManager.getInstance().logInWithPublishPermissions(MainMenu.this, Arrays.asList("publish_actions"));
             }
         });
 
@@ -186,7 +186,7 @@ public class MainMenu extends AppCompatActivity {
                                 boolean checkBox = cb_saveCredentials.isEnabled();
 
                                 // fetch the Password form database for respective user name
-                                String storedPassword = dataBaseAdapter. getpassword(username);
+                                String storedPassword = dataBaseAdapter.getSingleEntry(username);
 
                                 session.setusername(username);
 

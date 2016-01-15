@@ -39,7 +39,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String FLAG_AUDIO = "flag_audio";       // 0: no video, 1: on app, 2:on web, 3:on both
     public static final String FLAG_VIDEO = "flag_video";       // 0: no video, 1: on app, 2:on web, 3:on both
     public static final String PATH_AUDIO = "path_audio";
-
+    public static final String CHAPTERPROGRESS = "chapter_progress";
 
     public DataBaseHelper (Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -82,6 +82,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         userData_table.append(STATUS + " integer not null, ");
         userData_table.append(PROGRESS + " integer not null, ");
         userData_table.append(PASSWORD + " varchar(25) not null, ");
+        userData_table.append(CHAPTERPROGRESS + " integer not null, ");      // 0: none unlock   1: only music unlock    2: music and initial text unlock
         userData_table.append(IMAGE + " blob");                             // 2: music and initial text unlock 3: music, initial and final texts unlock    4: all unlock
         userData_table.append(");");
 
@@ -125,12 +126,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         if (n_userData > 0) {
             array[0] = "INSERT or replace INTO " + TABLE_NAME_USERDATA + " ( " + ID + ", " + NAME + ", " + USERNAME + ", " + EMAIL + ", " + DATE + ", "
-                    + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD +  " )" +
-                    " VALUES(1,'Hugo M. Fonseca','hugo','hugofonseca93@hotmail.com','11/04/1993','Tourist',1,0,'1234')";
+                    + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD + ", " + CHAPTERPROGRESS + " )" +
+                    " VALUES(1,'Hugo M. Fonseca','hugo','hugofonseca93@hotmail.com','11/04/1993','Tourist',1,0,'1234', 4)";
             db.execSQL(array[0]);
             array[1] = "INSERT or replace INTO " + TABLE_NAME_USERDATA + " ( " + ID + ", " + NAME + ", " + USERNAME + ", " + EMAIL + ", " + DATE + ", "
-                    + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD + " )" +
-                    " VALUES(2,'Filipe D. Morais','morais','filipe_morais@outlook.com','23/07/1993','Art',1,25,'1234')";
+                    + PERSONA + " ," + STATUS + ", " + PROGRESS + ", " + PASSWORD + ", " + CHAPTERPROGRESS + " )" +
+                    " VALUES(2,'Filipe D. Morais','morais','filipe_morais@outlook.com','23/07/1993','Art',1,25,'1234', 4)";
             db.execSQL(array[1]);
         }
 
